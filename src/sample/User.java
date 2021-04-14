@@ -9,7 +9,7 @@ public class User {
     private User(){
 
     }
-    // Pizza
+
     public static void setUser(int id, String name, String password){
         User.id = id;
         User.name = name;

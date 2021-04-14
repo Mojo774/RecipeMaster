@@ -1,4 +1,4 @@
-package sample;
+package sample.contrllers;
 
 import java.net.URL;
 import java.util.ArrayList;
@@ -9,9 +9,12 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import sample.Data.RecipeHandler;
+import sample.Main;
 import sample.Recipe_Package.Description;
 import sample.Recipe_Package.Ingredient;
 import sample.Recipe_Package.Recipe;
+import sample.contrllers.Controllers;
+import sample.contrllers.addController;
 
 public class recipeController implements Controllers {
     private Recipe recipe;
@@ -52,13 +55,13 @@ public class recipeController implements Controllers {
         // Кнопки из панели
         buttomAddRecipe.setOnAction(actionEvent -> {
             buttomAddRecipe.getScene().getWindow().hide();
-            Main.showWindow("add.fxml");
+            Main.showWindow("fxml/add.fxml");
         });
 
         buttomAllRecipes.setOnAction(actionEvent -> {
             buttomAllRecipes.getScene().getWindow().hide();
 
-            Main.showWindow("sample.fxml");
+            Main.showWindow("fxml/sample.fxml");
         });
 
         // Кнопка назад
@@ -71,11 +74,11 @@ public class recipeController implements Controllers {
 
         // Кнопка изменить рецепт
         buttomChange.setOnAction(actionEvent -> {
-            addController cl = (addController) Main.getWindows().get("add.fxml").getController();
+            addController cl = (addController) Main.getWindows().get("fxml/add.fxml").getController();
             cl.changeRecipe(recipe);
 
             buttomChange.getScene().getWindow().hide();
-            Main.showWindow("add.fxml");
+            Main.showWindow("fxml/add.fxml");
         });
 
 
@@ -83,7 +86,7 @@ public class recipeController implements Controllers {
             RecipeHandler.deleteRecipes(recipe.getIdR());
 
             buttonDelete.getScene().getWindow().hide();
-            Main.showWindow("sample.fxml");
+            Main.showWindow("fxml/sample.fxml");
         });
     }
 

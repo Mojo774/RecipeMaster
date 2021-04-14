@@ -1,4 +1,4 @@
-package sample;
+package sample.contrllers;
 
 import java.net.URL;
 import java.util.ArrayList;
@@ -16,6 +16,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import sample.Data.DatabaseHandler;
+import sample.Main;
 import sample.Recipe_Package.All_recipes;
 import sample.Recipe_Package.Recipe;
 
@@ -62,7 +63,7 @@ public class Controller implements Controllers {
         // Кнопки из панели
         buttomAddRecipe.setOnAction(actionEvent -> {
             buttomAddRecipe.getScene().getWindow().hide();
-            Main.showWindow("add.fxml");
+            Main.showWindow("fxml/add.fxml");
         });
 
         // Кнопка обновление
@@ -118,11 +119,11 @@ public class Controller implements Controllers {
                     Recipe recipe = All_recipes.searchId(id);
 
                     // Передаем его в окно (оно уже открыто в Main, поэтому берем его в windows)
-                    recipeController cl = (recipeController) Main.getWindows().get("recipe.fxml").getController();
+                    recipeController cl = (recipeController) Main.getWindows().get("fxml/recipe.fxml").getController();
                     cl.setRecipe(recipe);
                     // Закрываем это окно и переходим в новое
                     table.getScene().getWindow().hide();
-                    Main.showWindow("recipe.fxml");
+                    Main.showWindow("fxml/recipe.fxml");
                 }
             }
         });

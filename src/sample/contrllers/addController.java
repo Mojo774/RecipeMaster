@@ -1,4 +1,4 @@
-package sample;
+package sample.contrllers;
 
 import java.net.URL;
 import java.util.ArrayList;
@@ -13,6 +13,7 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
 import sample.Data.RecipeHandler;
+import sample.Main;
 import sample.Recipe_Package.*;
 import javafx.scene.text.Text;
 import javafx.scene.control.TableColumn;
@@ -81,7 +82,7 @@ public class addController implements Controllers {
         buttomAllRecipes.setOnAction(actionEvent -> {
             buttomAllRecipes.getScene().getWindow().hide();
 
-            Main.showWindow("sample.fxml");
+            Main.showWindow("fxml/sample.fxml");
         });
 
         // Кнопка назад
@@ -139,7 +140,7 @@ public class addController implements Controllers {
 
                 // Выход из окна в главное меню
                 buttomAdd.getScene().getWindow().hide();
-                Main.showWindow("sample.fxml");
+                Main.showWindow("fxml/sample.fxml");
             } else {
                 text.setText("Fill in areas");
             }

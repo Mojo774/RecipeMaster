@@ -28,18 +28,18 @@ public class Main extends Application {
         FXMLLoader loader;
 
         stage = primaryStage;
-        fileName = "sample.fxml";
+        fileName = "fxml/sample.fxml";
         loader = new FXMLLoader(getClass().getResource(fileName));
         root = loader.load();
         stage.setTitle("Hello World");
         stage.setScene(new Scene(root, 1280, 768));
         windows.put(fileName, new windowClass(stage,loader.getController()));
 
-        showWindow("sample.fxml");
+        showWindow("fxml/sample.fxml");
 
 
         stage = new Stage();
-        fileName = "add.fxml";
+        fileName = "fxml/add.fxml";
         loader = new FXMLLoader(getClass().getResource(fileName));
         root = loader.load();
         stage.setTitle("Hello World");
@@ -49,7 +49,7 @@ public class Main extends Application {
 
 
         stage = new Stage();
-        fileName = "recipe.fxml";
+        fileName = "fxml/recipe.fxml";
         loader = new FXMLLoader(getClass().getResource(fileName));
         root = loader.load();
         stage.setTitle("Hello World");

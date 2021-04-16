@@ -2,6 +2,7 @@ package sample.Data;
 
 import sample.User;
 
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
@@ -37,11 +38,11 @@ public class UserHandler extends DatabaseHandler{
 
     // Поиск юзера в БД и установка его как текущего пользователя
     public static void setUser(int id){
-        preparedStatement = getPreparedStatement(String.format("SELECT * FROM %s WHERE %s = %d",
+        PreparedStatement preparedStatement = getPreparedStatement(String.format("SELECT * FROM %s WHERE %s = %d",
                 ConstDb.USER_TABLE,ConstDb.USER_ID,id));
 
         try {
-            resultSet = preparedStatement.executeQuery();
+            ResultSet resultSet = preparedStatement.executeQuery();
 
             if (resultSet.next()){
                 int Id = resultSet.getInt(ConstDb.USER_ID);
@@ -59,13 +60,13 @@ public class UserHandler extends DatabaseHandler{
     public static void setUser(String name,String password){
         String command = String.format("SELECT * FROM %s WHERE %s = ? AND %s = ?",
                 ConstDb.USER_TABLE,ConstDb.USER_NAME, ConstDb.USER_PASSWORD);
-        preparedStatement = getPreparedStatement(command);
+        PreparedStatement preparedStatement = getPreparedStatement(command);
 
         try {
             preparedStatement.setString(1,name);
             preparedStatement.setString(2,password);
 
-            resultSet = preparedStatement.executeQuery();
+            ResultSet resultSet = preparedStatement.executeQuery();
 
             if (resultSet.next()){
                 int Id = resultSet.getInt(ConstDb.USER_ID);

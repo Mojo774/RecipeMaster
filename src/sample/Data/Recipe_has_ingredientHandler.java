@@ -3,12 +3,13 @@ package sample.Data;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
+import java.util.HashSet;
 
 public class Recipe_has_ingredientHandler extends DatabaseHandler{
 
     // Получить id используемых ингредиентов
-    public static ArrayList<Integer> getIngredientsId(){
-        ArrayList<Integer> array = new ArrayList<>();
+    public static HashSet<Integer> getIngredientsId(){
+        HashSet<Integer> setId = new HashSet<>();
 
         try {
             String command = String.format("SELECT * FROM %s WHERE %s < ? ",
@@ -20,14 +21,14 @@ public class Recipe_has_ingredientHandler extends DatabaseHandler{
 
             while (resultSet.next()) {
 
-                array.add(resultSet.getInt(ConstDb.RECIPE_HAS_INGREDIENT_ID));
+                setId.add(resultSet.getInt(ConstDb.RECIPE_HAS_INGREDIENT_ID));
 
             }
         } catch (Exception e){
             e.printStackTrace();
         }
 
-        return array;
+        return setId;
     }
 
     // Удалить все значения таблицы _HAS_

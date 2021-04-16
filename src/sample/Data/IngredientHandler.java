@@ -6,6 +6,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashSet;
 
 public class IngredientHandler extends DatabaseHandler {
 
@@ -130,7 +131,7 @@ public class IngredientHandler extends DatabaseHandler {
 
     // Удаляет те ингредиенты, которые не используются в рецептах
     public static void deleteUselessIngredients() {
-        ArrayList<Integer> array = Recipe_has_ingredientHandler.getIngredientsId();
+        HashSet<Integer> setId = Recipe_has_ingredientHandler.getIngredientsId();
 
         try {
             String command = String.format("SELECT * FROM %s WHERE %s < ?",
@@ -143,7 +144,7 @@ public class IngredientHandler extends DatabaseHandler {
             while (resultSet.next()) {
                 Integer id = resultSet.getInt(ConstDb.INGREDIENT_ID);
 
-                if (!array.contains(id)) {
+                if (!setId.contains(id)) {
                     String command2 = String.format("DELETE FROM %s WHERE %s = %d;",
                             ConstDb.INGREDIENT_TABLE, ConstDb.INGREDIENT_ID, id);
                     useCommand(command2);

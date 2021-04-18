@@ -38,8 +38,9 @@ public class UserHandler extends DatabaseHandler{
 
     // Поиск юзера в БД и установка его как текущего пользователя
     public static void setUser(int id){
-        PreparedStatement preparedStatement = getPreparedStatement(String.format("SELECT * FROM %s WHERE %s = %d",
-                ConstDb.USER_TABLE,ConstDb.USER_ID,id));
+        String command = String.format("SELECT * FROM %s WHERE %s = %d",
+                ConstDb.USER_TABLE,ConstDb.USER_ID,id);
+        PreparedStatement preparedStatement = getPreparedStatement(command);
 
         try {
             ResultSet resultSet = preparedStatement.executeQuery();

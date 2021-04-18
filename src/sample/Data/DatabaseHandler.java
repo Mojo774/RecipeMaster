@@ -1,15 +1,6 @@
 package sample.Data;
 
 import java.sql.*;
-import java.util.ArrayList;
-import java.util.Collections;
-
-import com.mysql.cj.jdbc.Driver;
-import sample.Recipe_Package.All_recipes;
-import sample.Recipe_Package.Description;
-import sample.Recipe_Package.Ingredient;
-import sample.Recipe_Package.Recipe;
-import sample.User;
 
 public class DatabaseHandler extends Configs {
     protected static Connection connection;

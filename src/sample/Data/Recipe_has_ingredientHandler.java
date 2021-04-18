@@ -2,7 +2,6 @@ package sample.Data;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.util.ArrayList;
 import java.util.HashSet;
 
 public class Recipe_has_ingredientHandler extends DatabaseHandler{

@@ -32,6 +32,9 @@ public class addController implements Controllers {
 
     ObservableList<addController.ingredientView> viewList;
     private int changeId = -1; // Флаг для пометки редактируемого рецепта (если флаг поднят то надо удалить цепт)
+    private Recipe recipe;
+
+
     @FXML
     private ResourceBundle resources;
 
@@ -79,14 +82,26 @@ public class addController implements Controllers {
     void initialize() {
 
         // Кнопки из панели
-        buttomAllRecipes.setOnAction(actionEvent -> {
-            buttomAllRecipes.getScene().getWindow().hide();
 
+        buttomAllRecipes.setOnAction(actionEvent -> {
+            if (changeId != -1) {
+                clear();
+                changeId = -1;
+            }
+
+
+            buttomAllRecipes.getScene().getWindow().hide();
             Main.showWindow("fxml/sample.fxml");
         });
 
         // Кнопка назад
         buttomBack.setOnAction(actionEvent -> {
+            if (changeId != -1) {
+                clear();
+                changeId = -1;
+            }
+
+
             if (Main.showIf()) {
                 buttomBack.getScene().getWindow().hide();
                 Main.showWindowBack();
@@ -98,52 +113,24 @@ public class addController implements Controllers {
         // Кнопки страницы
         // Кнопка добавления рецепта
         buttomAdd.setOnAction(actionEvent -> {
-            formatView();
 
-            // Считывается текст из TextAreas
-            String descriptionText = textAreaDescription.getText().trim();
-            String name = textFieldName.getText().trim();
-
-            ArrayList<Ingredient> ingredients = new ArrayList<>();
-            Description description = new Description(descriptionText, name);
-
-            views.forEach(x -> {
-                if (x.getSize() != null) {
-                    if (x.getSize().equals(""))
-                        x.setSize(null);
-                }
-                Ingredient ingredient = new Ingredient(x.name, x.size);
-                ingredients.add(ingredient);
-            });
-
-            // Проверка на пустные строки
-            if ((ingredients.size() != 0 && !descriptionText.equals("") && !name.equals(""))) {
-
-                Recipe recipe;
-
-                // Если рецепт отредактирован - удалить старый
-                if (changeId != -1) {
-                    RecipeHandler.deleteRecipes(changeId);
-                    recipe = new Recipe(description, ingredients, changeId);
-                    changeId = -1;
-                } else {
-                    recipe = new Recipe(description, ingredients, getIdR());
-                }
+            // Если рецепт создался, то добавляем его
+            if (isCreateRecipe()) {
 
                 // Добавление рецепта
                 All_recipes.addRecipe(recipe);
 
                 // Очистка страницы
-                resetView();
-                deleteText();
-                text.setText("");
+                clear();
 
                 // Выход из окна в главное меню
                 buttomAdd.getScene().getWindow().hide();
                 Main.showWindow("fxml/sample.fxml");
+
             } else {
                 text.setText("Fill in areas");
             }
+
         });
 
         // Добавить пустой ингередиент
@@ -204,13 +191,10 @@ public class addController implements Controllers {
         tableIngredients.setItems(viewList);
     }
 
-    // Удаление текста из TextArea
-    public void deleteText() {
-        textAreaDescription.clear();
-        textFieldName.clear();
-
-        viewList = FXCollections.observableList(views);
-        tableIngredients.setItems(viewList);
+    // Сбросить переменные для вывода в таблицу
+    private void resetView() {
+        number = 1;
+        views = new ArrayList<>();
     }
 
     // Удаление пустых ингредиентов (у тех, у кого name пустое)
@@ -225,6 +209,22 @@ public class addController implements Controllers {
         });
 
     }
+
+    public void clear() {
+        resetView();
+        deleteText();
+        text.setText("");
+    }
+
+    // Удаление текста из TextArea
+    public void deleteText() {
+        textAreaDescription.clear();
+        textFieldName.clear();
+
+        viewList = FXCollections.observableList(views);
+        tableIngredients.setItems(viewList);
+    }
+
 
     // Создание id для рецепта
     private static int getIdR() {
@@ -241,12 +241,46 @@ public class addController implements Controllers {
         return idR;
     }
 
-    // Сбросить переменные для вывода в таблицу
-    private void resetView() {
-        number = 1;
-        views = new ArrayList<>();
+    // Создать рецепт если получится
+    public boolean isCreateRecipe() {
+        formatView();
+
+        // Считывается текст из TextAreas
+        String descriptionText = textAreaDescription.getText().trim();
+        String name = textFieldName.getText().trim();
+
+        ArrayList<Ingredient> ingredients = new ArrayList<>();
+        Description description = new Description(descriptionText, name);
+
+        views.forEach(x -> {
+            if (x.getSize() != null) {
+                if (x.getSize().equals(""))
+                    x.setSize(null);
+            }
+            Ingredient ingredient = new Ingredient(x.name, x.size);
+            ingredients.add(ingredient);
+        });
+
+        // Проверка на пустные строки
+        if ((ingredients.size() != 0 &&
+                !description.getText().equals("") &&
+                !description.getName().equals(""))) {
+
+            // Если рецепт отредактирован - удалить старый
+            if (changeId != -1) {
+                RecipeHandler.deleteRecipes(changeId);
+                recipe = new Recipe(description, ingredients, changeId);
+                changeId = -1;
+            } else {
+                recipe = new Recipe(description, ingredients, getIdR());
+            }
+            return true;
+
+        } else
+            return false;
     }
 
+    // Изменить рецепт
     public void changeRecipe(Recipe recipe) {
         resetView();
         deleteText();

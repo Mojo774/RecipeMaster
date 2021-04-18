@@ -1,7 +1,5 @@
 package sample.Data;
 
-import com.mysql.cj.jdbc.CallableStatement;
-import sample.Recipe_Package.All_recipes;
 import sample.Recipe_Package.Description;
 import sample.Recipe_Package.Ingredient;
 import sample.Recipe_Package.Recipe;

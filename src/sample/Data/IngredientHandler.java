@@ -1,11 +1,8 @@
 package sample.Data;
 
-import sample.User;
-
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.HashSet;
 
 public class IngredientHandler extends DatabaseHandler {
@@ -84,7 +81,7 @@ public class IngredientHandler extends DatabaseHandler {
             preparedStatement = getPreparedStatement(String.format(command));
 
 
-            preparedStatement.setInt(1, IngredientHandler.getLastId()+1);
+            preparedStatement.setInt(1, IngredientHandler.getLastId() + 1);
 
             resultSet = preparedStatement.executeQuery();
 
@@ -137,7 +134,7 @@ public class IngredientHandler extends DatabaseHandler {
             String command = String.format("SELECT * FROM %s WHERE %s < ?",
                     ConstDb.INGREDIENT_TABLE, ConstDb.INGREDIENT_ID);
             PreparedStatement preparedStatement = getPreparedStatement(command);
-            preparedStatement.setInt(1, IngredientHandler.getLastId()+1);
+            preparedStatement.setInt(1, IngredientHandler.getLastId() + 1);
 
             ResultSet resultSet = preparedStatement.executeQuery();
 

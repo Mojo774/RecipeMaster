@@ -23,18 +23,21 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
 
-        createWindow("fxml/sample.fxml");
-        showWindow("fxml/sample.fxml");
+        createWindow("fxml/welcome.fxml");
 
+        showWindow("fxml/welcome.fxml");
+
+        createWindow("fxml/sample.fxml");
         createWindow("fxml/add.fxml");
         createWindow("fxml/recipe.fxml");
+
 
     }
 
     public static void main(String[] args) {
-        UserHandler.setUser("Biba Boba", "14881488"); // Установка юзера
 
         launch(args);
+
 
         IngredientHandler.deleteUselessIngredients(); // Удаление ненужных ингредиентов из БД
         DatabaseHandler.closeConnection();            // Закрытие потоков для работы с SQL

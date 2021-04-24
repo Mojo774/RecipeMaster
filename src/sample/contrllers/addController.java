@@ -31,7 +31,7 @@ public class addController implements Controllers {
     private List<ingredientView> views = new ArrayList<>();
 
     ObservableList<addController.ingredientView> viewList;
-    private int changeId = -1; // Флаг для пометки редактируемого рецепта (если флаг поднят то надо удалить цепт)
+    private int changeId = -1; // Флаг для пометки редактируемого рецепта (если флаг поднят то надо удалить рецепт)
     private Recipe recipe;
 
 
@@ -82,7 +82,7 @@ public class addController implements Controllers {
     void initialize() {
 
         // Кнопки из панели
-
+        // Кнопка allRecipes
         buttomAllRecipes.setOnAction(actionEvent -> {
             if (changeId != -1) {
                 clear();
@@ -113,6 +113,7 @@ public class addController implements Controllers {
         // Кнопки страницы
         // Кнопка добавления рецепта
         buttomAdd.setOnAction(actionEvent -> {
+
 
             // Если рецепт создался, то добавляем его
             if (isCreateRecipe()) {

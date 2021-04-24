@@ -284,4 +284,32 @@ public class RecipeHandler extends DatabaseHandler {
     }
 
 
+    // Удалить рецепты юзера по его id
+    public static void deleteUserRecipes(int id) {
+
+
+
+
+
+        try {
+            String command = String.format("SELECT * FROM %s WHERE %s = ?",
+                    ConstDb.RECIPE_TABLE, ConstDb.RECIPE_USER_ID);
+            PreparedStatement preparedStatement = getPreparedStatement(command);
+            preparedStatement.setInt(1, id);
+
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            while (resultSet.next()) {
+                int idR = resultSet.getInt(ConstDb.RECIPE_ID);
+                deleteRecipes(idR);
+            }
+
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
+
+
 }

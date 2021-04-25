@@ -86,6 +86,9 @@ public class welcomeController implements Controllers {
         });
 
         buttonEnterWithoutLogin.setOnAction(actionEvent -> {
+            if (!UserHandler.findUser("Default", "0000"))
+                UserHandler.addUser("Default", "0000");
+
             UserHandler.setUser("Default", "0000");
             buttonEnterWithoutLogin.getScene().getWindow().hide();
             Main.showWindow("fxml/sample.fxml");

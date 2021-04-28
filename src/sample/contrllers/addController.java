@@ -119,7 +119,7 @@ public class addController implements Controllers {
             if (isCreateRecipe()) {
 
                 // Добавление рецепта
-                All_recipes.addRecipe(recipe);
+                new recipesHelper().addRecipe(recipe);
 
                 // Очистка страницы
                 clear();
@@ -234,10 +234,11 @@ public class addController implements Controllers {
         // Если база данных пустая и мы начнем создавать новые рецепты
         // метод сверху будет всегда возвращать 0 пока мы не внесем
         // хотя бы один рецепт в базу данных
-        while (All_recipes.searchId(idR) != null)
+        while (new recipesHelper().getRecipes(idR).size() > 0) {
+            if (new recipesHelper().getRecipes(idR).get(0) != null)
             idR++;
-        while (All_recipes.searchIdNew(idR) != null)
-            idR++;
+        }
+
 
         return idR;
     }

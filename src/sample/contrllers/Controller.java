@@ -15,9 +15,8 @@ import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
-import sample.Data.DatabaseHandler;
 import sample.Main;
-import sample.Recipe_Package.All_recipes;
+import sample.Recipe_Package.recipesHelper;
 import sample.Recipe_Package.Recipe;
 
 public class Controller implements Controllers {
@@ -87,11 +86,6 @@ public class Controller implements Controllers {
 
         });
 
-        // Запись в базу данных
-        buttomAllRecipes.setOnAction(actionEvent -> {
-
-            DatabaseHandler.signUpRecipes();
-        });
 
         // Нажатие на строку в таблице
         table.setOnMousePressed(new EventHandler<MouseEvent>() {
@@ -116,7 +110,7 @@ public class Controller implements Controllers {
                     }
 
                     // Получаем рецепт по id
-                    Recipe recipe = All_recipes.searchId(id);
+                    Recipe recipe = new recipesHelper().getRecipes(id).get(0);
 
                     // Передаем его в окно (оно уже открыто в Main, поэтому берем его в windows)
                     recipeController cl = (recipeController) Main.getWindows().get("fxml/recipe.fxml").getController();
@@ -139,10 +133,9 @@ public class Controller implements Controllers {
     }
 
     // Обновляет список рецептов и создает их табличный список
-    private static void upDate() {
-        All_recipes.loudRecipes(); // загрузка рецептов из базы данных
+    private static void upDate(){
 
-        recipes = All_recipes.getRecipes();
+        recipes = new recipesHelper().getRecipes();
         view = new ArrayList<>();
 
         recipes.forEach(x -> {

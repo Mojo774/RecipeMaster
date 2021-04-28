@@ -26,23 +26,6 @@ public class DatabaseHandler extends Configs {
 
     public static void signUpRecipes() {
 
-        //RecipeHandler.deleteRecipes();
-        //IngredientHandler.deleteIngredients();
-        //UserHandler.addUser("Biba Boba" , "14881488");
-        //System.out.println(RecipeHandler.getLastId());
-
-        /*Description description = new Description("odin","dva");
-        ArrayList<Ingredient> ingredients = new ArrayList<>();
-        Collections.addAll(ingredients, new Ingredient("Pow"),new Ingredient("Rod","5"),new Ingredient("MKK","4"));
-        Recipe recipe = new Recipe(description,ingredients);*/
-        //RecipeHandler.setRecipe(recipe);
-
-        //All_recipes.loudRecipes();
-        //recipe.Print();
-        //All_recipes.print();
-
-        //RecipeHandler.deleteRecipes(6);
-        //clear();
 
 
     }

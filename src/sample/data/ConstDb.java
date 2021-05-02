@@ -1,4 +1,4 @@
-package sample.Data;
+package sample.data;
 
 public class ConstDb {
     public static final String USER_TABLE = "User";

@@ -1,6 +1,4 @@
-package sample.Recipe_Package;
-
-import java.util.ArrayList;
+package sample.recipe_package;
 
 public class Description {
     private String text;

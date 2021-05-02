@@ -1,12 +1,13 @@
-package sample.Recipe_Package;
+package sample.recipe_service;
 
-import sample.Data.RecipeHandler;
+import sample.data.RecipeHandler;
+import sample.recipe_package.Recipe;
 
 import java.util.ArrayList;
 
-public class recipesHelper {
+public class RecipesHelper {
 
-    public  void addRecipe(Recipe recipe) {
+    public void addRecipe(Recipe recipe) {
         RecipeHandler.setRecipe(recipe);
 
     }
@@ -30,7 +31,7 @@ public class recipesHelper {
         // Выбрать из БД запись с пришедшим нам ИД, FirstOrDefault - ограничиться одной запись.
         // resipes = recipes.Where(recipe => recipe.id == id).FirstOrDefault()
 
-        var list = new recipesHelper().getRecipes();
+        var list = new RecipesHelper().getRecipes();
         for (Recipe recipe : list) {
             if (recipe.getIdR() == id)
                 recipes.add(recipe);

@@ -1,4 +1,4 @@
-package sample.Recipe_Package;
+package sample.recipe_package;
 
 public class Ingredient {
     private String name;

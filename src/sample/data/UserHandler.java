@@ -1,6 +1,5 @@
-package sample.Data;
+package sample.data;
 
-import sample.Recipe_Package.Recipe;
 import sample.User;
 
 import java.sql.PreparedStatement;

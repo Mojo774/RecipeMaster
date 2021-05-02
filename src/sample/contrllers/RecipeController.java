@@ -8,14 +8,14 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
-import sample.Data.RecipeHandler;
+import sample.data.RecipeHandler;
 import sample.Main;
-import sample.Recipe_Package.Description;
-import sample.Recipe_Package.Ingredient;
-import sample.Recipe_Package.Recipe;
+import sample.recipe_package.Description;
+import sample.recipe_package.Ingredient;
+import sample.recipe_package.Recipe;
 
 
-public class recipeController implements Controllers {
+public class RecipeController implements Controllers {
     private Recipe recipe;
 
     @FXML
@@ -73,7 +73,7 @@ public class recipeController implements Controllers {
 
         // Кнопка изменить рецепт
         buttomChange.setOnAction(actionEvent -> {
-            addController cl = (addController) Main.getWindows().get("fxml/add.fxml").getController();
+            AddController cl = (AddController) Main.getWindows().get("fxml/add.fxml").getController();
             cl.changeRecipe(recipe);
 
             buttomChange.getScene().getWindow().hide();

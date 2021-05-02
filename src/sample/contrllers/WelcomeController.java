@@ -8,11 +8,10 @@ import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
-import sample.Data.UserHandler;
+import sample.data.UserHandler;
 import sample.Main;
-import sample.User;
 
-public class welcomeController implements Controllers {
+public class WelcomeController implements Controllers {
 
     @FXML
     private ResourceBundle resources;

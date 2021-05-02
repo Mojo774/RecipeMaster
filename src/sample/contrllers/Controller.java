@@ -16,8 +16,8 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import sample.Main;
-import sample.Recipe_Package.recipesHelper;
-import sample.Recipe_Package.Recipe;
+import sample.recipe_service.RecipesHelper;
+import sample.recipe_package.Recipe;
 
 public class Controller implements Controllers {
     private static ArrayList<Recipe> recipes;
@@ -110,10 +110,10 @@ public class Controller implements Controllers {
                     }
 
                     // Получаем рецепт по id
-                    Recipe recipe = new recipesHelper().getRecipes(id).get(0);
+                    Recipe recipe = new RecipesHelper().getRecipes(id).get(0);
 
                     // Передаем его в окно (оно уже открыто в Main, поэтому берем его в windows)
-                    recipeController cl = (recipeController) Main.getWindows().get("fxml/recipe.fxml").getController();
+                    RecipeController cl = (RecipeController) Main.getWindows().get("fxml/recipe.fxml").getController();
                     cl.setRecipe(recipe);
                     // Закрываем это окно и переходим в новое
                     table.getScene().getWindow().hide();
@@ -135,7 +135,7 @@ public class Controller implements Controllers {
     // Обновляет список рецептов и создает их табличный список
     private static void upDate(){
 
-        recipes = new recipesHelper().getRecipes();
+        recipes = new RecipesHelper().getRecipes();
         view = new ArrayList<>();
 
         recipes.forEach(x -> {

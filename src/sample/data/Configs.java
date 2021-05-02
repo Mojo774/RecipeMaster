@@ -1,4 +1,4 @@
-package sample.Data;
+package sample.data;
 
 public class Configs {
     protected static final String dbHost = "127.0.0.1";

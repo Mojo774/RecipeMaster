@@ -1,6 +1,5 @@
-package sample.Recipe_Package;
+package sample.recipe_package;
 
-import javax.swing.*;
 import java.util.ArrayList;
 
 public class Recipe {

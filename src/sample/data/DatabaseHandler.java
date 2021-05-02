@@ -1,4 +1,4 @@
-package sample.Data;
+package sample.data;
 
 import java.sql.*;
 

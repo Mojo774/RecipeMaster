@@ -12,9 +12,9 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
-import sample.Data.RecipeHandler;
+import sample.data.RecipeHandler;
 import sample.Main;
-import sample.Recipe_Package.*;
+import sample.recipe_package.*;
 import javafx.scene.text.Text;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -24,13 +24,14 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn.CellEditEvent;
 
 import javafx.scene.control.TextField;
+import sample.recipe_service.RecipesHelper;
 
 
-public class addController implements Controllers {
+public class AddController implements Controllers {
     private int number = 1;
     private List<ingredientView> views = new ArrayList<>();
 
-    ObservableList<addController.ingredientView> viewList;
+    ObservableList<AddController.ingredientView> viewList;
     private int changeId = -1; // Флаг для пометки редактируемого рецепта (если флаг поднят то надо удалить рецепт)
     private Recipe recipe;
 
@@ -119,7 +120,7 @@ public class addController implements Controllers {
             if (isCreateRecipe()) {
 
                 // Добавление рецепта
-                new recipesHelper().addRecipe(recipe);
+                new RecipesHelper().addRecipe(recipe);
 
                 // Очистка страницы
                 clear();
@@ -149,10 +150,10 @@ public class addController implements Controllers {
         // Редактирование полей в таблице
         columnName.setCellFactory(TextFieldTableCell.forTableColumn());
         columnName.setOnEditCommit(
-                new EventHandler<CellEditEvent<addController.ingredientView, String>>() {
+                new EventHandler<CellEditEvent<AddController.ingredientView, String>>() {
                     @Override
-                    public void handle(CellEditEvent<addController.ingredientView, String> t) {
-                        ((addController.ingredientView) t.getTableView().getItems().get(
+                    public void handle(CellEditEvent<AddController.ingredientView, String> t) {
+                        ((AddController.ingredientView) t.getTableView().getItems().get(
                                 t.getTablePosition().getRow())
                         ).setName(t.getNewValue());
                     }
@@ -161,10 +162,10 @@ public class addController implements Controllers {
         );
         columnSize.setCellFactory(TextFieldTableCell.forTableColumn());
         columnSize.setOnEditCommit(
-                new EventHandler<CellEditEvent<addController.ingredientView, String>>() {
+                new EventHandler<CellEditEvent<AddController.ingredientView, String>>() {
                     @Override
-                    public void handle(CellEditEvent<addController.ingredientView, String> t) {
-                        ((addController.ingredientView) t.getTableView().getItems().get(
+                    public void handle(CellEditEvent<AddController.ingredientView, String> t) {
+                        ((AddController.ingredientView) t.getTableView().getItems().get(
                                 t.getTablePosition().getRow())
                         ).setSize(t.getNewValue());
                     }
@@ -179,14 +180,14 @@ public class addController implements Controllers {
         viewList = FXCollections.observableList(views);
 
         columnNumber.setCellValueFactory(
-                new PropertyValueFactory<addController.ingredientView, Integer>("number")
+                new PropertyValueFactory<AddController.ingredientView, Integer>("number")
         );
 
         columnName.setCellValueFactory(
-                new PropertyValueFactory<addController.ingredientView, String>("name")
+                new PropertyValueFactory<AddController.ingredientView, String>("name")
         );
         columnSize.setCellValueFactory(
-                new PropertyValueFactory<addController.ingredientView, String>("size")
+                new PropertyValueFactory<AddController.ingredientView, String>("size")
         );
 
         tableIngredients.setItems(viewList);
@@ -234,8 +235,8 @@ public class addController implements Controllers {
         // Если база данных пустая и мы начнем создавать новые рецепты
         // метод сверху будет всегда возвращать 0 пока мы не внесем
         // хотя бы один рецепт в базу данных
-        while (new recipesHelper().getRecipes(idR).size() > 0) {
-            if (new recipesHelper().getRecipes(idR).get(0) != null)
+        while (new RecipesHelper().getRecipes(idR).size() > 0) {
+            if (new RecipesHelper().getRecipes(idR).get(0) != null)
             idR++;
         }
 

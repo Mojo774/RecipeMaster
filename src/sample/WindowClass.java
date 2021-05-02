@@ -5,12 +5,12 @@ import sample.contrllers.Controllers;
 
 // Класс окна
 // Содержит stage и controller
-public class windowClass {
+public class WindowClass {
 
     private Stage stage = new Stage();
     private Controllers controller;
 
-    public windowClass(Stage stage, Controllers controller) {
+    public WindowClass(Stage stage, Controllers controller) {
         this.stage = stage;
         this.controller = controller;
     }

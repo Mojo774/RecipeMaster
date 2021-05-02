@@ -5,9 +5,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import sample.Data.DatabaseHandler;
-import sample.Data.IngredientHandler;
-import sample.Data.UserHandler;
+import sample.data.DatabaseHandler;
+import sample.data.IngredientHandler;
 
 import java.io.IOException;
 import java.util.*;
@@ -15,7 +14,7 @@ import java.util.*;
 public class Main extends Application {
     // Хранение окон (всех)
     //private static HashMap<String, Stage> windows = new HashMap();
-    private static HashMap<String, windowClass> windows = new HashMap<>();
+    private static HashMap<String, WindowClass> windows = new HashMap<>();
     // очередь открытия окон для кнопки Back
     private static ArrayList<String> queue = new ArrayList<>();
 
@@ -54,11 +53,11 @@ public class Main extends Application {
         stage.setTitle("Hello World");
         stage.setScene(new Scene(root, 1280, 768));
 
-        windows.put(fileName, new windowClass(stage, loader.getController()));
+        windows.put(fileName, new WindowClass(stage, loader.getController()));
     }
 
 
-    public static HashMap<String, windowClass> getWindows() {
+    public static HashMap<String, WindowClass> getWindows() {
         return windows;
     }
 

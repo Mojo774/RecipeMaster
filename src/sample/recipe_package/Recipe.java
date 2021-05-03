@@ -1,19 +1,21 @@
 package sample.recipe_package;
 
+import sample.contrllers.views.RecipeView;
+
 import java.util.ArrayList;
 
 public class Recipe {
     private Description description;
     private ArrayList<Ingredient> ingredients;
     private Integer idR;
-    private tableView view;
+    private RecipeView view;
 
     public Recipe(Description description, ArrayList<Ingredient> ingredients, int idR) {
         this.description = description;
         this.ingredients = ingredients;
 
         this.idR = idR;
-        view = new tableView();
+        view = new RecipeView();
     }
 
 
@@ -42,8 +44,8 @@ public class Recipe {
         this.idR = id;
     }
 
-    public tableView getTableView(){
-        return view;
+    public RecipeView getTableView(){
+        return new RecipeView(this);
     }
 
     // Вывод ингредиентов
@@ -63,52 +65,5 @@ public class Recipe {
         PrintDescription();
     }
 
-    // Класс для отображения рецепта в таблице
-    public class tableView {
-        private Integer number;
-        private String name;
-        private String ingredientStr;
-        private Integer id;
 
-        public tableView() {
-            ingredientStr = "";
-            id = idR;
-
-            for (Ingredient x : ingredients) {
-                ingredientStr += String.format("%s, ", x.getName());
-            }
-
-            ingredientStr = ingredientStr.substring(0, ingredientStr.length() - 2);
-
-            this.name = description.getName();
-        }
-
-        public String getIngredientStr() {
-            return this.ingredientStr;
-        }
-
-        public void setIngredientStr(String ingredientStr) {
-            this.ingredientStr = ingredientStr;
-        }
-
-        public String getName() {
-            return this.name;
-        }
-
-        public void setName(String name) {
-            this.name = name;
-        }
-
-        public Integer getNumber() {
-            return this.number;
-        }
-
-        public void setNumber(Integer number) {
-            this.number = number;
-        }
-
-        public Integer getId() {
-            return this.id;
-        }
-    }
 }

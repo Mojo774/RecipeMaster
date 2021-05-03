@@ -12,7 +12,6 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
-import sample.data.RecipeHandler;
 import sample.Main;
 import sample.recipe_package.*;
 import javafx.scene.text.Text;
@@ -24,17 +23,24 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn.CellEditEvent;
 
 import javafx.scene.control.TextField;
+import sample.contrllers.views.IngredientView;
 import sample.recipe_service.RecipesHelper;
+import sample.contrllers.views.IngredientViewHelper;
 
 
 public class AddController implements Controllers {
-    private int number = 1;
-    private List<ingredientView> views = new ArrayList<>();
+    // Список ингредиентов для таблицы
+    private List<IngredientView> views = new ArrayList<>();
 
-    ObservableList<AddController.ingredientView> viewList;
-    private int changeId = -1; // Флаг для пометки редактируемого рецепта (если флаг поднят то надо удалить рецепт)
-    private Recipe recipe;
+    // Объект для вывода в таблицу ингредиентов
+    private ObservableList<IngredientView> viewList = FXCollections.observableList(views);
 
+    // Флаг для пометки редактируемого рецепта (если рецепт уже существует, то надо заменить его)
+    private int changeId = -1;
+
+
+    public AddController() {
+    }
 
     @FXML
     private ResourceBundle resources;
@@ -62,16 +68,16 @@ public class AddController implements Controllers {
     private TextField textFieldName;
 
     @FXML
-    private TableView<ingredientView> tableIngredients;
+    private TableView<IngredientView> tableIngredients;
 
     @FXML
-    private TableColumn<ingredientView, Integer> columnNumber;
+    private TableColumn<IngredientView, Integer> columnNumber;
 
     @FXML
-    private TableColumn<ingredientView, String> columnName;
+    private TableColumn<IngredientView, String> columnName;
 
     @FXML
-    private TableColumn<ingredientView, String> columnSize;
+    private TableColumn<IngredientView, String> columnSize;
 
     @FXML
     private Button buttomAddIngredient;
@@ -115,12 +121,16 @@ public class AddController implements Controllers {
         // Кнопка добавления рецепта
         buttomAdd.setOnAction(actionEvent -> {
 
+            String textDescription = textAreaDescription.getText().trim();
+            String textName = textFieldName.getText().trim();
 
-            // Если рецепт создался, то добавляем его
-            if (isCreateRecipe()) {
 
-                // Добавление рецепта
-                new RecipesHelper().addRecipe(recipe);
+            // Присвоение текущего views (которое ввел пользователь)
+            views = viewList;
+            // Создание рецепта
+            if (!textDescription.equals("") && !textName.equals("") && isOkViews(views)) {
+
+                new RecipesHelper().createRecipe(textName, textDescription, views, changeId);
 
                 // Очистка страницы
                 clear();
@@ -137,23 +147,23 @@ public class AddController implements Controllers {
 
         // Добавить пустой ингередиент
         buttomAddIngredient.setOnAction(actionEvent -> {
-            formatView();
+            // Создается пустой views и в него добавляются ингредиенты из viewList (то что ввел юзер)
+            // Потом добавляется новый пустой ингредиент
+            // viewList присваивает значение views и выводится на в таблицу
 
-            ingredientView ingredientView = new ingredientView(number++, "", "");
-            views.add(ingredientView);
-
-            viewRows();
-
+            views = new IngredientViewHelper().addEmptyIngredient(viewList);
+            setViews(views);
+            setViewTable();
         });
 
 
         // Редактирование полей в таблице
         columnName.setCellFactory(TextFieldTableCell.forTableColumn());
         columnName.setOnEditCommit(
-                new EventHandler<CellEditEvent<AddController.ingredientView, String>>() {
+                new EventHandler<CellEditEvent<IngredientView, String>>() {
                     @Override
-                    public void handle(CellEditEvent<AddController.ingredientView, String> t) {
-                        ((AddController.ingredientView) t.getTableView().getItems().get(
+                    public void handle(CellEditEvent<IngredientView, String> t) {
+                        ((IngredientView) t.getTableView().getItems().get(
                                 t.getTablePosition().getRow())
                         ).setName(t.getNewValue());
                     }
@@ -162,10 +172,10 @@ public class AddController implements Controllers {
         );
         columnSize.setCellFactory(TextFieldTableCell.forTableColumn());
         columnSize.setOnEditCommit(
-                new EventHandler<CellEditEvent<AddController.ingredientView, String>>() {
+                new EventHandler<CellEditEvent<IngredientView, String>>() {
                     @Override
-                    public void handle(CellEditEvent<AddController.ingredientView, String> t) {
-                        ((AddController.ingredientView) t.getTableView().getItems().get(
+                    public void handle(CellEditEvent<IngredientView, String> t) {
+                        ((IngredientView) t.getTableView().getItems().get(
                                 t.getTablePosition().getRow())
                         ).setSize(t.getNewValue());
                     }
@@ -175,173 +185,78 @@ public class AddController implements Controllers {
 
     }
 
-    // Ввод данных в таблицу
-    private void viewRows() {
-        viewList = FXCollections.observableList(views);
+    // Проверяет правильно ли записаны ингредиенты в таблице
+    private boolean isOkViews(List<IngredientView> views) {
+        if (views.size() > 0) {
 
-        columnNumber.setCellValueFactory(
-                new PropertyValueFactory<AddController.ingredientView, Integer>("number")
-        );
-
-        columnName.setCellValueFactory(
-                new PropertyValueFactory<AddController.ingredientView, String>("name")
-        );
-        columnSize.setCellValueFactory(
-                new PropertyValueFactory<AddController.ingredientView, String>("size")
-        );
-
-        tableIngredients.setItems(viewList);
-    }
-
-    // Сбросить переменные для вывода в таблицу
-    private void resetView() {
-        number = 1;
-        views = new ArrayList<>();
-    }
-
-    // Удаление пустых ингредиентов (у тех, у кого name пустое)
-    // И изменеие порядка вывода
-    private void formatView() {
-        number = 1;
-
-        views.removeIf(x -> x.getName().equals(""));
-
-        views.forEach(x -> {
-            x.setNumber(number++);
-        });
-
-    }
-
-    public void clear() {
-        resetView();
-        deleteText();
-        text.setText("");
-    }
-
-    // Удаление текста из TextArea
-    public void deleteText() {
-        textAreaDescription.clear();
-        textFieldName.clear();
-
-        viewList = FXCollections.observableList(views);
-        tableIngredients.setItems(viewList);
-    }
-
-
-    // Создание id для рецепта
-    private static int getIdR() {
-        int idR = RecipeHandler.getLastId() + 1;
-
-        // Если база данных пустая и мы начнем создавать новые рецепты
-        // метод сверху будет всегда возвращать 0 пока мы не внесем
-        // хотя бы один рецепт в базу данных
-        while (new RecipesHelper().getRecipes(idR).size() > 0) {
-            if (new RecipesHelper().getRecipes(idR).get(0) != null)
-            idR++;
-        }
-
-
-        return idR;
-    }
-
-    // Создать рецепт если получится
-    public boolean isCreateRecipe() {
-        formatView();
-
-        // Считывается текст из TextAreas
-        String descriptionText = textAreaDescription.getText().trim();
-        String name = textFieldName.getText().trim();
-
-        ArrayList<Ingredient> ingredients = new ArrayList<>();
-        Description description = new Description(descriptionText, name);
-
-        views.forEach(x -> {
-            if (x.getSize() != null) {
-                if (x.getSize().equals(""))
-                    x.setSize(null);
+            for (IngredientView ingredient : views) {
+                if (ingredient.getName().equals("") && !ingredient.getSize().equals(""))
+                    return false;
             }
-            Ingredient ingredient = new Ingredient(x.name, x.size);
-            ingredients.add(ingredient);
-        });
 
-        // Проверка на пустные строки
-        if ((ingredients.size() != 0 &&
-                !description.getText().equals("") &&
-                !description.getName().equals(""))) {
-
-            // Если рецепт отредактирован - удалить старый
-            if (changeId != -1) {
-                RecipeHandler.deleteRecipes(changeId);
-                recipe = new Recipe(description, ingredients, changeId);
-                changeId = -1;
-            } else {
-                recipe = new Recipe(description, ingredients, getIdR());
-            }
             return true;
 
         } else
             return false;
     }
 
+    // Ввод данных в таблицу
+    private void setViewTable() {
+
+        columnNumber.setCellValueFactory(
+                new PropertyValueFactory<IngredientView, Integer>("Number")
+        );
+
+        columnName.setCellValueFactory(
+                new PropertyValueFactory<IngredientView, String>("Name")
+        );
+        columnSize.setCellValueFactory(
+                new PropertyValueFactory<IngredientView, String>("Size")
+        );
+
+        tableIngredients.setItems(viewList);
+    }
+
+
+    // Устанавливает новый список ингредиентов для вывода в таблицу
+    public void setViews(List<IngredientView> views) {
+        viewList = FXCollections.observableList(views);
+    }
+
+    // Очистка страницы
+    public void clear() {
+        deleteText();
+        text.setText("");
+        changeId = -1;
+
+        var views = new ArrayList<IngredientView>();
+        setViews(views);
+        setViewTable();
+    }
+
+    // Удаление текста из TextArea
+    public void deleteText() {
+        textAreaDescription.clear();
+        textFieldName.clear();
+    }
+
+
     // Изменить рецепт
     public void changeRecipe(Recipe recipe) {
-        resetView();
         deleteText();
 
-        ArrayList<Ingredient> ingredients = recipe.getIngredients();
-        Description description = recipe.getDescription();
-        int idR = recipe.getIdR();
-
         // Создание списка ингредиентов для ввода в таблицу
-        for (Ingredient ingredient : ingredients) {
+        var views = new IngredientViewHelper(recipe).getViews();
+        setViews(views);
+        setViewTable();
 
-            views.add(new ingredientView(-1, ingredient.getName(), ingredient.getSize()));
+        // Заполнение текстовых полей
+        textAreaDescription.setText(recipe.getDescription().getText());
+        textFieldName.setText(recipe.getDescription().getName());
 
-        }
-        formatView(); // Добавление номеров
-
-        textAreaDescription.setText(description.getText());
-        textFieldName.setText(description.getName());
-        changeId = idR;
-
-        viewRows();
-
+        // Установление id рецепта
+        changeId = recipe.getIdR();
     }
 
-    // Нужен для отображения в таблице
-    public class ingredientView {
-        private int number;
-        private String name;
-        private String size;
 
-        public ingredientView(int number, String name, String size) {
-            this.number = number;
-            this.name = name;
-            this.size = size;
-        }
-
-        public int getNumber() {
-            return number;
-        }
-
-        public void setNumber(int id) {
-            this.number = id;
-        }
-
-        public String getName() {
-            return name;
-        }
-
-        public void setName(String name) {
-            this.name = name;
-        }
-
-        public String getSize() {
-            return size;
-        }
-
-        public void setSize(String size) {
-            this.size = size;
-        }
-    }
 }

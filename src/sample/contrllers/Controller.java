@@ -2,6 +2,7 @@ package sample.contrllers;
 
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 
 import javafx.collections.FXCollections;
@@ -16,14 +17,18 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import sample.Main;
+import sample.contrllers.views.RecipeView;
+import sample.contrllers.views.RecipeViewHelper;
 import sample.recipe_service.RecipesHelper;
 import sample.recipe_package.Recipe;
 
 public class Controller implements Controllers {
-    private static ArrayList<Recipe> recipes;
-    // Табличные сведения о рецепте
-    private static ArrayList<Recipe.tableView> view = new ArrayList<>();
 
+    // Список рецептов для таблицы
+    private List<RecipeView> views = new ArrayList<>();
+
+    // Объект для вывода в таблицу ингредиентов
+    private ObservableList<RecipeView> viewList = FXCollections.observableList(views);
 
     @FXML
     private ResourceBundle resources;
@@ -45,16 +50,16 @@ public class Controller implements Controllers {
     private Button buttomApdate;
 
     @FXML
-    private TableView<Recipe.tableView> table;
+    private TableView<RecipeView> table;
 
     @FXML
-    private TableColumn<Recipe.tableView, Integer> tableNumber;
+    private TableColumn<RecipeView, Integer> tableNumber;
 
     @FXML
-    private TableColumn<Recipe.tableView, String> tableName;
+    private TableColumn<RecipeView, String> tableName;
 
     @FXML
-    private TableColumn<Recipe.tableView, String> tableIngredient;
+    private TableColumn<RecipeView, String> tableIngredient;
 
     @FXML
     void initialize() {
@@ -70,16 +75,16 @@ public class Controller implements Controllers {
             upDate(); // Обновление данных
 
             // Введение данных в таблицу
-            ObservableList<Recipe.tableView> viewList = FXCollections.observableList(view);
+            viewList = FXCollections.observableList(views);
             tableNumber.setCellValueFactory(
-                    new PropertyValueFactory<Recipe.tableView, Integer>("number")
+                    new PropertyValueFactory<RecipeView, Integer>("number")
             );
 
             tableName.setCellValueFactory(
-                    new PropertyValueFactory<Recipe.tableView, String>("name")
+                    new PropertyValueFactory<RecipeView, String>("name")
             );
             tableIngredient.setCellValueFactory(
-                    new PropertyValueFactory<Recipe.tableView, String>("ingredientStr")
+                    new PropertyValueFactory<RecipeView, String>("ingredientStr")
             );
 
             table.setItems(viewList);
@@ -99,22 +104,23 @@ public class Controller implements Controllers {
                     row = (TableRow) node;
                     // Нажатие
 
-                    // Получаем индекс строки, она равна номеру строки, который я задавал
-                    int num = row.getIndex() +1; // +1 по
+                    // Получаем индекс строки
+                    int num = row.getIndex() +1; // +1 потому что в javaFx первая строка = 0, а у меня она = 1
 
-                    int id = -1;
+                    int idR = -1;
                     // Получаем id по number
-                    for (Recipe.tableView v : view) {
+                    for (RecipeView v : views) {
                         if (v.getNumber() == num)
-                            id = v.getId();
+                            idR = v.getIdR();
                     }
 
                     // Получаем рецепт по id
-                    Recipe recipe = new RecipesHelper().getRecipes(id).get(0);
+                    Recipe recipe = new RecipesHelper().getRecipes(idR).get(0);
 
                     // Передаем его в окно (оно уже открыто в Main, поэтому берем его в windows)
                     RecipeController cl = (RecipeController) Main.getWindows().get("fxml/recipe.fxml").getController();
                     cl.setRecipe(recipe);
+
                     // Закрываем это окно и переходим в новое
                     table.getScene().getWindow().hide();
                     Main.showWindow("fxml/recipe.fxml");
@@ -133,19 +139,11 @@ public class Controller implements Controllers {
     }
 
     // Обновляет список рецептов и создает их табличный список
-    private static void upDate(){
+    private void upDate(){
 
-        recipes = new RecipesHelper().getRecipes();
-        view = new ArrayList<>();
+        ArrayList<Recipe> recipes = new RecipesHelper().getRecipes();
 
-        recipes.forEach(x -> {
-            view.add(x.getTableView());
-        });
-
-        int t = 1;
-        for (Recipe.tableView v : view) {
-            v.setNumber(t++);
-        }
+        views = new RecipeViewHelper().getViews(recipes);
 
     }
 

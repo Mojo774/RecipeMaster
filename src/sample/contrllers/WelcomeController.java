@@ -114,11 +114,11 @@ public class WelcomeController implements Controllers {
                 registrPasswordText.setText("");
 
             if (isPasswordOrLoginOk(login) && isPasswordOrLoginOk(password) && password.equals(repeatPassword)) {
-                if (UserHandler.findUser(login,password)){
+                if (UserHandler.findUser(login, password)) {
                     registrLoginText.setText("Login is used");
                 } else {
-                    UserHandler.addUser(login,password);
-                    UserHandler.setUser(login,password);
+                    UserHandler.addUser(login, password);
+                    UserHandler.setUser(login, password);
 
                     buttonSignUp.getScene().getWindow().hide();
                     Main.showWindow("fxml/sample.fxml");

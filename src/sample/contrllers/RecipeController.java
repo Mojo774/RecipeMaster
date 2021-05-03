@@ -53,18 +53,20 @@ public class RecipeController implements Controllers {
 
         // Кнопки из панели
         buttomAddRecipe.setOnAction(actionEvent -> {
+
             buttomAddRecipe.getScene().getWindow().hide();
             Main.showWindow("fxml/add.fxml");
         });
 
         buttomAllRecipes.setOnAction(actionEvent -> {
-            buttomAllRecipes.getScene().getWindow().hide();
 
+            buttomAllRecipes.getScene().getWindow().hide();
             Main.showWindow("fxml/sample.fxml");
         });
 
         // Кнопка назад
         buttomBack.setOnAction(actionEvent -> {
+
             if (Main.showIf()) {
                 buttomBack.getScene().getWindow().hide();
                 Main.showWindowBack();
@@ -80,7 +82,7 @@ public class RecipeController implements Controllers {
             Main.showWindow("fxml/add.fxml");
         });
 
-
+        // Кнопка удалить рецепт
         buttonDelete.setOnAction(actionEvent -> {
             RecipeHandler.deleteRecipes(recipe.getIdR());
 
@@ -90,19 +92,22 @@ public class RecipeController implements Controllers {
     }
 
     // установка рецепта для окна и его вывод в поля Area
-    public void setRecipe(Recipe recipe1) {
-        deleteText();
-        this.recipe = recipe1;
+    public void setRecipe(Recipe recipe) {
 
+        this.recipe = recipe;
         setText();
     }
 
     private void setText() {
+        deleteText();
+
         ArrayList<Ingredient> ingredients = recipe.getIngredients();
         Description description = recipe.getDescription();
         String text = description.getText();
+        String name = description.getName();
 
         // Заполнение текстовых полей информацией рецепта
+
         int t = 1;
         for (Ingredient ingredient : ingredients) {
             ingredientsArea.appendText(String.valueOf(t) + ". ");
@@ -112,9 +117,7 @@ public class RecipeController implements Controllers {
 
 
         descriptionArea.appendText(text);
-
-
-        nameArea.appendText(description.getName());
+        nameArea.appendText(name);
     }
 
     private void deleteText() {

@@ -12,9 +12,11 @@ import java.util.List;
 public class RecipesHelper {
     private Recipe recipe;
 
+    // handlers
+    private RecipeHandler recipeHandler = new RecipeHandler();
 
     public void addRecipe(Recipe recipe) {
-        RecipeHandler.setRecipe(recipe);
+        recipeHandler.setRecipe(recipe);
 
     }
 
@@ -22,7 +24,7 @@ public class RecipesHelper {
     public ArrayList<Recipe> getRecipes() {
         ArrayList<Recipe> recipes;
 
-        recipes = RecipeHandler.getRecipes();
+        recipes = recipeHandler.getRecipes();
 
         return recipes;
     }
@@ -66,7 +68,7 @@ public class RecipesHelper {
 
         // Если рецепт отредактирован - удалить старый
         if (changeId != -1) {
-            RecipeHandler.deleteRecipes(changeId);
+            recipeHandler.deleteRecipes(changeId);
             recipe = new Recipe(description, ingredients, changeId);
         } else {
             recipe = new Recipe(description, ingredients, getIdR());
@@ -83,8 +85,8 @@ public class RecipesHelper {
     // Чтобы внести рецепт в БД нужно его сначало создать
     // А чтобы создать его нужно присвоить ему id
     // Поэтому я обращаюсь к БД беру последний (самый большой) id и присваиваю его рецепту
-    private static int getIdR() {
-        int idR = RecipeHandler.getLastId() + 1;
+    private int getIdR() {
+        int idR = recipeHandler.getLastId() + 1;
 
         // Если база данных пустая и мы начнем создавать новые рецепты
         // метод сверху будет всегда возвращать 0 пока мы не внесем

@@ -7,14 +7,14 @@ import java.util.HashSet;
 public class Recipe_has_ingredientHandler extends DatabaseHandler{
 
     // Получить id используемых ингредиентов
-    public static HashSet<Integer> getIngredientsId(){
+    public HashSet<Integer> getIngredientsId(){
         HashSet<Integer> setId = new HashSet<>();
 
         try {
             String command = String.format("SELECT * FROM %s WHERE %s < ? ",
                     ConstDb.RECIPE_HAS_INGREDIENT_TABLE, ConstDb.RECIPE_HAS_RECIPE_ID);
             PreparedStatement preparedStatement = getPreparedStatement(command);
-            preparedStatement.setInt(1, RecipeHandler.getLastId()+1);
+            preparedStatement.setInt(1, new RecipeHandler().getLastId()+1);
 
             ResultSet resultSet = preparedStatement.executeQuery();
 
@@ -31,12 +31,12 @@ public class Recipe_has_ingredientHandler extends DatabaseHandler{
     }
 
     // Удалить все значения таблицы _HAS_
-    public  static void deleteHas(){
+    public  void deleteHas(){
         try {
             String command = String.format("SELECT * FROM %s WHERE %s < ?",
                     ConstDb.RECIPE_HAS_INGREDIENT_TABLE, ConstDb.RECIPE_HAS_RECIPE_ID);
             PreparedStatement preparedStatement = getPreparedStatement(command);
-            preparedStatement.setInt(1, RecipeHandler.getLastId()+1);
+            preparedStatement.setInt(1, new RecipeHandler().getLastId()+1);
 
             ResultSet resultSet = preparedStatement.executeQuery();
 
@@ -47,7 +47,7 @@ public class Recipe_has_ingredientHandler extends DatabaseHandler{
                 useCommand(command2);
             }
 
-            DatabaseHandler.resetIncrement(ConstDb.RECIPE_HAS_INGREDIENT_TABLE);
+            resetIncrement(ConstDb.RECIPE_HAS_INGREDIENT_TABLE);
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -55,7 +55,7 @@ public class Recipe_has_ingredientHandler extends DatabaseHandler{
     }
 
     // Удалить связки с ингредиентами из таблицы _HAS_ для ингредиента idR
-    public  static void deleteHas(int idR){
+    public  void deleteHas(int idR){
         try {
             String command = String.format("SELECT * FROM %s WHERE %s = ?",
                     ConstDb.RECIPE_HAS_INGREDIENT_TABLE, ConstDb.RECIPE_HAS_RECIPE_ID);

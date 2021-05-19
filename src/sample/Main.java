@@ -38,7 +38,8 @@ public class Main extends Application {
         launch(args);
 
 
-        IngredientHandler.deleteUselessIngredients(); // Удаление ненужных ингредиентов из БД
+        // to do
+        new IngredientHandler().deleteUselessIngredients(); // Удаление ненужных ингредиентов из БД
         DatabaseHandler.closeConnection();            // Закрытие потоков для работы с SQL
     }
 

@@ -84,7 +84,7 @@ public class RecipeController implements Controllers {
 
         // Кнопка удалить рецепт
         buttonDelete.setOnAction(actionEvent -> {
-            RecipeHandler.deleteRecipes(recipe.getIdR());
+            new RecipeHandler().deleteRecipes(recipe.getIdR());
 
             buttonDelete.getScene().getWindow().hide();
             Main.showWindow("fxml/sample.fxml");

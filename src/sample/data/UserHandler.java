@@ -9,7 +9,7 @@ import java.sql.SQLException;
 public class UserHandler extends DatabaseHandler {
 
     // Добавить юзера в БД
-    public static void addUser(String nameUser, String password) {
+    public void addUser(String nameUser, String password) {
         String command = String.format("INSERT INTO %s(%s, %s) VALUES ('%s','%s');",
                 ConstDb.USER_TABLE, ConstDb.USER_NAME, ConstDb.USER_PASSWORD,
                 nameUser, password);
@@ -19,7 +19,7 @@ public class UserHandler extends DatabaseHandler {
     }
 
     // Вывести в консоль инфу о всех юзерах
-    public static void printUsers() {
+    public void printUsers() {
         try {
             resultSet = getResultSet(ConstDb.USER_TABLE);
 
@@ -37,7 +37,7 @@ public class UserHandler extends DatabaseHandler {
     }
 
     // Поиск юзера в БД и установка его как текущего пользователя
-    public static void setUser(int id) {
+    public void setUser(int id) {
         String command = String.format("SELECT * FROM %s WHERE %s = %d",
                 ConstDb.USER_TABLE, ConstDb.USER_ID, id);
         PreparedStatement preparedStatement = getPreparedStatement(command);
@@ -59,7 +59,7 @@ public class UserHandler extends DatabaseHandler {
     }
 
     // Поиск юзера в БД и установка его как текущего пользователя
-    public static boolean setUser(String name, String password) {
+    public boolean setUser(String name, String password) {
         String command = String.format("SELECT * FROM %s WHERE %s = ? AND %s = ?",
                 ConstDb.USER_TABLE, ConstDb.USER_NAME, ConstDb.USER_PASSWORD);
         PreparedStatement preparedStatement = getPreparedStatement(command);
@@ -87,7 +87,7 @@ public class UserHandler extends DatabaseHandler {
     }
 
     // Поиск юзера
-    public static boolean findUser(String name, String password) {
+    public boolean findUser(String name, String password) {
         String command = String.format("SELECT * FROM %s WHERE %s = ? AND %s = ?",
                 ConstDb.USER_TABLE, ConstDb.USER_NAME, ConstDb.USER_PASSWORD);
         PreparedStatement preparedStatement = getPreparedStatement(command);
@@ -98,10 +98,7 @@ public class UserHandler extends DatabaseHandler {
 
             ResultSet resultSet = preparedStatement.executeQuery();
 
-            if (resultSet.next()) {
-                return true;
-
-            } else return false;
+            return  resultSet.next();
 
         } catch (SQLException throwables) {
             throwables.printStackTrace();
@@ -110,9 +107,9 @@ public class UserHandler extends DatabaseHandler {
     }
 
     // Удаление юзера по id
-    public static void deleteUser(int id) {
+    public void deleteUser(int id) {
 
-        RecipeHandler.deleteUserRecipes(id);
+        recipeHandler.deleteUserRecipes(id);
 
         String command = String.format("DELETE FROM %s WHERE %s = %d;",
                 ConstDb.USER_TABLE, ConstDb.USER_ID, id);

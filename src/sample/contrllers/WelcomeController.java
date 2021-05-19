@@ -74,7 +74,7 @@ public class WelcomeController implements Controllers {
 
 
             if (isPasswordOrLoginOk(login) && isPasswordOrLoginOk(password)) {
-                if (!UserHandler.setUser(login, password)) {
+                if (! new UserHandler().setUser(login, password)) {
                     loginText.setText("Wrong login or password");
                 } else {
                     buttonLogIn.getScene().getWindow().hide();
@@ -85,10 +85,10 @@ public class WelcomeController implements Controllers {
         });
 
         buttonEnterWithoutLogin.setOnAction(actionEvent -> {
-            if (!UserHandler.findUser("Default", "0000"))
-                UserHandler.addUser("Default", "0000");
+            if (! new UserHandler().findUser("Default", "0000"))
+                new UserHandler().addUser("Default", "0000");
 
-            UserHandler.setUser("Default", "0000");
+            new UserHandler().setUser("Default", "0000");
             buttonEnterWithoutLogin.getScene().getWindow().hide();
             Main.showWindow("fxml/sample.fxml");
         });
@@ -114,11 +114,11 @@ public class WelcomeController implements Controllers {
                 registrPasswordText.setText("");
 
             if (isPasswordOrLoginOk(login) && isPasswordOrLoginOk(password) && password.equals(repeatPassword)) {
-                if (UserHandler.findUser(login, password)) {
+                if (new UserHandler().findUser(login, password)) {
                     registrLoginText.setText("Login is used");
                 } else {
-                    UserHandler.addUser(login, password);
-                    UserHandler.setUser(login, password);
+                    new UserHandler().addUser(login, password);
+                    new UserHandler().setUser(login, password);
 
                     buttonSignUp.getScene().getWindow().hide();
                     Main.showWindow("fxml/sample.fxml");
@@ -127,7 +127,7 @@ public class WelcomeController implements Controllers {
         });
     }
 
-    private static boolean isPasswordOrLoginOk(String text) {
+    private boolean isPasswordOrLoginOk(String text) {
         if (text.equals(""))
             return false;
 

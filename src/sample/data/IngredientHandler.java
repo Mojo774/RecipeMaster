@@ -8,7 +8,7 @@ import java.util.HashSet;
 public class IngredientHandler extends DatabaseHandler {
 
     // Возвращает id ингредиента по имени
-    public static int getIngredientId(String name) {
+    public  int getIngredientId(String name) {
         String command = String.format("SELECT * FROM %s WHERE %s = ?",
                 ConstDb.INGREDIENT_TABLE, ConstDb.INGREDIENT_NAME);
 
@@ -34,7 +34,7 @@ public class IngredientHandler extends DatabaseHandler {
     }
 
     // Создание ингредиента с именем
-    public static int createIngredient(String name) {
+    public int createIngredient(String name) {
         String command = String.format("INSERT INTO %s(%s) VALUES (?);",
                 ConstDb.INGREDIENT_TABLE, ConstDb.INGREDIENT_NAME);
 
@@ -50,7 +50,7 @@ public class IngredientHandler extends DatabaseHandler {
     }
 
     // Получить id последнего ингредиента из БД
-    public static int getLastId() {
+    public int getLastId() {
         int lastId = 0;
 
         String command = String.format("SELECT * FROM %s ORDER BY %s DESC LIMIT 1;",
@@ -72,8 +72,8 @@ public class IngredientHandler extends DatabaseHandler {
     }
 
     // Удалить все ингредиенты и значения из таблицы связей _HAS_
-    public static void deleteIngredients() {
-        Recipe_has_ingredientHandler.deleteHas();
+    public void deleteIngredients() {
+        recipe_has_ingredientHandler.deleteHas();
 
         try {
             String command = String.format("SELECT * FROM %s WHERE %s < ?",
@@ -81,7 +81,7 @@ public class IngredientHandler extends DatabaseHandler {
             preparedStatement = getPreparedStatement(String.format(command));
 
 
-            preparedStatement.setInt(1, IngredientHandler.getLastId() + 1);
+            preparedStatement.setInt(1, getLastId() + 1);
 
             resultSet = preparedStatement.executeQuery();
 
@@ -92,7 +92,7 @@ public class IngredientHandler extends DatabaseHandler {
                 useCommand(command);
             }
 
-            DatabaseHandler.resetIncrement(ConstDb.INGREDIENT_TABLE);
+            resetIncrement(ConstDb.INGREDIENT_TABLE);
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -101,7 +101,7 @@ public class IngredientHandler extends DatabaseHandler {
     }
 
     // Удалить ингредиент id
-    public static void deleteIngredients(int id) {
+    public void deleteIngredients(int id) {
 
         try {
             preparedStatement = getPreparedStatement(String.format("SELECT * FROM %s WHERE %s = ?",
@@ -127,14 +127,14 @@ public class IngredientHandler extends DatabaseHandler {
     }
 
     // Удаляет те ингредиенты, которые не используются в рецептах
-    public static void deleteUselessIngredients() {
-        HashSet<Integer> setId = Recipe_has_ingredientHandler.getIngredientsId();
+    public  void deleteUselessIngredients() {
+        HashSet<Integer> setId = recipe_has_ingredientHandler.getIngredientsId();
 
         try {
             String command = String.format("SELECT * FROM %s WHERE %s < ?",
                     ConstDb.INGREDIENT_TABLE, ConstDb.INGREDIENT_ID);
             PreparedStatement preparedStatement = getPreparedStatement(command);
-            preparedStatement.setInt(1, IngredientHandler.getLastId() + 1);
+            preparedStatement.setInt(1, getLastId() + 1);
 
             ResultSet resultSet = preparedStatement.executeQuery();
 
@@ -154,5 +154,6 @@ public class IngredientHandler extends DatabaseHandler {
         }
 
     }
+
 
 }

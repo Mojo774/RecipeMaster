@@ -1,9 +1,12 @@
 package sample.recipe_package;
 
+import sample.data.DatabaseHandler;
 import sample.data.UserHandler;
 
 public class test {
     public static void main(String[] args) {
-        UserHandler.addUser("Default","0000");
+        new UserHandler().addUser("Default","0000");
+        DatabaseHandler d = new DatabaseHandler();
+
     }
 }

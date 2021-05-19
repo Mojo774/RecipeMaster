@@ -39,6 +39,7 @@ public class RecipeHandler extends DatabaseHandler {
     void deleteRecipes(int id)
 
     */
+    protected RecipeHandler(){}
 
     // Получить лист рецептов текущего юзера
     public ArrayList<Recipe> getRecipes() {

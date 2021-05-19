@@ -8,7 +8,6 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
-import sample.data.RecipeHandler;
 import sample.Main;
 import sample.recipe_package.Description;
 import sample.recipe_package.Ingredient;
@@ -84,7 +83,7 @@ public class RecipeController implements Controllers {
 
         // Кнопка удалить рецепт
         buttonDelete.setOnAction(actionEvent -> {
-            new RecipeHandler().deleteRecipes(recipe.getIdR());
+            mainProcess.deleteRecipe(recipe.getIdR());
 
             buttonDelete.getScene().getWindow().hide();
             Main.showWindow("fxml/sample.fxml");

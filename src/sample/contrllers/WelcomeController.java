@@ -74,7 +74,7 @@ public class WelcomeController implements Controllers {
 
 
             if (isPasswordOrLoginOk(login) && isPasswordOrLoginOk(password)) {
-                if (! new UserHandler().setUser(login, password)) {
+                if (! mainProcess.setUser(login, password)) {
                     loginText.setText("Wrong login or password");
                 } else {
                     buttonLogIn.getScene().getWindow().hide();
@@ -85,10 +85,10 @@ public class WelcomeController implements Controllers {
         });
 
         buttonEnterWithoutLogin.setOnAction(actionEvent -> {
-            if (! new UserHandler().findUser("Default", "0000"))
-                new UserHandler().addUser("Default", "0000");
+            if (! mainProcess.findUser("Default", "0000"))
+                mainProcess.addUser("Default", "0000");
 
-            new UserHandler().setUser("Default", "0000");
+            mainProcess.setUser("Default", "0000");
             buttonEnterWithoutLogin.getScene().getWindow().hide();
             Main.showWindow("fxml/sample.fxml");
         });
@@ -114,11 +114,11 @@ public class WelcomeController implements Controllers {
                 registrPasswordText.setText("");
 
             if (isPasswordOrLoginOk(login) && isPasswordOrLoginOk(password) && password.equals(repeatPassword)) {
-                if (new UserHandler().findUser(login, password)) {
+                if (mainProcess.findUser(login, password)) {
                     registrLoginText.setText("Login is used");
                 } else {
-                    new UserHandler().addUser(login, password);
-                    new UserHandler().setUser(login, password);
+                   mainProcess.addUser(login, password);
+                   mainProcess.setUser(login, password);
 
                     buttonSignUp.getScene().getWindow().hide();
                     Main.showWindow("fxml/sample.fxml");

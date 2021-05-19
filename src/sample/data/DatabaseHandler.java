@@ -7,11 +7,20 @@ public class DatabaseHandler extends Configs {
     protected static ResultSet resultSet;
     protected static PreparedStatement preparedStatement;
 
+
     // Handlers
-    protected Recipe_has_ingredientHandler recipe_has_ingredientHandler = new Recipe_has_ingredientHandler();
-    protected IngredientHandler ingredientHandler = new IngredientHandler();
-    protected RecipeHandler recipeHandler = new RecipeHandler();
-    protected UserHandler userHandler = new UserHandler();
+    public Recipe_has_ingredientHandler recipe_has_ingredientHandler;
+    public IngredientHandler ingredientHandler ;
+    public RecipeHandler recipeHandler;
+    public UserHandler userHandler ;
+
+    public DatabaseHandler(){
+        recipe_has_ingredientHandler = new Recipe_has_ingredientHandler();
+        ingredientHandler = new IngredientHandler();
+        recipeHandler = new RecipeHandler();
+        userHandler = new UserHandler();
+    }
+
 
     // Create connection
     static {

@@ -8,6 +8,8 @@ import java.sql.SQLException;
 
 public class UserHandler extends DatabaseHandler {
 
+    protected UserHandler(){}
+
     // Добавить юзера в БД
     public void addUser(String nameUser, String password) {
         String command = String.format("INSERT INTO %s(%s, %s) VALUES ('%s','%s');",

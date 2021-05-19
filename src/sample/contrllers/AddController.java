@@ -24,7 +24,6 @@ import javafx.scene.control.TableColumn.CellEditEvent;
 
 import javafx.scene.control.TextField;
 import sample.contrllers.views.IngredientView;
-import sample.recipe_service.RecipesHelper;
 import sample.contrllers.views.IngredientViewHelper;
 
 
@@ -130,7 +129,7 @@ public class AddController implements Controllers {
             // Создание рецепта
             if (!textDescription.equals("") && !textName.equals("") && isOkViews(views)) {
 
-                new RecipesHelper().createRecipe(textName, textDescription, views, changeId);
+                mainProcess.createRecipe(textName, textDescription, views, changeId);
 
                 // Очистка страницы
                 clear();

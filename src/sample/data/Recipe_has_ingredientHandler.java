@@ -6,6 +6,9 @@ import java.util.HashSet;
 
 public class Recipe_has_ingredientHandler extends DatabaseHandler{
 
+
+    protected Recipe_has_ingredientHandler(){}
+
     // Получить id используемых ингредиентов
     public HashSet<Integer> getIngredientsId(){
         HashSet<Integer> setId = new HashSet<>();

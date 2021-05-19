@@ -7,6 +7,9 @@ import java.util.HashSet;
 
 public class IngredientHandler extends DatabaseHandler {
 
+    protected IngredientHandler(){
+
+    }
     // Возвращает id ингредиента по имени
     public  int getIngredientId(String name) {
         String command = String.format("SELECT * FROM %s WHERE %s = ?",

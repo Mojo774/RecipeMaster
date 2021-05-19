@@ -19,7 +19,6 @@ import javafx.scene.input.MouseEvent;
 import sample.Main;
 import sample.contrllers.views.RecipeView;
 import sample.contrllers.views.RecipeViewHelper;
-import sample.recipe_service.RecipesHelper;
 import sample.recipe_package.Recipe;
 
 public class Controller implements Controllers {
@@ -115,7 +114,7 @@ public class Controller implements Controllers {
                     }
 
                     // Получаем рецепт по id
-                    Recipe recipe = new RecipesHelper().getRecipes(idR).get(0);
+                    Recipe recipe = mainProcess.getRecipes(idR).get(0);
 
                     // Передаем его в окно (оно уже открыто в Main, поэтому берем его в windows)
                     RecipeController cl = (RecipeController) Main.getWindows().get("fxml/recipe.fxml").getController();
@@ -141,7 +140,7 @@ public class Controller implements Controllers {
     // Обновляет список рецептов и создает их табличный список
     private void upDate(){
 
-        ArrayList<Recipe> recipes = new RecipesHelper().getRecipes();
+        ArrayList<Recipe> recipes = mainProcess.getRecipes();
 
         views = new RecipeViewHelper().getViews(recipes);
 

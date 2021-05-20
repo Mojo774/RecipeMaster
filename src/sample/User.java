@@ -2,33 +2,38 @@ package sample;
 
 public class User {
 
-    private static int id;
-    private static String name;
-    private static String password;
+    private int id;
+    private String name;
+    private String password;
 
-    private User(){
-
+    public User() {
     }
 
-    public static void setUser(int id, String name, String password){
-        User.id = id;
-        User.name = name;
-        User.password = password;
+    public User(int id, String name, String password) {
+        this.id = id;
+        this.name = name;
+        this.password = password;
     }
 
-    public static void print(){
+    public void setUser(int id, String name, String password){
+        this.id = id;
+        this.name = name;
+        this.password = password;
+    }
+
+    public void print(){
         System.out.println(id + " " + name + " " + password);
     }
 
-    public static int getId() {
+    public int getId() {
         return id;
     }
 
-    public static String getName() {
+    public String getName() {
         return name;
     }
 
-    public static String getPassword() {
+    public String getPassword() {
         return password;
     }
 }

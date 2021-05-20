@@ -42,8 +42,7 @@ public class RecipeHandler extends DatabaseHandler {
     protected RecipeHandler(){}
 
     // Получить лист рецептов текущего юзера
-    public ArrayList<Recipe> getRecipes() {
-        int id = User.getId();
+    public ArrayList<Recipe> getRecipes(int id) {
         ArrayList<Recipe> recipes = new ArrayList<>();
 
         try {
@@ -157,8 +156,7 @@ public class RecipeHandler extends DatabaseHandler {
     }
 
     // Добавление рецепта в БД
-    public void setRecipe(Recipe recipe) {
-        int id = User.getId();
+    public void addRecipe(Recipe recipe, int id) {
 
         String command = String.format("INSERT INTO %s(%s, %s, %s, %s) VALUES (?,?,?,?);",
                 ConstDb.RECIPE_TABLE, ConstDb.RECIPE_NAME, ConstDb.RECIPE_USER_ID, ConstDb.RECIPE_DESCRIPTION, ConstDb.RECIPE_ID);

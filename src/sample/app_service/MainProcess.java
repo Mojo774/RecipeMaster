@@ -1,8 +1,7 @@
-package sample.recipe_service;
+package sample.app_service;
 
+import sample.User;
 import sample.contrllers.views.IngredientView;
-import sample.data.DatabaseHandler;
-import sample.data.RecipeHandler;
 import sample.recipe_package.Description;
 import sample.recipe_package.Ingredient;
 import sample.recipe_package.Recipe;
@@ -12,6 +11,8 @@ import java.util.List;
 
 public class MainProcess extends DatabaseProcess{
     private Recipe recipe;
+
+    private UserProcess userProcess;
 
 
     public ArrayList<Recipe> getRecipes(int id) {
@@ -23,7 +24,7 @@ public class MainProcess extends DatabaseProcess{
         //Выбрать из БД запись с пришедшим нам ИД, FirstOrDefault - ограничиться одной запись.
         //resipes = recipes.Where(recipe => recipe.id == id).FirstOrDefault()
 
-        var list = getRecipes();
+        var list = getRecipes(userProcess.getIdUser());
         for (Recipe recipe : list) {
             if (recipe.getIdR() == id)
                 recipes.add(recipe);
@@ -55,12 +56,12 @@ public class MainProcess extends DatabaseProcess{
             deleteRecipe(changeId);
             recipe = new Recipe(description, ingredients, changeId);
         } else {
-            recipe = new Recipe(description, ingredients, getIdR());
+            recipe = new Recipe(description, ingredients, getNewIdR());
         }
 
 
         // Добавление рецепта в БД
-        addRecipe(recipe);
+        addRecipe(recipe, userProcess.getIdUser());
 
     }
 
@@ -69,7 +70,7 @@ public class MainProcess extends DatabaseProcess{
     // Чтобы внести рецепт в БД нужно его сначало создать
     // А чтобы создать его нужно присвоить ему id
     // Поэтому я обращаюсь к БД беру последний (самый большой) id и присваиваю его рецепту
-    private int getIdR() {
+    private int getNewIdR() {
         int idR = getLastId() + 1;
 
         // Если база данных пустая и мы начнем создавать новые рецепты
@@ -84,4 +85,15 @@ public class MainProcess extends DatabaseProcess{
         return idR;
     }
 
+
+    public boolean setUser(String name, String password) {
+        User user = getUser(name, password);
+        userProcess = new UserProcess(user);
+
+        return true;
+    }
+
+    public int getIdUser(){
+        return userProcess.getIdUser();
+    }
 }

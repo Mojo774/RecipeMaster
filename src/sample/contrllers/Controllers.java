@@ -1,6 +1,6 @@
 package sample.contrllers;
 
-import sample.recipe_service.MainProcess;
+import sample.app_service.MainProcess;
 
 // Интерфейс-флаг всех контроллеров, нужен для хранения данных о окнах
 public interface Controllers {

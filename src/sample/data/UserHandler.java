@@ -39,7 +39,7 @@ public class UserHandler extends DatabaseHandler {
     }
 
     // Поиск юзера в БД и установка его как текущего пользователя
-    public void setUser(int id) {
+    public User getUser(int id) {
         String command = String.format("SELECT * FROM %s WHERE %s = %d",
                 ConstDb.USER_TABLE, ConstDb.USER_ID, id);
         PreparedStatement preparedStatement = getPreparedStatement(command);
@@ -48,20 +48,22 @@ public class UserHandler extends DatabaseHandler {
             ResultSet resultSet = preparedStatement.executeQuery();
 
             if (resultSet.next()) {
-                int Id = resultSet.getInt(ConstDb.USER_ID);
-                String Name = resultSet.getString(ConstDb.USER_NAME);
-                String Password = resultSet.getString(ConstDb.USER_PASSWORD);
+                int idUser = resultSet.getInt(ConstDb.USER_ID);
+                String nameUser = resultSet.getString(ConstDb.USER_NAME);
+                String passwordUser = resultSet.getString(ConstDb.USER_PASSWORD);
 
-                User.setUser(Id, Name, Password);
+                User user = new User(idUser,nameUser,passwordUser);
+                return user;
             }
 
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
+        return null;
     }
 
     // Поиск юзера в БД и установка его как текущего пользователя
-    public boolean setUser(String name, String password) {
+    public User getUser(String name, String password) {
         String command = String.format("SELECT * FROM %s WHERE %s = ? AND %s = ?",
                 ConstDb.USER_TABLE, ConstDb.USER_NAME, ConstDb.USER_PASSWORD);
         PreparedStatement preparedStatement = getPreparedStatement(command);
@@ -73,19 +75,21 @@ public class UserHandler extends DatabaseHandler {
             ResultSet resultSet = preparedStatement.executeQuery();
 
             if (resultSet.next()) {
-                int Id = resultSet.getInt(ConstDb.USER_ID);
-                String Name = resultSet.getString(ConstDb.USER_NAME);
-                String Password = resultSet.getString(ConstDb.USER_PASSWORD);
+                int idUser = resultSet.getInt(ConstDb.USER_ID);
+                String nameUser = resultSet.getString(ConstDb.USER_NAME);
+                String passwordUser = resultSet.getString(ConstDb.USER_PASSWORD);
 
-                User.setUser(Id, Name, Password);
-                return true;
+                //User.setUser(idUser, nameUser, passwordUser);
+                //
+                User user = new User(idUser,nameUser,passwordUser);
+                return user;
 
-            } else return false;
+            } else return null;
 
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
-        return false;
+        return null;
     }
 
     // Поиск юзера

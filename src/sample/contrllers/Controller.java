@@ -140,7 +140,7 @@ public class Controller implements Controllers {
     // Обновляет список рецептов и создает их табличный список
     private void upDate(){
 
-        ArrayList<Recipe> recipes = mainProcess.getRecipes();
+        ArrayList<Recipe> recipes = mainProcess.getRecipes(mainProcess.getIdUser());
 
         views = new RecipeViewHelper().getViews(recipes);
 

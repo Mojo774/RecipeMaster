@@ -4,10 +4,13 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.HashSet;
 
-public class Recipe_has_ingredientHandler extends DatabaseHandler{
+public class Recipe_has_ingredientHandler extends DatabaseConnector {
 
 
-    protected Recipe_has_ingredientHandler(){}
+    DatabaseHandler databaseHandler;
+    public Recipe_has_ingredientHandler (DatabaseHandler databaseHandler){
+        this.databaseHandler = databaseHandler;
+    }
 
     // Получить id используемых ингредиентов
     public HashSet<Integer> getIngredientsId(){
@@ -17,7 +20,7 @@ public class Recipe_has_ingredientHandler extends DatabaseHandler{
             String command = String.format("SELECT * FROM %s WHERE %s < ? ",
                     ConstDb.RECIPE_HAS_INGREDIENT_TABLE, ConstDb.RECIPE_HAS_RECIPE_ID);
             PreparedStatement preparedStatement = getPreparedStatement(command);
-            preparedStatement.setInt(1, new RecipeHandler().getLastId()+1);
+            preparedStatement.setInt(1, databaseHandler.getRecipeHandler().getLastId()+1);
 
             ResultSet resultSet = preparedStatement.executeQuery();
 
@@ -39,7 +42,7 @@ public class Recipe_has_ingredientHandler extends DatabaseHandler{
             String command = String.format("SELECT * FROM %s WHERE %s < ?",
                     ConstDb.RECIPE_HAS_INGREDIENT_TABLE, ConstDb.RECIPE_HAS_RECIPE_ID);
             PreparedStatement preparedStatement = getPreparedStatement(command);
-            preparedStatement.setInt(1, new RecipeHandler().getLastId()+1);
+            preparedStatement.setInt(1, databaseHandler.getRecipeHandler().getLastId()+1);
 
             ResultSet resultSet = preparedStatement.executeQuery();
 

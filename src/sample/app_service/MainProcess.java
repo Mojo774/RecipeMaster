@@ -15,24 +15,6 @@ public class MainProcess extends DatabaseProcess{
     private UserProcess userProcess;
 
 
-    public ArrayList<Recipe> getRecipes(int id) {
-        ArrayList<Recipe> recipes = new ArrayList<>();
-
-        //Выводи весь список
-        //EntityFramework c#
-
-        //Выбрать из БД запись с пришедшим нам ИД, FirstOrDefault - ограничиться одной запись.
-        //resipes = recipes.Where(recipe => recipe.id == id).FirstOrDefault()
-
-        var list = getRecipes(userProcess.getIdUser());
-        for (Recipe recipe : list) {
-            if (recipe.getIdR() == id)
-                recipes.add(recipe);
-        }
-
-        return recipes;
-    }
-
 
     public void createRecipe(String textName, String textDescription, List<IngredientView> views, int changeId) {
 
@@ -76,8 +58,7 @@ public class MainProcess extends DatabaseProcess{
         // Если база данных пустая и мы начнем создавать новые рецепты
         // метод сверху будет всегда возвращать 0 пока мы не внесем
         // хотя бы один рецепт в базу данных
-        while (getRecipes(idR).size() > 0) {
-            if (getRecipes(idR).get(0) != null)
+        while (findRecipe(idR)) {
                 idR++;
         }
 
@@ -87,10 +68,13 @@ public class MainProcess extends DatabaseProcess{
 
 
     public boolean setUser(String name, String password) {
-        User user = getUser(name, password);
-        userProcess = new UserProcess(user);
+        if (findUser(name, password)) {
+            User user = getUser(name, password);
+            userProcess = new UserProcess(user);
 
-        return true;
+            return true;
+        }
+        return false;
     }
 
     public int getIdUser(){

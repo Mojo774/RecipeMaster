@@ -3,15 +3,13 @@ package sample.data;
 import sample.recipe_package.Description;
 import sample.recipe_package.Ingredient;
 import sample.recipe_package.Recipe;
-import sample.User;
-
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-public class RecipeHandler extends DatabaseHandler {
-    private IngredientHandler ingredientHandler = new IngredientHandler();
+public class RecipeHandler extends DatabaseConnector {
+
     /* Список методов:
 
     Получить лист рецептов юзера
@@ -39,10 +37,45 @@ public class RecipeHandler extends DatabaseHandler {
     void deleteRecipes(int id)
 
     */
-    protected RecipeHandler(){}
+    DatabaseHandler databaseHandler;
+    public RecipeHandler (DatabaseHandler databaseHandler){
+        this.databaseHandler = databaseHandler;
+    }
+
+
+    // Получить рецепт по idR
+    public Recipe getRecipe(int idR){
+        Recipe recipe = null;
+
+        try {
+            String command = String.format("SELECT * FROM %s WHERE %s = ?",
+                    ConstDb.RECIPE_TABLE, ConstDb.RECIPE_ID);
+            preparedStatement = getPreparedStatement(command);
+            preparedStatement.setInt(1, idR);
+
+            ResultSet resultSet1 = preparedStatement.executeQuery();
+
+
+            if (resultSet1.next()) {
+                String name = resultSet1.getString(ConstDb.RECIPE_NAME);
+                String description = resultSet1.getString(ConstDb.RECIPE_DESCRIPTION);
+
+                Description description1 = new Description(description, name);
+
+                recipe = new Recipe(description1, getIngredients(idR), idR);
+
+
+            }
+
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return recipe;
+
+    }
 
     // Получить лист рецептов текущего юзера
-    public ArrayList<Recipe> getRecipes(int id) {
+    public ArrayList<Recipe> getRecipesUser(int id) {
         ArrayList<Recipe> recipes = new ArrayList<>();
 
         try {
@@ -186,7 +219,7 @@ public class RecipeHandler extends DatabaseHandler {
 
         for (Ingredient ingredient : ingredients) {
 
-            int idIng = ingredientHandler.getIngredientId(ingredient.getName());
+            int idIng = databaseHandler.getIngredientHandler().getIngredientId(ingredient.getName());
 
             command = String.format("INSERT INTO %s(%s, %s, %s) VALUES (?,?,?);",
                     ConstDb.RECIPE_HAS_INGREDIENT_TABLE,
@@ -209,7 +242,7 @@ public class RecipeHandler extends DatabaseHandler {
     }
 
     // Проверка наличия рецепта по id
-    public boolean FindRecipe(int idR) {
+    public boolean findRecipe(int idR) {
         preparedStatement = getPreparedStatement(String.format("SELECT * FROM %s WHERE %s = %d",
                 ConstDb.RECIPE_TABLE, ConstDb.RECIPE_ID, idR));
 
@@ -244,7 +277,7 @@ public class RecipeHandler extends DatabaseHandler {
                 useCommand(command2);
             }
 
-            DatabaseHandler.resetIncrement(ConstDb.RECIPE_TABLE);
+            DatabaseConnector.resetIncrement(ConstDb.RECIPE_TABLE);
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -254,10 +287,10 @@ public class RecipeHandler extends DatabaseHandler {
 
     // Удалить рецепт по id из БД вместе с ингредиентами
     public void deleteRecipes(int idR) {
-        if (!FindRecipe(idR)) // Проверка наличия рецепта в БД
+        if (!findRecipe(idR)) // Проверка наличия рецепта в БД
             return;
 
-        recipe_has_ingredientHandler.deleteHas(idR);
+        databaseHandler.getRecipe_has_ingredientHandler().deleteHas(idR);
 
         try {
             String command = String.format("SELECT * FROM %s WHERE %s = ?",

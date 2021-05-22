@@ -1,12 +1,11 @@
 package sample.recipe_package;
 
-import sample.data.DatabaseHandler;
-import sample.data.UserHandler;
+import sample.data.DatabaseConnector;
 
 public class test {
     public static void main(String[] args) {
         //new UserHandler().addUser("Default","0000");
-        DatabaseHandler d = new DatabaseHandler();
+        
 
     }
 }

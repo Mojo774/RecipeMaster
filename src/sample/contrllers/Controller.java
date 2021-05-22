@@ -114,7 +114,7 @@ public class Controller implements Controllers {
                     }
 
                     // Получаем рецепт по id
-                    Recipe recipe = mainProcess.getRecipes(idR).get(0);
+                    Recipe recipe = mainProcess.getRecipe(idR);
 
                     // Передаем его в окно (оно уже открыто в Main, поэтому берем его в windows)
                     RecipeController cl = (RecipeController) Main.getWindows().get("fxml/recipe.fxml").getController();
@@ -140,7 +140,7 @@ public class Controller implements Controllers {
     // Обновляет список рецептов и создает их табличный список
     private void upDate(){
 
-        ArrayList<Recipe> recipes = mainProcess.getRecipes(mainProcess.getIdUser());
+        ArrayList<Recipe> recipes = mainProcess.getRecipesUser(mainProcess.getIdUser());
 
         views = new RecipeViewHelper().getViews(recipes);
 

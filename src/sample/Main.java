@@ -5,8 +5,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import sample.data.DatabaseHandler;
-import sample.data.IngredientHandler;
+import sample.data.DatabaseConnector;
 
 import java.io.IOException;
 import java.util.*;
@@ -39,7 +38,7 @@ public class Main extends Application {
 
 
         // to do
-        DatabaseHandler.closeConnection();            // Закрытие потоков для работы с SQL
+        DatabaseConnector.closeConnection();            // Закрытие потоков для работы с SQL
     }
 
     // Создание окон, и добавление их в HashMap

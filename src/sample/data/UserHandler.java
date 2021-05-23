@@ -16,7 +16,7 @@ public class UserHandler extends DatabaseConnector {
     // Добавить юзера в БД
     public void addUser(String nameUser, String password) {
         String command = String.format("INSERT INTO %s(%s, %s) VALUES ('%s','%s');",
-                ConstDb.USER_TABLE, ConstDb.USER_NAME, ConstDb.USER_PASSWORD,
+                getConstDB("USER_TABLE"), getConstDB("USER_NAME"), getConstDB("USER_PASSWORD"),
                 nameUser, password);
 
 
@@ -26,13 +26,13 @@ public class UserHandler extends DatabaseConnector {
     // Вывести в консоль инфу о всех юзерах
     public void printUsers() {
         try {
-            resultSet = getResultSet(ConstDb.USER_TABLE);
+            resultSet = getResultSet(getConstDB("USER_TABLE"));
 
             while (resultSet.next()) {
 
-                int Id = resultSet.getInt(ConstDb.USER_ID);
-                String Name = resultSet.getString(ConstDb.USER_NAME);
-                String Password = resultSet.getString(ConstDb.USER_PASSWORD);
+                int Id = resultSet.getInt(getConstDB("USER_ID"));
+                String Name = resultSet.getString(getConstDB("USER_NAME"));
+                String Password = resultSet.getString(getConstDB("USER_PASSWORD"));
 
                 System.out.println(String.format("Id: %d Name: %s Password: %s", Id, Name, Password));
             }
@@ -43,17 +43,18 @@ public class UserHandler extends DatabaseConnector {
 
     // Поиск юзера в БД и установка его как текущего пользователя
     public User getUser(int id) {
+
         String command = String.format("SELECT * FROM %s WHERE %s = %d",
-                ConstDb.USER_TABLE, ConstDb.USER_ID, id);
+                getConstDB("USER_TABLE"), getConstDB("USER_ID"), id);
         PreparedStatement preparedStatement = getPreparedStatement(command);
 
         try {
             ResultSet resultSet = preparedStatement.executeQuery();
 
             if (resultSet.next()) {
-                int idUser = resultSet.getInt(ConstDb.USER_ID);
-                String nameUser = resultSet.getString(ConstDb.USER_NAME);
-                String passwordUser = resultSet.getString(ConstDb.USER_PASSWORD);
+                int idUser = resultSet.getInt(getConstDB("USER_ID"));
+                String nameUser = resultSet.getString(getConstDB("USER_NAME"));
+                String passwordUser = resultSet.getString(getConstDB("USER_PASSWORD"));
 
                 User user = new User(idUser,nameUser,passwordUser);
                 return user;
@@ -68,7 +69,7 @@ public class UserHandler extends DatabaseConnector {
     // Поиск юзера в БД и установка его как текущего пользователя
     public User getUser(String name, String password) {
         String command = String.format("SELECT * FROM %s WHERE %s = ? AND %s = ?",
-                ConstDb.USER_TABLE, ConstDb.USER_NAME, ConstDb.USER_PASSWORD);
+                getConstDB("USER_TABLE"), getConstDB("USER_NAME"), getConstDB("USER_PASSWORD"));
         PreparedStatement preparedStatement = getPreparedStatement(command);
 
         try {
@@ -78,9 +79,9 @@ public class UserHandler extends DatabaseConnector {
             ResultSet resultSet = preparedStatement.executeQuery();
 
             if (resultSet.next()) {
-                int idUser = resultSet.getInt(ConstDb.USER_ID);
-                String nameUser = resultSet.getString(ConstDb.USER_NAME);
-                String passwordUser = resultSet.getString(ConstDb.USER_PASSWORD);
+                int idUser = resultSet.getInt(getConstDB("USER_ID"));
+                String nameUser = resultSet.getString(getConstDB("USER_NAME"));
+                String passwordUser = resultSet.getString(getConstDB("USER_PASSWORD"));
 
                 //User.setUser(idUser, nameUser, passwordUser);
                 //
@@ -98,7 +99,7 @@ public class UserHandler extends DatabaseConnector {
     // Поиск юзера
     public boolean findUser(String name, String password) {
         String command = String.format("SELECT * FROM %s WHERE %s = ? AND %s = ?",
-                ConstDb.USER_TABLE, ConstDb.USER_NAME, ConstDb.USER_PASSWORD);
+                getConstDB("USER_TABLE"), getConstDB("USER_NAME"), getConstDB("USER_PASSWORD"));
         PreparedStatement preparedStatement = getPreparedStatement(command);
 
         try {
@@ -121,7 +122,7 @@ public class UserHandler extends DatabaseConnector {
         databaseHandler.getRecipeHandler().deleteUserRecipes(id);
 
         String command = String.format("DELETE FROM %s WHERE %s = %d;",
-                ConstDb.USER_TABLE, ConstDb.USER_ID, id);
+                getConstDB("USER_TABLE"), getConstDB("USER_ID"), id);
 
         useCommand(command);
 

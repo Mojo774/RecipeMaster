@@ -18,7 +18,7 @@ public class IngredientHandler extends DatabaseConnector {
     // Возвращает id ингредиента по имени
     public  int getIngredientId(String name) {
         String command = String.format("SELECT * FROM %s WHERE %s = ?",
-                ConstDb.INGREDIENT_TABLE, ConstDb.INGREDIENT_NAME);
+                getConstDB("INGREDIENT_TABLE"), getConstDB("INGREDIENT_NAME"));
 
         preparedStatement = getPreparedStatement(command);
 
@@ -29,7 +29,7 @@ public class IngredientHandler extends DatabaseConnector {
             resultSet = preparedStatement.executeQuery();
 
             if (resultSet.next())
-                id = resultSet.getInt(ConstDb.INGREDIENT_ID);
+                id = resultSet.getInt(getConstDB("INGREDIENT_ID"));
 
 
         } catch (SQLException throwables) {
@@ -44,7 +44,7 @@ public class IngredientHandler extends DatabaseConnector {
     // Создание ингредиента с именем
     public int createIngredient(String name) {
         String command = String.format("INSERT INTO %s(%s) VALUES (?);",
-                ConstDb.INGREDIENT_TABLE, ConstDb.INGREDIENT_NAME);
+                getConstDB("INGREDIENT_TABLE"), getConstDB("INGREDIENT_NAME"));
 
         preparedStatement = getPreparedStatement(command);
 
@@ -62,14 +62,14 @@ public class IngredientHandler extends DatabaseConnector {
         int lastId = 0;
 
         String command = String.format("SELECT * FROM %s ORDER BY %s DESC LIMIT 1;",
-                ConstDb.INGREDIENT_TABLE, ConstDb.INGREDIENT_ID);
+                getConstDB("INGREDIENT_TABLE"), getConstDB("INGREDIENT_ID"));
 
         preparedStatement = getPreparedStatement(command);
 
         try {
             resultSet = preparedStatement.executeQuery();
             if (resultSet.next())
-                lastId = resultSet.getInt(ConstDb.INGREDIENT_ID);
+                lastId = resultSet.getInt(getConstDB("INGREDIENT_ID"));
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -85,7 +85,7 @@ public class IngredientHandler extends DatabaseConnector {
 
         try {
             String command = String.format("SELECT * FROM %s WHERE %s < ?",
-                    ConstDb.INGREDIENT_TABLE, ConstDb.INGREDIENT_ID);
+                    getConstDB("INGREDIENT_TABLE"), getConstDB("INGREDIENT_ID"));
             preparedStatement = getPreparedStatement(String.format(command));
 
 
@@ -96,11 +96,11 @@ public class IngredientHandler extends DatabaseConnector {
             while (resultSet.next()) {
 
                 command = String.format("DELETE FROM %s WHERE %s < 100;",
-                        ConstDb.INGREDIENT_TABLE, ConstDb.INGREDIENT_ID);
+                        getConstDB("INGREDIENT_TABLE"), getConstDB("INGREDIENT_ID"));
                 useCommand(command);
             }
 
-            resetIncrement(ConstDb.INGREDIENT_TABLE);
+            resetIncrement(getConstDB("INGREDIENT_TABLE"));
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -113,7 +113,7 @@ public class IngredientHandler extends DatabaseConnector {
 
         try {
             preparedStatement = getPreparedStatement(String.format("SELECT * FROM %s WHERE %s = ?",
-                    ConstDb.INGREDIENT_TABLE, ConstDb.INGREDIENT_ID));
+                    getConstDB("INGREDIENT_TABLE"), getConstDB("INGREDIENT_ID")));
 
 
             preparedStatement.setInt(1, id);
@@ -123,7 +123,7 @@ public class IngredientHandler extends DatabaseConnector {
             if (resultSet.next()) {
 
                 String command = String.format("DELETE FROM %s WHERE %s = %d;",
-                        ConstDb.INGREDIENT_TABLE, ConstDb.INGREDIENT_ID, id);
+                        getConstDB("INGREDIENT_TABLE"), getConstDB("INGREDIENT_ID"), id);
                 useCommand(command);
             }
 
@@ -140,18 +140,18 @@ public class IngredientHandler extends DatabaseConnector {
 
         try {
             String command = String.format("SELECT * FROM %s WHERE %s < ?",
-                    ConstDb.INGREDIENT_TABLE, ConstDb.INGREDIENT_ID);
+                    getConstDB("INGREDIENT_TABLE"), getConstDB("INGREDIENT_ID"));
             PreparedStatement preparedStatement = getPreparedStatement(command);
             preparedStatement.setInt(1, getLastId() + 1);
 
             ResultSet resultSet = preparedStatement.executeQuery();
 
             while (resultSet.next()) {
-                Integer id = resultSet.getInt(ConstDb.INGREDIENT_ID);
+                Integer id = resultSet.getInt(getConstDB("INGREDIENT_ID"));
 
                 if (!setId.contains(id)) {
                     String command2 = String.format("DELETE FROM %s WHERE %s = %d;",
-                            ConstDb.INGREDIENT_TABLE, ConstDb.INGREDIENT_ID, id);
+                            getConstDB("INGREDIENT_TABLE"), getConstDB("INGREDIENT_ID"), id);
                     useCommand(command2);
                 }
             }

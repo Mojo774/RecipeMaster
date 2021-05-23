@@ -45,11 +45,12 @@ public class RecipeHandler extends DatabaseConnector {
 
     // Получить рецепт по idR
     public Recipe getRecipe(int idR){
+
         Recipe recipe = null;
 
         try {
             String command = String.format("SELECT * FROM %s WHERE %s = ?",
-                    ConstDb.RECIPE_TABLE, ConstDb.RECIPE_ID);
+                    getConstDB("RECIPE_TABLE"), getConstDB("RECIPE_ID"));
             preparedStatement = getPreparedStatement(command);
             preparedStatement.setInt(1, idR);
 
@@ -57,8 +58,8 @@ public class RecipeHandler extends DatabaseConnector {
 
 
             if (resultSet1.next()) {
-                String name = resultSet1.getString(ConstDb.RECIPE_NAME);
-                String description = resultSet1.getString(ConstDb.RECIPE_DESCRIPTION);
+                String name = resultSet1.getString(getConstDB("RECIPE_NAME"));
+                String description = resultSet1.getString(getConstDB("RECIPE_DESCRIPTION"));
 
                 Description description1 = new Description(description, name);
 
@@ -80,7 +81,7 @@ public class RecipeHandler extends DatabaseConnector {
 
         try {
             String command = String.format("SELECT * FROM %s WHERE %s = ?",
-                    ConstDb.RECIPE_TABLE, ConstDb.RECIPE_USER_ID);
+                    getConstDB("RECIPE_TABLE"), getConstDB("RECIPE_USER_ID"));
             preparedStatement = getPreparedStatement(command);
             preparedStatement.setInt(1, id);
 
@@ -88,9 +89,9 @@ public class RecipeHandler extends DatabaseConnector {
 
 
             while (resultSet1.next()) {
-                int idR = resultSet1.getInt(ConstDb.RECIPE_ID);
-                String name = resultSet1.getString(ConstDb.RECIPE_NAME);
-                String description = resultSet1.getString(ConstDb.RECIPE_DESCRIPTION);
+                int idR = resultSet1.getInt(getConstDB("RECIPE_ID"));
+                String name = resultSet1.getString(getConstDB("RECIPE_NAME"));
+                String description = resultSet1.getString(getConstDB("RECIPE_DESCRIPTION"));
 
                 Description description1 = new Description(description, name);
                 Recipe recipe = new Recipe(description1, getIngredients(idR), idR);
@@ -115,7 +116,7 @@ public class RecipeHandler extends DatabaseConnector {
 
         try {
             String command = String.format("SELECT * FROM %s WHERE %s = ?",
-                    ConstDb.RECIPE_HAS_INGREDIENT_TABLE, ConstDb.RECIPE_HAS_RECIPE_ID);
+                    getConstDB("RECIPE_HAS_INGREDIENT_TABLE"), getConstDB("RECIPE_HAS_RECIPE_ID"));
             preparedStatement = getPreparedStatement(command);
             preparedStatement.setInt(1, idR);
 
@@ -124,8 +125,8 @@ public class RecipeHandler extends DatabaseConnector {
 
             while (resultSet1.next()) {
 
-                int id = (resultSet1.getInt(ConstDb.RECIPE_HAS_INGREDIENT_ID));
-                String size = (resultSet1.getString(ConstDb.RECIPE_HAS_INGREDIENT_SIZE));
+                int id = (resultSet1.getInt(getConstDB("RECIPE_HAS_INGREDIENT_ID")));
+                String size = (resultSet1.getString(getConstDB("RECIPE_HAS_INGREDIENT_SIZE")));
 
                 ingredients.add(getOneIngredient(id, size));
 
@@ -145,14 +146,14 @@ public class RecipeHandler extends DatabaseConnector {
 
         try {
             String command = (String.format("SELECT * FROM %s WHERE %s = ?",
-                    ConstDb.INGREDIENT_TABLE, ConstDb.INGREDIENT_ID));
+                    getConstDB("INGREDIENT_TABLE"), getConstDB("INGREDIENT_ID")));
             preparedStatement = getPreparedStatement(command);
             preparedStatement.setInt(1, id);
 
             ResultSet resultSet1 = preparedStatement.executeQuery();
 
             if (resultSet1.next()) {
-                String name = resultSet1.getString(ConstDb.INGREDIENT_NAME);
+                String name = resultSet1.getString(getConstDB("INGREDIENT_NAME"));
 
                 ingredient = new Ingredient(name, size);
             }
@@ -170,7 +171,7 @@ public class RecipeHandler extends DatabaseConnector {
         int lastId = 0;
 
         String command = String.format("SELECT * FROM %s ORDER BY %s DESC LIMIT 1;",
-                ConstDb.RECIPE_TABLE, ConstDb.RECIPE_ID);
+                getConstDB("RECIPE_TABLE"), getConstDB("RECIPE_ID"));
 
         preparedStatement = getPreparedStatement(command);
 
@@ -178,7 +179,7 @@ public class RecipeHandler extends DatabaseConnector {
         try {
             resultSet = preparedStatement.executeQuery();
             if (resultSet.next())
-                lastId = resultSet.getInt(ConstDb.RECIPE_ID);
+                lastId = resultSet.getInt(getConstDB("RECIPE_ID"));
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -192,7 +193,7 @@ public class RecipeHandler extends DatabaseConnector {
     public void addRecipe(Recipe recipe, int id) {
 
         String command = String.format("INSERT INTO %s(%s, %s, %s, %s) VALUES (?,?,?,?);",
-                ConstDb.RECIPE_TABLE, ConstDb.RECIPE_NAME, ConstDb.RECIPE_USER_ID, ConstDb.RECIPE_DESCRIPTION, ConstDb.RECIPE_ID);
+                getConstDB("RECIPE_TABLE"), getConstDB("RECIPE_NAME"), getConstDB("RECIPE_USER_ID"), getConstDB("RECIPE_DESCRIPTION"), getConstDB("RECIPE_ID"));
 
         PreparedStatement preparedStatement = getPreparedStatement(command);
 
@@ -222,8 +223,8 @@ public class RecipeHandler extends DatabaseConnector {
             int idIng = databaseHandler.getIngredientHandler().getIngredientId(ingredient.getName());
 
             command = String.format("INSERT INTO %s(%s, %s, %s) VALUES (?,?,?);",
-                    ConstDb.RECIPE_HAS_INGREDIENT_TABLE,
-                    ConstDb.RECIPE_HAS_RECIPE_ID, ConstDb.RECIPE_HAS_INGREDIENT_SIZE, ConstDb.RECIPE_HAS_INGREDIENT_ID);
+                    getConstDB("RECIPE_HAS_INGREDIENT_TABLE"),
+                    getConstDB("RECIPE_HAS_RECIPE_ID"), getConstDB("RECIPE_HAS_INGREDIENT_SIZE"), getConstDB("RECIPE_HAS_INGREDIENT_ID"));
             preparedStatement = getPreparedStatement(command);
 
 
@@ -244,7 +245,7 @@ public class RecipeHandler extends DatabaseConnector {
     // Проверка наличия рецепта по id
     public boolean findRecipe(int idR) {
         preparedStatement = getPreparedStatement(String.format("SELECT * FROM %s WHERE %s = %d",
-                ConstDb.RECIPE_TABLE, ConstDb.RECIPE_ID, idR));
+                getConstDB("RECIPE_TABLE"), getConstDB("RECIPE_ID"), idR));
 
         try {
             resultSet = preparedStatement.executeQuery();
@@ -264,7 +265,7 @@ public class RecipeHandler extends DatabaseConnector {
 
         try {
             String command = String.format("SELECT * FROM %s WHERE %s < ?",
-                    ConstDb.RECIPE_TABLE, ConstDb.RECIPE_ID);
+                    getConstDB("RECIPE_TABLE"), getConstDB("RECIPE_ID"));
             preparedStatement = getPreparedStatement(command);
             preparedStatement.setInt(1, getLastId() + 1);
 
@@ -273,11 +274,11 @@ public class RecipeHandler extends DatabaseConnector {
             while (resultSet.next()) {
 
                 String command2 = String.format("DELETE FROM %s WHERE %s < 100;",
-                        ConstDb.RECIPE_TABLE, ConstDb.RECIPE_ID);
+                        getConstDB("RECIPE_TABLE"), getConstDB("RECIPE_ID"));
                 useCommand(command2);
             }
 
-            DatabaseConnector.resetIncrement(ConstDb.RECIPE_TABLE);
+            DatabaseConnector.resetIncrement(getConstDB("RECIPE_TABLE"));
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -294,7 +295,7 @@ public class RecipeHandler extends DatabaseConnector {
 
         try {
             String command = String.format("SELECT * FROM %s WHERE %s = ?",
-                    ConstDb.RECIPE_TABLE, ConstDb.RECIPE_ID);
+                    getConstDB("RECIPE_TABLE"), getConstDB("RECIPE_ID"));
             PreparedStatement preparedStatement = getPreparedStatement(command);
             preparedStatement.setInt(1, idR);
 
@@ -303,7 +304,7 @@ public class RecipeHandler extends DatabaseConnector {
             if (resultSet.next()) {
 
                 String command2 = String.format("DELETE FROM %s WHERE %s = %d;",
-                        ConstDb.RECIPE_TABLE, ConstDb.RECIPE_ID, idR);
+                        getConstDB("RECIPE_TABLE"), getConstDB("RECIPE_ID"), idR);
 
                 useCommand(command2);
             }
@@ -325,14 +326,14 @@ public class RecipeHandler extends DatabaseConnector {
 
         try {
             String command = String.format("SELECT * FROM %s WHERE %s = ?",
-                    ConstDb.RECIPE_TABLE, ConstDb.RECIPE_USER_ID);
+                    getConstDB("RECIPE_TABLE"), getConstDB("RECIPE_USER_ID"));
             PreparedStatement preparedStatement = getPreparedStatement(command);
             preparedStatement.setInt(1, id);
 
             ResultSet resultSet = preparedStatement.executeQuery();
 
             while (resultSet.next()) {
-                int idR = resultSet.getInt(ConstDb.RECIPE_ID);
+                int idR = resultSet.getInt(getConstDB("RECIPE_ID"));
                 deleteRecipes(idR);
             }
 

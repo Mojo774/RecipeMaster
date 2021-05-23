@@ -1,30 +1,50 @@
 package sample.data;
 
+import java.io.IOException;
 import java.sql.*;
-import java.time.format.DateTimeFormatter;
+import java.util.Properties;
 
 public class DatabaseConnector extends Configs {
     protected static Connection connection;
     protected static ResultSet resultSet;
     protected static PreparedStatement preparedStatement;
 
+    protected static Properties ConstDB = new Properties();
+    private static Properties configs = new Properties();
+
 
 
     // Create connection
     static {
+        try {
+            configs.load(DatabaseConnector.class.getResourceAsStream("/sample/assets/properties/configs.properties"));
+            ConstDB.load(DatabaseConnector.class.getResourceAsStream("/sample/assets/properties/DB.properties"));
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+
         String connectionString = String.format("jdbc:mysql://%s:%s/%s?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC",
-                dbHost, dbPort, dbName);
+                getConfigs("dbHost"),getConfigs("dbPort"),getConfigs("dbName"));
 
         // Class.forName("com.mysql.cj.jdbc.driver");
 
         try {
-            connection = DriverManager.getConnection(connectionString, dbUser, dbPass);
+            connection = DriverManager.getConnection(connectionString, getConfigs("dbUser"), getConfigs("dbPass"));
         } catch (SQLException e) {
             e.printStackTrace();
         }
 
     }
 
+    private static String getConfigs (String key){
+        return configs.getProperty(key);
+    }
+
+    protected static String getConstDB (String key){
+        return ConstDB.getProperty(key);
+    }
 
     // Получить значения всех строк таблицы tableName
     public static ResultSet getResultSet(String tableName) {

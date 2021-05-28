@@ -9,12 +9,15 @@ import sample.recipe_package.Recipe;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainProcess extends DatabaseProcess{
+public class MainProcess{
     private Recipe recipe;
 
     private UserProcess userProcess;
+    private DatabaseProcess databaseProcess;
 
-
+    public MainProcess() {
+        this.databaseProcess = new DatabaseProcess();
+    }
 
     public void createRecipe(String textName, String textDescription, List<IngredientView> views, int changeId) {
 
@@ -35,7 +38,7 @@ public class MainProcess extends DatabaseProcess{
 
         // Если рецепт отредактирован - удалить старый
         if (changeId != -1) {
-            deleteRecipe(changeId);
+            databaseProcess.deleteRecipe(changeId);
             recipe = new Recipe(description, ingredients, changeId);
         } else {
             recipe = new Recipe(description, ingredients, getNewIdR());
@@ -43,7 +46,7 @@ public class MainProcess extends DatabaseProcess{
 
 
         // Добавление рецепта в БД
-        addRecipe(recipe, userProcess.getIdUser());
+        databaseProcess.addRecipe(recipe, userProcess.getIdUser());
 
     }
 
@@ -53,12 +56,12 @@ public class MainProcess extends DatabaseProcess{
     // А чтобы создать его нужно присвоить ему id
     // Поэтому я обращаюсь к БД беру последний (самый большой) id и присваиваю его рецепту
     private int getNewIdR() {
-        int idR = getLastId() + 1;
+        int idR = databaseProcess.getLastId() + 1;
 
         // Если база данных пустая и мы начнем создавать новые рецепты
         // метод сверху будет всегда возвращать 0 пока мы не внесем
         // хотя бы один рецепт в базу данных
-        while (findRecipe(idR)) {
+        while (databaseProcess.findRecipe(idR)) {
                 idR++;
         }
 
@@ -68,8 +71,8 @@ public class MainProcess extends DatabaseProcess{
 
 
     public boolean setUser(String name, String password) {
-        if (findUser(name, password)) {
-            User user = getUser(name, password);
+        if (databaseProcess.findUser(name, password)) {
+            User user = databaseProcess.getUser(name, password);
             userProcess = new UserProcess(user);
 
             return true;

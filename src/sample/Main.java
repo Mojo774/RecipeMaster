@@ -47,7 +47,6 @@ public class Main extends Application {
         Stage stage = new Stage();
         FXMLLoader loader = new FXMLLoader(getClass().getResource(fileName));
 
-
         root = loader.load();
         stage.setTitle("Hello World");
         stage.setScene(new Scene(root, 1280, 768));
@@ -89,5 +88,3 @@ public class Main extends Application {
 
 
 }
-// Ingredient_IngredientId
-// Ingredient_IngredientId

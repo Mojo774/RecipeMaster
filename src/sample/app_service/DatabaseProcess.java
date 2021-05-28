@@ -6,7 +6,7 @@ import sample.recipe_package.Recipe;
 
 import java.util.ArrayList;
 
-public class DatabaseProcess {
+class DatabaseProcess {
     // handlers
     protected DatabaseHandler databaseHandler;
 
@@ -53,6 +53,5 @@ public class DatabaseProcess {
     public boolean findUser(String name, String password) {
         return databaseHandler.getUserHandler().findUser(name, password);
     }
-
 
 }

@@ -88,7 +88,6 @@ public class IngredientHandler extends DatabaseConnector {
                     getConstDB("INGREDIENT_TABLE"), getConstDB("INGREDIENT_ID"));
             preparedStatement = getPreparedStatement(String.format(command));
 
-
             preparedStatement.setInt(1, getLastId() + 1);
 
             resultSet = preparedStatement.executeQuery();

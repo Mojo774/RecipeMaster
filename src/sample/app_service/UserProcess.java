@@ -2,7 +2,7 @@ package sample.app_service;
 
 import sample.User;
 
-public class UserProcess {
+class UserProcess {
     private User user;
 
     public UserProcess(User user) {

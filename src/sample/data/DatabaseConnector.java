@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.sql.*;
 import java.util.Properties;
 
-public class DatabaseConnector extends Configs {
+public class DatabaseConnector {
     protected static Connection connection;
     protected static ResultSet resultSet;
     protected static PreparedStatement preparedStatement;
@@ -16,6 +16,7 @@ public class DatabaseConnector extends Configs {
 
     // Create connection
     static {
+        // Загрузка Properties
         try {
             configs.load(DatabaseConnector.class.getResourceAsStream("/sample/assets/properties/configs.properties"));
             ConstDB.load(DatabaseConnector.class.getResourceAsStream("/sample/assets/properties/DB.properties"));
@@ -38,11 +39,11 @@ public class DatabaseConnector extends Configs {
 
     }
 
-    private static String getConfigs (String key){
+    private static String getConfigs (String key) {
         return configs.getProperty(key);
     }
 
-    protected static String getConstDB (String key){
+    protected static String getConstDB (String key) {
         return ConstDB.getProperty(key);
     }
 

@@ -29,11 +29,11 @@ public class Ingredient {
         this.size = size;
     }
 
-    public String getString(){
+    public String getString() {
         String str;
 
         if (size != null)
-        str = name + " Кол-во " + size;
+            str = name + " Кол-во " + size;
         else str = name;
 
         return str;

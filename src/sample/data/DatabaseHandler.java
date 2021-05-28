@@ -5,9 +5,9 @@ public class DatabaseHandler {
 
     // Handlers
     private Recipe_has_ingredientHandler recipe_has_ingredientHandler;
-    private IngredientHandler ingredientHandler ;
+    private IngredientHandler ingredientHandler;
     private RecipeHandler recipeHandler;
-    private UserHandler userHandler ;
+    private UserHandler userHandler;
 
     public DatabaseHandler() {
 
@@ -20,7 +20,7 @@ public class DatabaseHandler {
     }
 
     // удаляет поля во всех таблицах кроме юзера, и сбрасывает инкремент
-    public  void clear() {
+    public void clear() {
 
         ingredientHandler.deleteIngredients();
         recipeHandler.deleteRecipes();

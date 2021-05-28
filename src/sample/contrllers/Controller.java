@@ -104,7 +104,7 @@ public class Controller implements Controllers {
                     // Нажатие
 
                     // Получаем индекс строки
-                    int num = row.getIndex() +1; // +1 потому что в javaFx первая строка = 0, а у меня она = 1
+                    int num = row.getIndex() + 1; // +1 потому что в javaFx первая строка = 0, а у меня она = 1
 
                     int idR = -1;
                     // Получаем id по number
@@ -138,7 +138,7 @@ public class Controller implements Controllers {
     }
 
     // Обновляет список рецептов и создает их табличный список
-    private void upDate(){
+    private void upDate() {
         ArrayList<Recipe> recipes = mainProcess.getRecipesUser(mainProcess.getIdUser());
 
         views = new RecipeViewHelper().getViews(recipes);

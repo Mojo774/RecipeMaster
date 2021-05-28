@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 // Интерфейс-флаг всех контроллеров, нужен для хранения данных о окнах
- public interface Controllers {
+public interface Controllers {
     // addscoped()
     MainProcess mainProcess = new MainProcess();
 
@@ -19,7 +19,7 @@ import java.util.HashMap;
 
 
     // Показать окно
-     static void showWindow(String nameFile) {
+    static void showWindow(String nameFile) {
         try {
 
             getWindows().get(nameFile).getStage().show();
@@ -31,11 +31,11 @@ import java.util.HashMap;
     }
 
     // показать окно для кнопки Back
-     static boolean showIf() {
+    static boolean showIf() {
         return (queue.size()) > 1;
     }
 
-     static void showWindowBack() {
+    static void showWindowBack() {
         queue.remove(queue.size() - 1);
         String str = queue.get(queue.size() - 1);
         queue.remove(queue.size() - 1);

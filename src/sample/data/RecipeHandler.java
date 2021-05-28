@@ -3,6 +3,7 @@ package sample.data;
 import sample.recipe_package.Description;
 import sample.recipe_package.Ingredient;
 import sample.recipe_package.Recipe;
+
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -38,13 +39,14 @@ public class RecipeHandler extends DatabaseConnector {
 
     */
     DatabaseHandler databaseHandler;
-    public RecipeHandler (DatabaseHandler databaseHandler){
+
+    public RecipeHandler(DatabaseHandler databaseHandler) {
         this.databaseHandler = databaseHandler;
     }
 
 
     // Получить рецепт по idR
-    public Recipe getRecipe(int idR){
+    public Recipe getRecipe(int idR) {
 
         Recipe recipe = null;
 
@@ -319,9 +321,6 @@ public class RecipeHandler extends DatabaseConnector {
 
     // Удалить рецепты юзера по его id
     public void deleteUserRecipes(int id) {
-
-
-
 
 
         try {

@@ -13,7 +13,6 @@ public class DatabaseConnector {
     private static Properties configs = new Properties();
 
 
-
     // Create connection
     static {
         // Загрузка Properties
@@ -27,7 +26,7 @@ public class DatabaseConnector {
 
 
         String connectionString = String.format("jdbc:mysql://%s:%s/%s?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC",
-                getConfigs("dbHost"),getConfigs("dbPort"),getConfigs("dbName"));
+                getConfigs("dbHost"), getConfigs("dbPort"), getConfigs("dbName"));
 
         // Class.forName("com.mysql.cj.jdbc.driver");
 
@@ -39,11 +38,11 @@ public class DatabaseConnector {
 
     }
 
-    private static String getConfigs (String key) {
+    private static String getConfigs(String key) {
         return configs.getProperty(key);
     }
 
-    protected static String getConstDB (String key) {
+    protected static String getConstDB(String key) {
         return ConstDB.getProperty(key);
     }
 
@@ -89,13 +88,13 @@ public class DatabaseConnector {
     public static void closeConnection() {
         try {
             if (connection != null)
-            connection.close();
+                connection.close();
 
             if (preparedStatement != null)
-            preparedStatement.close();
+                preparedStatement.close();
 
             if (resultSet != null)
-            resultSet.close();
+                resultSet.close();
 
         } catch (SQLException throwables) {
             throwables.printStackTrace();

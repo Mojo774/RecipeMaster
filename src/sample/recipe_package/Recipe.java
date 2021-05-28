@@ -19,7 +19,6 @@ public class Recipe {
     }
 
 
-
     public void setDescription(Description description) {
         this.description = description;
     }
@@ -44,7 +43,7 @@ public class Recipe {
         this.idR = id;
     }
 
-    public RecipeView getTableView(){
+    public RecipeView getTableView() {
         return new RecipeView(this);
     }
 

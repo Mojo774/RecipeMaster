@@ -9,11 +9,10 @@ import sample.recipe_package.Recipe;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainProcess extends DatabaseProcess{
+public class MainProcess extends DatabaseProcess {
     private Recipe recipe;
 
     private UserProcess userProcess;
-
 
 
     public void createRecipe(String textName, String textDescription, List<IngredientView> views, int changeId) {
@@ -59,7 +58,7 @@ public class MainProcess extends DatabaseProcess{
         // метод сверху будет всегда возвращать 0 пока мы не внесем
         // хотя бы один рецепт в базу данных
         while (findRecipe(idR)) {
-                idR++;
+            idR++;
         }
 
 
@@ -77,7 +76,7 @@ public class MainProcess extends DatabaseProcess{
         return false;
     }
 
-    public int getIdUser(){
+    public int getIdUser() {
         return userProcess.getIdUser();
     }
 

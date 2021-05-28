@@ -60,7 +60,6 @@ public class WelcomeController implements Controllers {
     void initialize() {
 
 
-
         buttonLogIn.setOnAction(actionEvent -> {
             String login = loginField.getText();
             String password = passwordField.getText();
@@ -77,7 +76,7 @@ public class WelcomeController implements Controllers {
 
 
             if (isPasswordOrLoginOk(login) && isPasswordOrLoginOk(password)) {
-                if (! mainProcess.setUser(login, password)) {
+                if (!mainProcess.setUser(login, password)) {
                     loginText.setText("Wrong login or password");
                 } else {
                     buttonLogIn.getScene().getWindow().hide();
@@ -88,7 +87,7 @@ public class WelcomeController implements Controllers {
         });
 
         buttonEnterWithoutLogin.setOnAction(actionEvent -> {
-            if (! mainProcess.findUser("Default", "0000"))
+            if (!mainProcess.findUser("Default", "0000"))
                 mainProcess.addUser("Default", "0000");
 
             mainProcess.setUser("Default", "0000");
@@ -120,8 +119,8 @@ public class WelcomeController implements Controllers {
                 if (mainProcess.findUser(login, password)) {
                     registrLoginText.setText("Login is used");
                 } else {
-                   mainProcess.addUser(login, password);
-                   mainProcess.setUser(login, password);
+                    mainProcess.addUser(login, password);
+                    mainProcess.setUser(login, password);
 
                     buttonSignUp.getScene().getWindow().hide();
                     Controllers.showWindow("fxml/sample.fxml");

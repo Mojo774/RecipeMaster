@@ -14,13 +14,13 @@ public class User {
         this.password = password;
     }
 
-    public void setUser(int id, String name, String password){
+    public void setUser(int id, String name, String password) {
         this.id = id;
         this.name = name;
         this.password = password;
     }
 
-    public void print(){
+    public void print() {
         System.out.println(id + " " + name + " " + password);
     }
 

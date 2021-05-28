@@ -8,7 +8,8 @@ import java.sql.SQLException;
 
 public class UserHandler extends DatabaseConnector {
     DatabaseHandler databaseHandler;
-    public UserHandler (DatabaseHandler databaseHandler){
+
+    public UserHandler(DatabaseHandler databaseHandler) {
         this.databaseHandler = databaseHandler;
     }
 
@@ -56,7 +57,7 @@ public class UserHandler extends DatabaseConnector {
                 String nameUser = resultSet.getString(getConstDB("USER_NAME"));
                 String passwordUser = resultSet.getString(getConstDB("USER_PASSWORD"));
 
-                User user = new User(idUser,nameUser,passwordUser);
+                User user = new User(idUser, nameUser, passwordUser);
                 return user;
             }
 
@@ -85,7 +86,7 @@ public class UserHandler extends DatabaseConnector {
 
                 //User.setUser(idUser, nameUser, passwordUser);
                 //
-                User user = new User(idUser,nameUser,passwordUser);
+                User user = new User(idUser, nameUser, passwordUser);
                 return user;
 
             } else return null;
@@ -108,7 +109,7 @@ public class UserHandler extends DatabaseConnector {
 
             ResultSet resultSet = preparedStatement.executeQuery();
 
-            return  resultSet.next();
+            return resultSet.next();
 
         } catch (SQLException throwables) {
             throwables.printStackTrace();

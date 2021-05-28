@@ -25,8 +25,8 @@ public class Description {
         this.name = name;
     }
 
-    public void Print(){
-        System.out.println(String.format("%s:\n",this.name));
+    public void Print() {
+        System.out.println(String.format("%s:\n", this.name));
 
         System.out.println(text);
     }

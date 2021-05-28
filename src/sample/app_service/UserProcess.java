@@ -17,7 +17,7 @@ class UserProcess {
         this.user = user;
     }
 
-    public int getIdUser(){
+    public int getIdUser() {
         return user.getId();
     }
 }

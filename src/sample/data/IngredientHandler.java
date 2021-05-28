@@ -8,15 +8,15 @@ import java.util.HashSet;
 public class IngredientHandler extends DatabaseConnector {
 
 
-
     DatabaseHandler databaseHandler;
-    public IngredientHandler (DatabaseHandler databaseHandler){
+
+    public IngredientHandler(DatabaseHandler databaseHandler) {
         this.databaseHandler = databaseHandler;
     }
 
 
     // Возвращает id ингредиента по имени
-    public  int getIngredientId(String name) {
+    public int getIngredientId(String name) {
         String command = String.format("SELECT * FROM %s WHERE %s = ?",
                 getConstDB("INGREDIENT_TABLE"), getConstDB("INGREDIENT_NAME"));
 
@@ -134,7 +134,7 @@ public class IngredientHandler extends DatabaseConnector {
     }
 
     // Удаляет те ингредиенты, которые не используются в рецептах
-    public  void deleteUselessIngredients() {
+    public void deleteUselessIngredients() {
         HashSet<Integer> setId = databaseHandler.getRecipe_has_ingredientHandler().getIngredientsId();
 
         try {

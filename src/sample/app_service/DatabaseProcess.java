@@ -10,7 +10,7 @@ class DatabaseProcess {
     // handlers
     protected DatabaseHandler databaseHandler;
 
-    public DatabaseProcess(){
+    public DatabaseProcess() {
         databaseHandler = new DatabaseHandler();
     }
 
@@ -20,7 +20,7 @@ class DatabaseProcess {
         return databaseHandler.getRecipeHandler().getRecipesUser(id);
     }
 
-    public Recipe getRecipe(int idR){
+    public Recipe getRecipe(int idR) {
         return databaseHandler.getRecipeHandler().getRecipe(idR);
     }
 
@@ -28,7 +28,7 @@ class DatabaseProcess {
         databaseHandler.getRecipeHandler().addRecipe(recipe, id);
     }
 
-    public void deleteRecipe(int id){
+    public void deleteRecipe(int id) {
         databaseHandler.getRecipeHandler().deleteRecipes(id);
     }
 
@@ -36,7 +36,7 @@ class DatabaseProcess {
         return databaseHandler.getRecipeHandler().getLastId();
     }
 
-    public boolean findRecipe(int idR){
+    public boolean findRecipe(int idR) {
         return databaseHandler.getRecipeHandler().findRecipe(idR);
     }
 

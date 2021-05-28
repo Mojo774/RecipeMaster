@@ -97,7 +97,7 @@ public class AddController implements Controllers {
 
 
             buttomAllRecipes.getScene().getWindow().hide();
-            Main.showWindow("fxml/sample.fxml");
+            Controllers.showWindow("fxml/sample.fxml");
         });
 
         // Кнопка назад
@@ -108,9 +108,9 @@ public class AddController implements Controllers {
             }
 
 
-            if (Main.showIf()) {
+            if (Controllers.showIf()) {
                 buttomBack.getScene().getWindow().hide();
-                Main.showWindowBack();
+                Controllers.showWindowBack();
             }
 
         });
@@ -136,7 +136,7 @@ public class AddController implements Controllers {
 
                 // Выход из окна в главное меню
                 buttomAdd.getScene().getWindow().hide();
-                Main.showWindow("fxml/sample.fxml");
+                Controllers.showWindow("fxml/sample.fxml");
 
             } else {
                 text.setText("Fill in areas");

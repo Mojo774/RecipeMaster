@@ -1,6 +1,7 @@
 package sample.contrllers;
 
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 import javafx.fxml.FXML;
@@ -58,6 +59,8 @@ public class WelcomeController implements Controllers {
     @FXML
     void initialize() {
 
+
+
         buttonLogIn.setOnAction(actionEvent -> {
             String login = loginField.getText();
             String password = passwordField.getText();
@@ -78,7 +81,7 @@ public class WelcomeController implements Controllers {
                     loginText.setText("Wrong login or password");
                 } else {
                     buttonLogIn.getScene().getWindow().hide();
-                    Main.showWindow("fxml/sample.fxml");
+                    Controllers.showWindow("fxml/sample.fxml");
                 }
             }
 
@@ -90,7 +93,7 @@ public class WelcomeController implements Controllers {
 
             mainProcess.setUser("Default", "0000");
             buttonEnterWithoutLogin.getScene().getWindow().hide();
-            Main.showWindow("fxml/sample.fxml");
+            Controllers.showWindow("fxml/sample.fxml");
         });
 
         buttonSignUp.setOnAction(actionEvent -> {
@@ -121,7 +124,7 @@ public class WelcomeController implements Controllers {
                    mainProcess.setUser(login, password);
 
                     buttonSignUp.getScene().getWindow().hide();
-                    Main.showWindow("fxml/sample.fxml");
+                    Controllers.showWindow("fxml/sample.fxml");
                 }
             }
         });

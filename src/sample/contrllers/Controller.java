@@ -66,7 +66,7 @@ public class Controller implements Controllers {
         // Кнопки из панели
         buttomAddRecipe.setOnAction(actionEvent -> {
             buttomAddRecipe.getScene().getWindow().hide();
-            Main.showWindow("fxml/add.fxml");
+            Controllers.showWindow("fxml/add.fxml");
         });
 
         // Кнопка обновление
@@ -117,21 +117,21 @@ public class Controller implements Controllers {
                     Recipe recipe = mainProcess.getRecipe(idR);
 
                     // Передаем его в окно (оно уже открыто в Main, поэтому берем его в windows)
-                    RecipeController cl = (RecipeController) Main.getWindows().get("fxml/recipe.fxml").getController();
+                    RecipeController cl = (RecipeController) Controllers.getWindows().get("fxml/recipe.fxml").getController();
                     cl.setRecipe(recipe);
 
                     // Закрываем это окно и переходим в новое
                     table.getScene().getWindow().hide();
-                    Main.showWindow("fxml/recipe.fxml");
+                    Controllers.showWindow("fxml/recipe.fxml");
                 }
             }
         });
 
         // Кнопка назад
         buttomBack.setOnAction(actionEvent -> {
-            if (Main.showIf()) {
+            if (Controllers.showIf()) {
                 buttomBack.getScene().getWindow().hide();
-                Main.showWindowBack();
+                Controllers.showWindowBack();
             }
         });
 

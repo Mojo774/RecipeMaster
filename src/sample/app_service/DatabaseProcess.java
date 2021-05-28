@@ -54,4 +54,8 @@ class DatabaseProcess {
         return databaseHandler.getUserHandler().findUser(name, password);
     }
 
+    // static
+    public void closeConnection() {
+        databaseHandler.closeConnection();
+    }
 }

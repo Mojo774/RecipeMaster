@@ -41,4 +41,9 @@ public class DatabaseHandler {
     public UserHandler getUserHandler() {
         return userHandler;
     }
+
+    // static
+    public void closeConnection() {
+        DatabaseConnector.closeConnection();
+    }
 }

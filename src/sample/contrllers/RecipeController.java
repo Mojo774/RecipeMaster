@@ -54,31 +54,31 @@ public class RecipeController implements Controllers {
         buttomAddRecipe.setOnAction(actionEvent -> {
 
             buttomAddRecipe.getScene().getWindow().hide();
-            Main.showWindow("fxml/add.fxml");
+            Controllers.showWindow("fxml/add.fxml");
         });
 
         buttomAllRecipes.setOnAction(actionEvent -> {
 
             buttomAllRecipes.getScene().getWindow().hide();
-            Main.showWindow("fxml/sample.fxml");
+            Controllers.showWindow("fxml/sample.fxml");
         });
 
         // Кнопка назад
         buttomBack.setOnAction(actionEvent -> {
 
-            if (Main.showIf()) {
+            if (Controllers.showIf()) {
                 buttomBack.getScene().getWindow().hide();
-                Main.showWindowBack();
+                Controllers.showWindowBack();
             }
         });
 
         // Кнопка изменить рецепт
         buttomChange.setOnAction(actionEvent -> {
-            AddController cl = (AddController) Main.getWindows().get("fxml/add.fxml").getController();
+            AddController cl = (AddController) Controllers.getWindows().get("fxml/add.fxml").getController();
             cl.changeRecipe(recipe);
 
             buttomChange.getScene().getWindow().hide();
-            Main.showWindow("fxml/add.fxml");
+            Controllers.showWindow("fxml/add.fxml");
         });
 
         // Кнопка удалить рецепт
@@ -86,7 +86,7 @@ public class RecipeController implements Controllers {
             mainProcess.deleteRecipe(recipe.getIdR());
 
             buttonDelete.getScene().getWindow().hide();
-            Main.showWindow("fxml/sample.fxml");
+            Controllers.showWindow("fxml/sample.fxml");
         });
     }
 

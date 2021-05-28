@@ -9,15 +9,12 @@ import sample.recipe_package.Recipe;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainProcess{
+public class MainProcess extends DatabaseProcess{
     private Recipe recipe;
 
     private UserProcess userProcess;
-    private DatabaseProcess databaseProcess;
 
-    public MainProcess() {
-        this.databaseProcess = new DatabaseProcess();
-    }
+
 
     public void createRecipe(String textName, String textDescription, List<IngredientView> views, int changeId) {
 
@@ -38,7 +35,7 @@ public class MainProcess{
 
         // Если рецепт отредактирован - удалить старый
         if (changeId != -1) {
-            databaseProcess.deleteRecipe(changeId);
+            deleteRecipe(changeId);
             recipe = new Recipe(description, ingredients, changeId);
         } else {
             recipe = new Recipe(description, ingredients, getNewIdR());
@@ -46,7 +43,7 @@ public class MainProcess{
 
 
         // Добавление рецепта в БД
-        databaseProcess.addRecipe(recipe, userProcess.getIdUser());
+        addRecipe(recipe, userProcess.getIdUser());
 
     }
 
@@ -56,12 +53,12 @@ public class MainProcess{
     // А чтобы создать его нужно присвоить ему id
     // Поэтому я обращаюсь к БД беру последний (самый большой) id и присваиваю его рецепту
     private int getNewIdR() {
-        int idR = databaseProcess.getLastId() + 1;
+        int idR = getLastId() + 1;
 
         // Если база данных пустая и мы начнем создавать новые рецепты
         // метод сверху будет всегда возвращать 0 пока мы не внесем
         // хотя бы один рецепт в базу данных
-        while (databaseProcess.findRecipe(idR)) {
+        while (findRecipe(idR)) {
                 idR++;
         }
 
@@ -71,8 +68,8 @@ public class MainProcess{
 
 
     public boolean setUser(String name, String password) {
-        if (databaseProcess.findUser(name, password)) {
-            User user = databaseProcess.getUser(name, password);
+        if (findUser(name, password)) {
+            User user = getUser(name, password);
             userProcess = new UserProcess(user);
 
             return true;
@@ -83,4 +80,6 @@ public class MainProcess{
     public int getIdUser(){
         return userProcess.getIdUser();
     }
+
+
 }

@@ -8,6 +8,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
+import sample.view.WindowsName;
 
 
 public class WelcomeController implements Controllers {
@@ -78,7 +79,7 @@ public class WelcomeController implements Controllers {
                     loginText.setText("Wrong login or password");
                 } else {
                     buttonLogIn.getScene().getWindow().hide();
-                    Controllers.showWindow(sampleWindow);
+                    Controllers.showWindow(WindowsName.SAMPLE.getName());
                 }
             }
 
@@ -90,7 +91,7 @@ public class WelcomeController implements Controllers {
 
             mainProcess.setUser("Default", "0000");
             buttonEnterWithoutLogin.getScene().getWindow().hide();
-            Controllers.showWindow(sampleWindow);
+            Controllers.showWindow(WindowsName.SAMPLE.getName());
         });
 
         buttonSignUp.setOnAction(actionEvent -> {
@@ -121,7 +122,7 @@ public class WelcomeController implements Controllers {
                     mainProcess.setUser(login, password);
 
                     buttonSignUp.getScene().getWindow().hide();
-                    Controllers.showWindow(sampleWindow);
+                    Controllers.showWindow(WindowsName.SAMPLE.getName());
                 }
             }
         });

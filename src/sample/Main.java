@@ -6,6 +6,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import sample.controller.Controllers;
+import sample.view.WindowsName;
 
 
 import java.io.IOException;
@@ -21,13 +22,13 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
 
-        createWindow("view/welcome.fxml");
+        createWindow(WindowsName.WELCOME.getName());
 
-        Controllers.showWindow("view/welcome.fxml");
+        Controllers.showWindow(WindowsName.WELCOME.getName());
 
-        createWindow("view/sample.fxml");
-        createWindow("view/add.fxml");
-        createWindow("view/recipe.fxml");
+        createWindow(WindowsName.SAMPLE.getName());
+        createWindow(WindowsName.ADD.getName());
+        createWindow(WindowsName.RECIPE.getName());
 
 
     }

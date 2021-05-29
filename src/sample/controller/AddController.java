@@ -24,6 +24,7 @@ import javafx.scene.control.TableColumn.CellEditEvent;
 import javafx.scene.control.TextField;
 import sample.controller.views.IngredientView;
 import sample.controller.views.IngredientViewHelper;
+import sample.view.WindowsName;
 
 
 public class AddController implements Controllers {
@@ -96,7 +97,7 @@ public class AddController implements Controllers {
 
 
             buttomAllRecipes.getScene().getWindow().hide();
-            Controllers.showWindow(sampleWindow);
+            Controllers.showWindow(WindowsName.SAMPLE.getName());
         });
 
         // Кнопка назад
@@ -135,7 +136,7 @@ public class AddController implements Controllers {
 
                 // Выход из окна в главное меню
                 buttomAdd.getScene().getWindow().hide();
-                Controllers.showWindow(sampleWindow);
+                Controllers.showWindow(WindowsName.SAMPLE.getName());
 
             } else {
                 text.setText("Fill in areas");

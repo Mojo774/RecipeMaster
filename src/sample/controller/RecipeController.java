@@ -11,6 +11,7 @@ import javafx.scene.control.TextField;
 import sample.recipe_package.Description;
 import sample.recipe_package.Ingredient;
 import sample.recipe_package.Recipe;
+import sample.view.WindowsName;
 
 
 public class RecipeController implements Controllers {
@@ -53,13 +54,13 @@ public class RecipeController implements Controllers {
         buttomAddRecipe.setOnAction(actionEvent -> {
 
             buttomAddRecipe.getScene().getWindow().hide();
-            Controllers.showWindow(addWindow);
+            Controllers.showWindow(WindowsName.ADD.getName());
         });
 
         buttomAllRecipes.setOnAction(actionEvent -> {
 
             buttomAllRecipes.getScene().getWindow().hide();
-            Controllers.showWindow(sampleWindow);
+            Controllers.showWindow(WindowsName.SAMPLE.getName());
         });
 
         // Кнопка назад
@@ -73,11 +74,11 @@ public class RecipeController implements Controllers {
 
         // Кнопка изменить рецепт
         buttomChange.setOnAction(actionEvent -> {
-            AddController cl = (AddController) Controllers.getWindows().get(addWindow).getController();
+            AddController cl = (AddController) Controllers.getWindows().get(WindowsName.ADD.getName()).getController();
             cl.changeRecipe(recipe);
 
             buttomChange.getScene().getWindow().hide();
-            Controllers.showWindow(addWindow);
+            Controllers.showWindow(WindowsName.ADD.getName());
         });
 
         // Кнопка удалить рецепт
@@ -85,7 +86,7 @@ public class RecipeController implements Controllers {
             mainProcess.deleteRecipe(recipe.getIdR());
 
             buttonDelete.getScene().getWindow().hide();
-            Controllers.showWindow(sampleWindow);
+            Controllers.showWindow(WindowsName.SAMPLE.getName());
         });
     }
 

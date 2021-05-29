@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.sql.*;
 import java.util.Properties;
 
-public class DatabaseConnector {
+class DatabaseConnector {
     protected static Connection connection;
     protected static ResultSet resultSet;
     protected static PreparedStatement preparedStatement;

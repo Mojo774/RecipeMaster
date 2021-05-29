@@ -1,4 +1,4 @@
-package sample.contrllers;
+package sample.contrller;
 
 import java.net.URL;
 import java.util.ArrayList;
@@ -12,7 +12,6 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
-import sample.Main;
 import sample.recipe_package.*;
 import javafx.scene.text.Text;
 import javafx.scene.control.TableColumn;
@@ -23,8 +22,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn.CellEditEvent;
 
 import javafx.scene.control.TextField;
-import sample.contrllers.views.IngredientView;
-import sample.contrllers.views.IngredientViewHelper;
+import sample.contrller.views.IngredientView;
+import sample.contrller.views.IngredientViewHelper;
 
 
 public class AddController implements Controllers {

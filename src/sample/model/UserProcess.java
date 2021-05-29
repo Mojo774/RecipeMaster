@@ -1,4 +1,4 @@
-package sample.app_service;
+package sample.model;
 
 import sample.User;
 

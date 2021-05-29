@@ -1,4 +1,4 @@
-package sample.contrllers;
+package sample.contrller;
 
 import java.net.URL;
 import java.util.ArrayList;
@@ -8,7 +8,6 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
-import sample.Main;
 import sample.recipe_package.Description;
 import sample.recipe_package.Ingredient;
 import sample.recipe_package.Recipe;

@@ -1,4 +1,4 @@
-package sample.contrllers.views;
+package sample.contrller.views;
 
 import sample.recipe_package.Recipe;
 

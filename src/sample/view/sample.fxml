@@ -5,7 +5,7 @@
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1280.0" style="-fx-background-color: white; -fx-border-color: silver;" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.contrllers.Controller">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1280.0" style="-fx-background-color: white; -fx-border-color: silver;" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.contrller.Controller">
    <children>
       <AnchorPane layoutY="106.0" prefHeight="662.0" prefWidth="278.0" style="-fx-background-color: FF4D00; -fx-border-color: FF0000;" />
       <AnchorPane layoutX="278.0" prefHeight="106.0" prefWidth="1002.0" style="-fx-background-color: FF4D00; -fx-border-color: FF0000;">

@@ -5,12 +5,10 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import sample.contrllers.Controller;
-import sample.contrllers.Controllers;
-import sample.data.DatabaseConnector;
+import sample.contrller.Controllers;
+
 
 import java.io.IOException;
-import java.util.*;
 
 public class Main extends Application {
 

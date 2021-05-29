@@ -13,13 +13,7 @@ public class User {
         this.name = name;
         this.password = password;
     }
-
-    public void setUser(int id, String name, String password) {
-        this.id = id;
-        this.name = name;
-        this.password = password;
-    }
-
+    
     public void print() {
         System.out.println(id + " " + name + " " + password);
     }

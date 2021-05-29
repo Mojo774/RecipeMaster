@@ -6,7 +6,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class UserHandler extends DatabaseConnector {
+class UserHandler extends DatabaseConnector {
     DatabaseHandler databaseHandler;
 
     public UserHandler(DatabaseHandler databaseHandler) {

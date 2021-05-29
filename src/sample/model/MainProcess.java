@@ -1,7 +1,7 @@
-package sample.app_service;
+package sample.model;
 
 import sample.User;
-import sample.contrllers.views.IngredientView;
+import sample.contrller.views.IngredientView;
 import sample.recipe_package.Description;
 import sample.recipe_package.Ingredient;
 import sample.recipe_package.Recipe;
@@ -16,7 +16,6 @@ public class MainProcess extends DatabaseProcess {
 
 
     public void createRecipe(String textName, String textDescription, List<IngredientView> views, int changeId) {
-
 
         ArrayList<Ingredient> ingredients = new ArrayList<>();
         Description description = new Description(textDescription, textName);
@@ -46,6 +45,20 @@ public class MainProcess extends DatabaseProcess {
 
     }
 
+    public boolean setUser(String name, String password) {
+        if (findUser(name, password)) {
+            User user = getUser(name, password);
+            userProcess = new UserProcess(user);
+
+            return true;
+        }
+        return false;
+    }
+
+
+    public int getIdUser() {
+        return userProcess.getIdUser();
+    }
 
     // Создание id для рецепта
     // Чтобы внести рецепт в БД нужно его сначало создать
@@ -64,21 +77,4 @@ public class MainProcess extends DatabaseProcess {
 
         return idR;
     }
-
-
-    public boolean setUser(String name, String password) {
-        if (findUser(name, password)) {
-            User user = getUser(name, password);
-            userProcess = new UserProcess(user);
-
-            return true;
-        }
-        return false;
-    }
-
-    public int getIdUser() {
-        return userProcess.getIdUser();
-    }
-
-
 }

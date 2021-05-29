@@ -1,4 +1,4 @@
-package sample.app_service;
+package sample.model;
 
 import sample.User;
 import sample.data.DatabaseHandler;
@@ -10,7 +10,7 @@ class DatabaseProcess {
     // handlers
     protected DatabaseHandler databaseHandler;
 
-    public DatabaseProcess() {
+    protected DatabaseProcess() {
         databaseHandler = new DatabaseHandler();
     }
 

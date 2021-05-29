@@ -1,8 +1,7 @@
-package sample.contrllers;
+package sample.contrller;
 
-import sample.Main;
 import sample.WindowClass;
-import sample.app_service.MainProcess;
+import sample.model.MainProcess;
 
 import java.util.ArrayList;
 import java.util.HashMap;

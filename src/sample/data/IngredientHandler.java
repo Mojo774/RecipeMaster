@@ -5,7 +5,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.HashSet;
 
-public class IngredientHandler extends DatabaseConnector {
+class IngredientHandler extends DatabaseConnector {
 
 
     DatabaseHandler databaseHandler;

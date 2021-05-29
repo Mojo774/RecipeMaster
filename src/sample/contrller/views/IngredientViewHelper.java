@@ -1,6 +1,5 @@
-package sample.contrllers.views;
+package sample.contrller.views;
 
-import sample.contrllers.views.IngredientView;
 import sample.recipe_package.Ingredient;
 import sample.recipe_package.Recipe;
 

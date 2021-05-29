@@ -1,4 +1,4 @@
-package sample.contrllers;
+package sample.contrller;
 
 import java.net.URL;
 import java.util.ArrayList;
@@ -16,9 +16,8 @@ import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
-import sample.Main;
-import sample.contrllers.views.RecipeView;
-import sample.contrllers.views.RecipeViewHelper;
+import sample.contrller.views.RecipeView;
+import sample.contrller.views.RecipeViewHelper;
 import sample.recipe_package.Recipe;
 
 public class Controller implements Controllers {

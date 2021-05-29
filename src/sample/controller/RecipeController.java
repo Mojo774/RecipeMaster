@@ -1,4 +1,4 @@
-package sample.contrller;
+package sample.controller;
 
 import java.net.URL;
 import java.util.ArrayList;
@@ -53,13 +53,13 @@ public class RecipeController implements Controllers {
         buttomAddRecipe.setOnAction(actionEvent -> {
 
             buttomAddRecipe.getScene().getWindow().hide();
-            Controllers.showWindow("fxml/add.fxml");
+            Controllers.showWindow(addWindow);
         });
 
         buttomAllRecipes.setOnAction(actionEvent -> {
 
             buttomAllRecipes.getScene().getWindow().hide();
-            Controllers.showWindow("fxml/sample.fxml");
+            Controllers.showWindow(sampleWindow);
         });
 
         // Кнопка назад
@@ -73,11 +73,11 @@ public class RecipeController implements Controllers {
 
         // Кнопка изменить рецепт
         buttomChange.setOnAction(actionEvent -> {
-            AddController cl = (AddController) Controllers.getWindows().get("fxml/add.fxml").getController();
+            AddController cl = (AddController) Controllers.getWindows().get(addWindow).getController();
             cl.changeRecipe(recipe);
 
             buttomChange.getScene().getWindow().hide();
-            Controllers.showWindow("fxml/add.fxml");
+            Controllers.showWindow(addWindow);
         });
 
         // Кнопка удалить рецепт
@@ -85,7 +85,7 @@ public class RecipeController implements Controllers {
             mainProcess.deleteRecipe(recipe.getIdR());
 
             buttonDelete.getScene().getWindow().hide();
-            Controllers.showWindow("fxml/sample.fxml");
+            Controllers.showWindow(sampleWindow);
         });
     }
 

@@ -1,4 +1,4 @@
-package sample.contrller.views;
+package sample.controller.views;
 
 public class IngredientView {
     private int number;

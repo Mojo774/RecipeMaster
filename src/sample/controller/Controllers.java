@@ -1,4 +1,4 @@
-package sample.contrller;
+package sample.controller;
 
 import sample.WindowClass;
 import sample.model.MainProcess;
@@ -8,6 +8,13 @@ import java.util.HashMap;
 
 // Интерфейс-флаг всех контроллеров, нужен для хранения данных о окнах
 public interface Controllers {
+
+    // Окна
+    String addWindow = "view/add.fxml";
+    String recipeWindow = "view/recipe.fxml";
+    String sampleWindow = "view/sample.fxml";
+    String welcomeWindow = "view/welcome.fxml";
+
     // addscoped()
     MainProcess mainProcess = new MainProcess();
 

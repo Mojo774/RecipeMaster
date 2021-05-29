@@ -1,7 +1,7 @@
 package sample;
 
 import javafx.stage.Stage;
-import sample.contrller.Controllers;
+import sample.controller.Controllers;
 
 
 // Класс окна

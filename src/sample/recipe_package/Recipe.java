@@ -1,6 +1,6 @@
 package sample.recipe_package;
 
-import sample.contrller.views.RecipeView;
+import sample.controller.views.RecipeView;
 
 import java.util.ArrayList;
 

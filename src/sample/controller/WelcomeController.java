@@ -1,4 +1,4 @@
-package sample.contrller;
+package sample.controller;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -78,7 +78,7 @@ public class WelcomeController implements Controllers {
                     loginText.setText("Wrong login or password");
                 } else {
                     buttonLogIn.getScene().getWindow().hide();
-                    Controllers.showWindow("fxml/sample.fxml");
+                    Controllers.showWindow(sampleWindow);
                 }
             }
 
@@ -90,7 +90,7 @@ public class WelcomeController implements Controllers {
 
             mainProcess.setUser("Default", "0000");
             buttonEnterWithoutLogin.getScene().getWindow().hide();
-            Controllers.showWindow("fxml/sample.fxml");
+            Controllers.showWindow(sampleWindow);
         });
 
         buttonSignUp.setOnAction(actionEvent -> {
@@ -121,7 +121,7 @@ public class WelcomeController implements Controllers {
                     mainProcess.setUser(login, password);
 
                     buttonSignUp.getScene().getWindow().hide();
-                    Controllers.showWindow("fxml/sample.fxml");
+                    Controllers.showWindow(sampleWindow);
                 }
             }
         });

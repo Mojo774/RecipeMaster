@@ -5,7 +5,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import sample.contrller.Controllers;
+import sample.controller.Controllers;
 
 
 import java.io.IOException;
@@ -21,13 +21,13 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
 
-        createWindow("fxml/welcome.fxml");
+        createWindow("view/welcome.fxml");
 
-        Controllers.showWindow("fxml/welcome.fxml");
+        Controllers.showWindow("view/welcome.fxml");
 
-        createWindow("fxml/sample.fxml");
-        createWindow("fxml/add.fxml");
-        createWindow("fxml/recipe.fxml");
+        createWindow("view/sample.fxml");
+        createWindow("view/add.fxml");
+        createWindow("view/recipe.fxml");
 
 
     }
@@ -42,7 +42,6 @@ public class Main extends Application {
     public static void main(String[] args) {
 
         launch(args);
-
 
     }
 

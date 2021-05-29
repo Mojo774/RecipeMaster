@@ -1,7 +1,7 @@
 package sample.model;
 
 import sample.User;
-import sample.contrller.views.IngredientView;
+import sample.controller.views.IngredientView;
 import sample.recipe_package.Description;
 import sample.recipe_package.Ingredient;
 import sample.recipe_package.Recipe;

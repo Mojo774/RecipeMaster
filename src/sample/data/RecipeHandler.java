@@ -9,7 +9,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-class RecipeHandler extends DatabaseConnector {
+public class RecipeHandler extends DatabaseConnector {
 
     /* Список методов:
 

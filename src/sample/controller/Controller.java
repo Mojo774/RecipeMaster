@@ -4,6 +4,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.logging.Logger;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -16,12 +17,13 @@ import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
+import sample.Main;
 import sample.controller.views.RecipeView;
 import sample.controller.views.RecipeViewHelper;
 import sample.recipe_package.Recipe;
 import sample.view.WindowsName;
 
-public class Controller implements Controllers {
+public class Controller extends Controllers {
 
     // Список рецептов для таблицы
     private List<RecipeView> views = new ArrayList<>();

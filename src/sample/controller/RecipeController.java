@@ -14,7 +14,7 @@ import sample.recipe_package.Recipe;
 import sample.view.WindowsName;
 
 
-public class RecipeController implements Controllers {
+public class RecipeController extends Controllers {
     private Recipe recipe;
 
     @FXML

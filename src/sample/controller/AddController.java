@@ -27,7 +27,7 @@ import sample.controller.views.IngredientViewHelper;
 import sample.view.WindowsName;
 
 
-public class AddController implements Controllers {
+public class AddController extends Controllers {
     // Список ингредиентов для таблицы
     private List<IngredientView> views = new ArrayList<>();
 

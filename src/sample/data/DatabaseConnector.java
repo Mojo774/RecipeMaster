@@ -1,14 +1,20 @@
 package sample.data;
 
+import sample.data.thread.ThreadGetPreparedStatement;
+
 import java.io.IOException;
 import java.sql.*;
 import java.util.Properties;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
 
 class DatabaseConnector {
     protected static Connection connection;
     protected static ResultSet resultSet;
     protected static PreparedStatement preparedStatement;
-
+    protected static ExecutorService service;
     protected static Properties ConstDB = new Properties();
     private static Properties configs = new Properties();
 
@@ -17,8 +23,8 @@ class DatabaseConnector {
     static {
         // Загрузка Properties
         try {
-            configs.load(DatabaseConnector.class.getResourceAsStream("/sample/assets/properties/configs.properties"));
-            ConstDB.load(DatabaseConnector.class.getResourceAsStream("/sample/assets/properties/DB.properties"));
+            configs.load(DatabaseConnector.class.getResourceAsStream("/sample/assets/db_properties/configs.properties"));
+            ConstDB.load(DatabaseConnector.class.getResourceAsStream("/sample/assets/db_properties/DB.properties"));
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -36,6 +42,9 @@ class DatabaseConnector {
             e.printStackTrace();
         }
 
+
+        // Многопоточность
+        service = Executors.newFixedThreadPool(2);
     }
 
     private static String getConfigs(String key) {
@@ -77,9 +86,21 @@ class DatabaseConnector {
     // Если надо получить результат выполнения
     public static PreparedStatement getPreparedStatement(String command) {
         try {
-            preparedStatement = connection.prepareStatement(command);
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
+
+            // Запрос в Бд идет из другого потока
+            // Вообще, от него тут пользы не особо много
+            Future<PreparedStatement> task = service.submit(new ThreadGetPreparedStatement(command, connection));
+
+            while (!task.isDone()) {
+                Thread.sleep(1);
+            }
+
+            preparedStatement = task.get();
+
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
         }
         return preparedStatement;
     }
@@ -95,6 +116,9 @@ class DatabaseConnector {
 
             if (resultSet != null)
                 resultSet.close();
+
+            if (service != null)
+                service.shutdown();
 
         } catch (SQLException throwables) {
             throwables.printStackTrace();

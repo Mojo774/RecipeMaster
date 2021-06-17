@@ -1,26 +1,37 @@
 package sample.controller;
 
+import sample.Main;
 import sample.WindowClass;
 import sample.model.MainProcess;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.logging.FileHandler;
+import java.util.logging.Handler;
+import java.util.logging.Logger;
 
 // Интерфейс-флаг всех контроллеров, нужен для хранения данных о окнах
-public interface Controllers {
+public abstract class Controllers {
 
 
     // addscoped()
-    MainProcess mainProcess = new MainProcess();
+    public static MainProcess mainProcess = new MainProcess();
 
     // Хранение окон (всех)
-    HashMap<String, WindowClass> windows = new HashMap<>();
+    static HashMap<String, WindowClass> windows = new HashMap<>();
     // очередь открытия окон для кнопки Back
-    ArrayList<String> queue = new ArrayList<>();
+    private static ArrayList<String> queue = new ArrayList<>();
+
+    // Logger
+    protected static final Logger logger = Logger.getLogger(Controllers.class.getName());
+    static {
+        logger.addHandler(Main.fileHandler);
+    }
 
 
     // Показать окно
-    static void showWindow(String nameFile) {
+    public static void showWindow(String nameFile) {
         try {
 
             getWindows().get(nameFile).getStage().show();
@@ -32,11 +43,11 @@ public interface Controllers {
     }
 
     // показать окно для кнопки Back
-    static boolean showIf() {
+    public static boolean showIf() {
         return (queue.size()) > 1;
     }
 
-    static void showWindowBack() {
+    public static void showWindowBack() {
         queue.remove(queue.size() - 1);
         String str = queue.get(queue.size() - 1);
         queue.remove(queue.size() - 1);
@@ -45,7 +56,7 @@ public interface Controllers {
 
     }
 
-    static HashMap<String, WindowClass> getWindows() {
+    public static HashMap<String, WindowClass> getWindows() {
         return windows;
     }
 }

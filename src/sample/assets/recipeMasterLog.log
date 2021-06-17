@@ -1,0 +1,116 @@
+sample.Main
+INFO : Start program,1
+sample.model.DatabaseProcess
+INFO : findUser,17
+sample.model.MainProcess
+INFO : Hai,24
+sample.model.MainProcess
+INFO : Hai,24
+sample.model.MainProcess
+INFO : setUser,17
+sample.model.MainProcess
+INFO : setUser,17
+sample.model.DatabaseProcess
+INFO : findUser,17
+sample.model.MainProcess
+INFO : Hai,25
+sample.model.MainProcess
+INFO : Hai,25
+sample.model.DatabaseProcess
+INFO : getUser,17
+sample.model.MainProcess
+INFO : Hai,24
+sample.model.MainProcess
+INFO : Hai,24
+sample.model.MainProcess
+INFO : getIdUser,17
+sample.model.MainProcess
+INFO : getIdUser,17
+sample.model.DatabaseProcess
+INFO : getRecipesUser,17
+sample.model.MainProcess
+INFO : Hai,25
+sample.model.MainProcess
+INFO : Hai,25
+sample.model.MainProcess
+INFO : Hai,24
+sample.model.MainProcess
+INFO : Hai,24
+sample.model.MainProcess
+INFO : Hai,25
+sample.model.MainProcess
+INFO : Hai,25
+sample.model.MainProcess
+INFO : Hai,24
+sample.model.MainProcess
+INFO : Hai,24
+sample.model.MainProcess
+INFO : Hai,25
+sample.model.MainProcess
+INFO : Hai,25
+sample.model.MainProcess
+INFO : Hai,24
+sample.model.MainProcess
+INFO : Hai,24
+sample.model.MainProcess
+INFO : Hai,25
+sample.model.MainProcess
+INFO : Hai,25
+sample.model.MainProcess
+INFO : Hai,24
+sample.model.MainProcess
+INFO : Hai,24
+sample.model.MainProcess
+INFO : Hai,25
+sample.model.MainProcess
+INFO : Hai,25
+sample.model.MainProcess
+INFO : Hai,24
+sample.model.MainProcess
+INFO : Hai,24
+sample.model.MainProcess
+INFO : Hai,25
+sample.model.MainProcess
+INFO : Hai,25
+sample.model.MainProcess
+INFO : Hai,24
+sample.model.MainProcess
+INFO : Hai,24
+sample.model.MainProcess
+INFO : Hai,25
+sample.model.MainProcess
+INFO : Hai,25
+sample.model.MainProcess
+INFO : Hai,24
+sample.model.MainProcess
+INFO : Hai,24
+sample.model.MainProcess
+INFO : Hai,25
+sample.model.MainProcess
+INFO : Hai,25
+sample.model.MainProcess
+INFO : Hai,24
+sample.model.MainProcess
+INFO : Hai,24
+sample.model.MainProcess
+INFO : Hai,25
+sample.model.MainProcess
+INFO : Hai,25
+sample.model.DatabaseProcess
+INFO : getRecipe,17
+sample.model.MainProcess
+INFO : Hai,24
+sample.model.MainProcess
+INFO : Hai,24
+sample.model.MainProcess
+INFO : Hai,25
+sample.model.MainProcess
+INFO : Hai,25
+sample.model.MainProcess
+INFO : Hai,24
+sample.model.MainProcess
+INFO : Hai,24
+sample.model.DatabaseProcess
+INFO : closeConnection,17
+sample.Main
+INFO : END program,17

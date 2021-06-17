@@ -10,9 +10,11 @@ import sample.view.WindowsName;
 
 
 import java.io.IOException;
+import java.util.logging.*;
 
 public class Main extends Application {
-
+    private static final Logger logger = Logger.getLogger(Main.class.getName());
+    public static Handler fileHandler;
 
     @Override
     public void init() throws Exception {
@@ -36,14 +38,24 @@ public class Main extends Application {
     @Override
     public void stop() throws Exception {
         Controllers.mainProcess.closeConnection();            // Закрытие потоков для работы с SQL
-
+        logger.info("END program");
         super.stop();
     }
 
     public static void main(String[] args) {
+        // Настройка логера
+        try {
+            // Указывается куда записываются логи
+            fileHandler = new FileHandler("%h/IdeaProjects/RecipeMaster_1.1/src/sample/assets/recipeMasterLog.log");
+            fileHandler.setFormatter(new MyFormatter());
+            logger.addHandler(fileHandler);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        logger.info("Start program");
+
 
         launch(args);
-
     }
 
     // Создание окон, и добавление их в HashMap
@@ -59,5 +71,14 @@ public class Main extends Application {
         Controllers.getWindows().put(fileName, new WindowClass(stage, loader.getController()));
     }
 
+    private static class MyFormatter extends Formatter {
+        @Override
+        public String format(LogRecord record) {
+            String result = String.format("%s\n%s : %s\n",
+                    record.getLoggerName(), record.getLevel(), record.getMessage());
+
+            return result;
+        }
+    }
 
 }

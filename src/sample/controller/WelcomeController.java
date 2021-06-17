@@ -11,7 +11,7 @@ import javafx.scene.text.Text;
 import sample.view.WindowsName;
 
 
-public class WelcomeController implements Controllers {
+public class WelcomeController extends Controllers {
 
     @FXML
     private ResourceBundle resources;

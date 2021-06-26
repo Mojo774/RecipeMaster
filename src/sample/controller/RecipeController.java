@@ -66,10 +66,10 @@ public class RecipeController extends Controllers {
         // Кнопка назад
         buttomBack.setOnAction(actionEvent -> {
 
-            if (Controllers.showIf()) {
-                buttomBack.getScene().getWindow().hide();
-                Controllers.showWindowBack();
-            }
+
+            buttomBack.getScene().getWindow().hide();
+            Controllers.showWindowBack();
+
         });
 
         // Кнопка изменить рецепт

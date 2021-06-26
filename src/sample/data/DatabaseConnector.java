@@ -89,10 +89,12 @@ class DatabaseConnector {
 
             // Запрос в Бд идет из другого потока
             // Вообще, от него тут пользы не особо много
+            // т.к. оснавная нить все равно не может продолжить работать без
+            // результата от обращения
             Future<PreparedStatement> task = service.submit(new ThreadGetPreparedStatement(command, connection));
 
             while (!task.isDone()) {
-                Thread.sleep(1);
+                Thread.sleep(3);
             }
 
             preparedStatement = task.get();

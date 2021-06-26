@@ -1,116 +1,30 @@
 sample.Main
-INFO : Start program,1
+INFO : Start program
 sample.model.DatabaseProcess
-INFO : findUser,17
+INFO : findUser
 sample.model.MainProcess
-INFO : Hai,24
-sample.model.MainProcess
-INFO : Hai,24
-sample.model.MainProcess
-INFO : setUser,17
-sample.model.MainProcess
-INFO : setUser,17
+INFO : setUser
 sample.model.DatabaseProcess
-INFO : findUser,17
-sample.model.MainProcess
-INFO : Hai,25
-sample.model.MainProcess
-INFO : Hai,25
+INFO : findUser
 sample.model.DatabaseProcess
-INFO : getUser,17
-sample.model.MainProcess
-INFO : Hai,24
-sample.model.MainProcess
-INFO : Hai,24
-sample.model.MainProcess
-INFO : getIdUser,17
-sample.model.MainProcess
-INFO : getIdUser,17
+INFO : getUser
 sample.model.DatabaseProcess
-INFO : getRecipesUser,17
+INFO : findUser
 sample.model.MainProcess
-INFO : Hai,25
-sample.model.MainProcess
-INFO : Hai,25
-sample.model.MainProcess
-INFO : Hai,24
-sample.model.MainProcess
-INFO : Hai,24
-sample.model.MainProcess
-INFO : Hai,25
-sample.model.MainProcess
-INFO : Hai,25
-sample.model.MainProcess
-INFO : Hai,24
-sample.model.MainProcess
-INFO : Hai,24
-sample.model.MainProcess
-INFO : Hai,25
-sample.model.MainProcess
-INFO : Hai,25
-sample.model.MainProcess
-INFO : Hai,24
-sample.model.MainProcess
-INFO : Hai,24
-sample.model.MainProcess
-INFO : Hai,25
-sample.model.MainProcess
-INFO : Hai,25
-sample.model.MainProcess
-INFO : Hai,24
-sample.model.MainProcess
-INFO : Hai,24
-sample.model.MainProcess
-INFO : Hai,25
-sample.model.MainProcess
-INFO : Hai,25
-sample.model.MainProcess
-INFO : Hai,24
-sample.model.MainProcess
-INFO : Hai,24
-sample.model.MainProcess
-INFO : Hai,25
-sample.model.MainProcess
-INFO : Hai,25
-sample.model.MainProcess
-INFO : Hai,24
-sample.model.MainProcess
-INFO : Hai,24
-sample.model.MainProcess
-INFO : Hai,25
-sample.model.MainProcess
-INFO : Hai,25
-sample.model.MainProcess
-INFO : Hai,24
-sample.model.MainProcess
-INFO : Hai,24
-sample.model.MainProcess
-INFO : Hai,25
-sample.model.MainProcess
-INFO : Hai,25
-sample.model.MainProcess
-INFO : Hai,24
-sample.model.MainProcess
-INFO : Hai,24
-sample.model.MainProcess
-INFO : Hai,25
-sample.model.MainProcess
-INFO : Hai,25
+INFO : setUser
 sample.model.DatabaseProcess
-INFO : getRecipe,17
-sample.model.MainProcess
-INFO : Hai,24
-sample.model.MainProcess
-INFO : Hai,24
-sample.model.MainProcess
-INFO : Hai,25
-sample.model.MainProcess
-INFO : Hai,25
-sample.model.MainProcess
-INFO : Hai,24
-sample.model.MainProcess
-INFO : Hai,24
+INFO : findUser
 sample.model.DatabaseProcess
-INFO : closeConnection,17
+INFO : getUser
+sample.model.DatabaseProcess
+INFO : findUser
+sample.model.MainProcess
+INFO : setUser
+sample.model.DatabaseProcess
+INFO : findUser
+sample.model.DatabaseProcess
+INFO : getUser
+sample.model.DatabaseProcess
+INFO : closeConnection
 sample.Main
-INFO : END program,17
+INFO : END program

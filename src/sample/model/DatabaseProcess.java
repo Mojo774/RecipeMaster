@@ -21,6 +21,7 @@ class DatabaseProcess {
     private static final Logger logger = Logger.getLogger(DatabaseProcess.class.getName());
     static {
         logger.addHandler(Main.fileHandler);
+        logger.setUseParentHandlers(false);
     }
 
 

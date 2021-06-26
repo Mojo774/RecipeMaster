@@ -22,6 +22,7 @@ public class MainProcess extends DatabaseProcess {
     private static final Logger logger = Logger.getLogger(MainProcess.class.getName());
     static {
         logger.addHandler(Main.fileHandler);
+        logger.setUseParentHandlers(false);
     }
 
     public void createRecipe(String textName, String textDescription, List<IngredientView> views, int changeId) {

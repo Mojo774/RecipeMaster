@@ -49,6 +49,10 @@ public class Main extends Application {
             fileHandler = new FileHandler("%h/IdeaProjects/RecipeMaster_1.1/src/sample/assets/recipeMasterLog.log");
             fileHandler.setFormatter(new MyFormatter());
             logger.addHandler(fileHandler);
+
+
+            // Запрет вывода в консоль
+            logger.setUseParentHandlers(false);
         } catch (IOException e) {
             e.printStackTrace();
         }

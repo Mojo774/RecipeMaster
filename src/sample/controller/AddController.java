@@ -108,10 +108,9 @@ public class AddController extends Controllers {
             }
 
 
-            if (Controllers.showIf()) {
-                buttomBack.getScene().getWindow().hide();
-                Controllers.showWindowBack();
-            }
+            buttomBack.getScene().getWindow().hide();
+            Controllers.showWindowBack();
+
 
         });
 

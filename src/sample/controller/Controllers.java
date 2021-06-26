@@ -4,14 +4,10 @@ import sample.Main;
 import sample.WindowClass;
 import sample.model.MainProcess;
 
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.logging.FileHandler;
-import java.util.logging.Handler;
+import java.util.*;
 import java.util.logging.Logger;
 
-// Интерфейс-флаг всех контроллеров, нужен для хранения данных о окнах
+
 public abstract class Controllers {
 
 
@@ -21,10 +17,12 @@ public abstract class Controllers {
     // Хранение окон (всех)
     static HashMap<String, WindowClass> windows = new HashMap<>();
     // очередь открытия окон для кнопки Back
-    private static ArrayList<String> queue = new ArrayList<>();
+
+    private static ArrayDeque<String> queue = new ArrayDeque<>();
 
     // Logger
     protected static final Logger logger = Logger.getLogger(Controllers.class.getName());
+
     static {
         logger.addHandler(Main.fileHandler);
     }
@@ -35,7 +33,9 @@ public abstract class Controllers {
         try {
 
             getWindows().get(nameFile).getStage().show();
+
             queue.add(nameFile);
+
 
         } catch (Exception e) {
             System.out.println("wrong file name entered");
@@ -43,14 +43,17 @@ public abstract class Controllers {
     }
 
     // показать окно для кнопки Back
-    public static boolean showIf() {
-        return (queue.size()) > 1;
-    }
 
     public static void showWindowBack() {
-        queue.remove(queue.size() - 1);
+        /*queue.remove(queue.size() - 1);
         String str = queue.get(queue.size() - 1);
-        queue.remove(queue.size() - 1);
+        queue.remove(queue.size() - 1);*/
+
+        if (!queue.isEmpty()) {
+            queue.removeLast();
+        }
+
+        String str = queue.pollLast();
         showWindow(str);
 
 

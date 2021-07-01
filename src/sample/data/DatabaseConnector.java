@@ -15,7 +15,7 @@ class DatabaseConnector {
     protected static ResultSet resultSet;
     protected static PreparedStatement preparedStatement;
     protected static ExecutorService service;
-    protected static Properties ConstDB = new Properties();
+    protected static Properties constDB = new Properties();
     private static Properties configs = new Properties();
 
 
@@ -24,7 +24,7 @@ class DatabaseConnector {
         // Загрузка Properties
         try {
             configs.load(DatabaseConnector.class.getResourceAsStream("/sample/assets/db_properties/configs.properties"));
-            ConstDB.load(DatabaseConnector.class.getResourceAsStream("/sample/assets/db_properties/DB.properties"));
+            constDB.load(DatabaseConnector.class.getResourceAsStream("/sample/assets/db_properties/DB.properties"));
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -52,7 +52,7 @@ class DatabaseConnector {
     }
 
     protected static String getConstDB(String key) {
-        return ConstDB.getProperty(key);
+        return constDB.getProperty(key);
     }
 
     // Получить значения всех строк таблицы tableName

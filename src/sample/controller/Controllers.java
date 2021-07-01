@@ -10,14 +10,12 @@ import java.util.logging.Logger;
 
 public abstract class Controllers {
 
-
-    // addscoped()
     public static MainProcess mainProcess = new MainProcess();
 
     // Хранение окон (всех)
     static HashMap<String, WindowClass> windows = new HashMap<>();
-    // очередь открытия окон для кнопки Back
 
+    // очередь открытия окон для кнопки Back
     private static ArrayDeque<String> queue = new ArrayDeque<>();
 
     // Logger
@@ -43,7 +41,6 @@ public abstract class Controllers {
     }
 
     // показать окно для кнопки Back
-
     public static void showWindowBack() {
         /*queue.remove(queue.size() - 1);
         String str = queue.get(queue.size() - 1);

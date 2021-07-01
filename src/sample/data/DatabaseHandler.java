@@ -1,7 +1,6 @@
 package sample.data;
 
 public class DatabaseHandler {
-    // Handlers
 
     // Handlers
     private Recipe_has_ingredientHandler recipe_has_ingredientHandler;

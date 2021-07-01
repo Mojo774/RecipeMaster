@@ -8,14 +8,12 @@ public class Recipe {
     private Description description;
     private ArrayList<Ingredient> ingredients;
     private Integer idR;
-    private RecipeView view;
 
     public Recipe(Description description, ArrayList<Ingredient> ingredients, int idR) {
         this.description = description;
         this.ingredients = ingredients;
 
         this.idR = idR;
-        view = new RecipeView();
     }
 
 

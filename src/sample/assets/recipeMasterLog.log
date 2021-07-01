@@ -8,6 +8,12 @@ sample.model.DatabaseProcess
 INFO : findUser
 sample.model.DatabaseProcess
 INFO : getUser
+sample.model.MainProcess
+INFO : getIdUser
+sample.model.DatabaseProcess
+INFO : getRecipesUser
+sample.model.DatabaseProcess
+INFO : getRecipe
 sample.model.DatabaseProcess
 INFO : findUser
 sample.model.MainProcess
@@ -17,13 +23,7 @@ INFO : findUser
 sample.model.DatabaseProcess
 INFO : getUser
 sample.model.DatabaseProcess
-INFO : findUser
-sample.model.MainProcess
-INFO : setUser
-sample.model.DatabaseProcess
-INFO : findUser
-sample.model.DatabaseProcess
-INFO : getUser
+INFO : getRecipe
 sample.model.DatabaseProcess
 INFO : closeConnection
 sample.Main

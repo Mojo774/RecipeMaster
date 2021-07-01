@@ -8,6 +8,7 @@ import sample.recipe_package.Recipe;
 
 import java.io.IOException;
 import java.lang.reflect.Method;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.logging.FileHandler;
 import java.util.logging.Handler;
@@ -19,6 +20,7 @@ class DatabaseProcess {
 
     // Logger
     private static final Logger logger = Logger.getLogger(DatabaseProcess.class.getName());
+
     static {
         logger.addHandler(Main.fileHandler);
         logger.setUseParentHandlers(false);
@@ -32,32 +34,62 @@ class DatabaseProcess {
 
     public ArrayList<Recipe> getRecipesUser(int id) {
         logger.info("getRecipesUser");
-        return databaseHandler.getRecipeHandler().getRecipesUser(id);
+        try {
+            return databaseHandler.getRecipeHandler().getRecipesUser(id);
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+            return null;
+        }
+
     }
 
     public Recipe getRecipe(int idR) {
         logger.info("getRecipe");
-        return databaseHandler.getRecipeHandler().getRecipe(idR);
+        try {
+            return databaseHandler.getRecipeHandler().getRecipe(idR);
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+            return null;
+        }
     }
 
     public void addRecipe(Recipe recipe, int id) {
         logger.info("addRecipe");
-        databaseHandler.getRecipeHandler().addRecipe(recipe, id);
+        try {
+            databaseHandler.getRecipeHandler().addRecipe(recipe, id);
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+
     }
 
     public void deleteRecipe(int id) {
         logger.info("deleteRecipe");
-        databaseHandler.getRecipeHandler().deleteRecipes(id);
+        try {
+            databaseHandler.getRecipeHandler().deleteRecipes(id);
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
     }
 
     public int getLastId() {
         logger.info("getLastId");
-        return databaseHandler.getRecipeHandler().getLastId();
+        try {
+            return databaseHandler.getRecipeHandler().getLastId();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+            return -1;
+        }
     }
 
     public boolean findRecipe(int idR) {
         logger.info("findRecipe");
-        return databaseHandler.getRecipeHandler().findRecipe(idR);
+        try {
+            return databaseHandler.getRecipeHandler().findRecipe(idR);
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+            return false;
+        }
     }
 
     // User
@@ -69,12 +101,22 @@ class DatabaseProcess {
 
     public User getUser(String name, String password) {
         logger.info("getUser");
-        return databaseHandler.getUserHandler().getUser(name, password);
+        try {
+            return databaseHandler.getUserHandler().getUser(name, password);
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+            return null;
+        }
     }
 
     public boolean findUser(String name, String password) {
         logger.info("findUser");
-        return databaseHandler.getUserHandler().findUser(name, password);
+        try {
+            return databaseHandler.getUserHandler().findUser(name, password);
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+            return false;
+        }
     }
 
     // static

@@ -12,8 +12,8 @@ import java.util.concurrent.Future;
 
 class DatabaseConnector {
     protected static Connection connection;
-    protected static ResultSet resultSet;
-    protected static PreparedStatement preparedStatement;
+
+
     protected static ExecutorService service;
     protected static Properties constDB = new Properties();
     private static Properties configs = new Properties();
@@ -58,13 +58,16 @@ class DatabaseConnector {
     // Получить значения всех строк таблицы tableName
     public static ResultSet getResultSet(String tableName) {
         try {
-            preparedStatement = getPreparedStatement(String.format("SELECT * FROM %s", tableName));
-            resultSet = preparedStatement.executeQuery();
+            PreparedStatement preparedStatement = getPreparedStatement(String.format("SELECT * FROM %s", tableName));
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            return resultSet;
         } catch (SQLException throwables) {
             throwables.printStackTrace();
+            return null;
         }
 
-        return resultSet;
+
     }
 
     // Сбрасывает авто-инкремент у таблицы tableName
@@ -76,7 +79,7 @@ class DatabaseConnector {
     // Если надо просто выполнить команду
     public static void useCommand(String command) {
         try {
-            preparedStatement = connection.prepareStatement(command);
+            PreparedStatement preparedStatement = connection.prepareStatement(command);
             preparedStatement.execute();
         } catch (SQLException throwables) {
             throwables.printStackTrace();
@@ -97,14 +100,18 @@ class DatabaseConnector {
                 Thread.sleep(3);
             }
 
-            preparedStatement = task.get();
+            PreparedStatement preparedStatement = task.get();
+
+            return preparedStatement;
 
         } catch (InterruptedException e) {
             e.printStackTrace();
+            return null;
         } catch (ExecutionException e) {
             e.printStackTrace();
+            return null;
         }
-        return preparedStatement;
+
     }
 
     // Закрытие соединений
@@ -112,12 +119,6 @@ class DatabaseConnector {
         try {
             if (connection != null)
                 connection.close();
-
-            if (preparedStatement != null)
-                preparedStatement.close();
-
-            if (resultSet != null)
-                resultSet.close();
 
             if (service != null)
                 service.shutdown();

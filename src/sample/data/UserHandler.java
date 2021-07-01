@@ -8,6 +8,8 @@ import java.sql.SQLException;
 
 public class UserHandler extends DatabaseConnector {
     DatabaseHandler databaseHandler;
+    ResultSet resultSet;
+    PreparedStatement preparedStatement;
 
     public UserHandler(DatabaseHandler databaseHandler) {
         this.databaseHandler = databaseHandler;
@@ -24,101 +26,74 @@ public class UserHandler extends DatabaseConnector {
         useCommand(command);
     }
 
-    // Вывести в консоль инфу о всех юзерах
-    public void printUsers() {
-        try {
-            resultSet = getResultSet(getConstDB("USER_TABLE"));
-
-            while (resultSet.next()) {
-
-                int Id = resultSet.getInt(getConstDB("USER_ID"));
-                String Name = resultSet.getString(getConstDB("USER_NAME"));
-                String Password = resultSet.getString(getConstDB("USER_PASSWORD"));
-
-                System.out.println(String.format("Id: %d Name: %s Password: %s", Id, Name, Password));
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
     // Поиск юзера в БД и установка его как текущего пользователя
-    public User getUser(int id) {
+    public User getUser(int id) throws SQLException {
 
         String command = String.format("SELECT * FROM %s WHERE %s = %d",
                 getConstDB("USER_TABLE"), getConstDB("USER_ID"), id);
-        PreparedStatement preparedStatement = getPreparedStatement(command);
+        preparedStatement = getPreparedStatement(command);
 
-        try {
-            ResultSet resultSet = preparedStatement.executeQuery();
+        resultSet = preparedStatement.executeQuery();
 
-            if (resultSet.next()) {
-                int idUser = resultSet.getInt(getConstDB("USER_ID"));
-                String nameUser = resultSet.getString(getConstDB("USER_NAME"));
-                String passwordUser = resultSet.getString(getConstDB("USER_PASSWORD"));
+        if (resultSet.next()) {
+            int idUser = resultSet.getInt(getConstDB("USER_ID"));
+            String nameUser = resultSet.getString(getConstDB("USER_NAME"));
+            String passwordUser = resultSet.getString(getConstDB("USER_PASSWORD"));
 
-                User user = new User(idUser, nameUser, passwordUser);
-                return user;
-            }
-
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
+            User user = new User(idUser, nameUser, passwordUser);
+            return user;
         }
+
+
         return null;
     }
 
     // Поиск юзера в БД и установка его как текущего пользователя
-    public User getUser(String name, String password) {
+    public User getUser(String name, String password) throws SQLException {
         String command = String.format("SELECT * FROM %s WHERE %s = ? AND %s = ?",
                 getConstDB("USER_TABLE"), getConstDB("USER_NAME"), getConstDB("USER_PASSWORD"));
-        PreparedStatement preparedStatement = getPreparedStatement(command);
+        preparedStatement = getPreparedStatement(command);
 
-        try {
-            preparedStatement.setString(1, name);
-            preparedStatement.setString(2, password);
 
-            ResultSet resultSet = preparedStatement.executeQuery();
+        preparedStatement.setString(1, name);
+        preparedStatement.setString(2, password);
 
-            if (resultSet.next()) {
-                int idUser = resultSet.getInt(getConstDB("USER_ID"));
-                String nameUser = resultSet.getString(getConstDB("USER_NAME"));
-                String passwordUser = resultSet.getString(getConstDB("USER_PASSWORD"));
+        resultSet = preparedStatement.executeQuery();
 
-                //User.setUser(idUser, nameUser, passwordUser);
-                //
-                User user = new User(idUser, nameUser, passwordUser);
-                return user;
+        if (resultSet.next()) {
+            int idUser = resultSet.getInt(getConstDB("USER_ID"));
+            String nameUser = resultSet.getString(getConstDB("USER_NAME"));
+            String passwordUser = resultSet.getString(getConstDB("USER_PASSWORD"));
 
-            } else return null;
+            //User.setUser(idUser, nameUser, passwordUser);
+            //
+            User user = new User(idUser, nameUser, passwordUser);
+            return user;
 
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        }
-        return null;
+        } else return null;
+
+
     }
 
     // Поиск юзера
-    public boolean findUser(String name, String password) {
+    public boolean findUser(String name, String password) throws SQLException {
         String command = String.format("SELECT * FROM %s WHERE %s = ? AND %s = ?",
                 getConstDB("USER_TABLE"), getConstDB("USER_NAME"), getConstDB("USER_PASSWORD"));
-        PreparedStatement preparedStatement = getPreparedStatement(command);
+        preparedStatement = getPreparedStatement(command);
 
-        try {
-            preparedStatement.setString(1, name);
-            preparedStatement.setString(2, password);
 
-            ResultSet resultSet = preparedStatement.executeQuery();
+        preparedStatement.setString(1, name);
+        preparedStatement.setString(2, password);
 
-            return resultSet.next();
+        resultSet = preparedStatement.executeQuery();
 
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        }
-        return false;
+        return resultSet.next();
+
+
     }
 
     // Удаление юзера по id
-    public void deleteUser(int id) {
+    public void deleteUser(int id) throws SQLException {
 
         databaseHandler.getRecipeHandler().deleteUserRecipes(id);
 

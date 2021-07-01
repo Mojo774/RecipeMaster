@@ -1,5 +1,7 @@
 package sample.data;
 
+import java.sql.SQLException;
+
 public class DatabaseHandler {
 
     // Handlers
@@ -21,8 +23,14 @@ public class DatabaseHandler {
     // удаляет поля во всех таблицах кроме юзера, и сбрасывает инкремент
     public void clear() {
 
-        ingredientHandler.deleteIngredients();
-        recipeHandler.deleteRecipes();
+        try {
+            ingredientHandler.deleteIngredients();
+            recipeHandler.deleteRecipes();
+
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+
     }
 
     public Recipe_has_ingredientHandler getRecipe_has_ingredientHandler() {

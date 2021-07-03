@@ -114,4 +114,11 @@ class DatabaseProcess {
         }
     }
 
+    public void close(){
+        try {
+            dataBaseController.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 }

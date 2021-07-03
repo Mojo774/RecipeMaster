@@ -12,6 +12,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
+import sample.model.MainProcess;
 import sample.recipe_package.*;
 import javafx.scene.text.Text;
 import javafx.scene.control.TableColumn;
@@ -37,8 +38,10 @@ public class AddController extends Controllers {
     // Флаг для пометки редактируемого рецепта (если рецепт уже существует, то надо заменить его)
     private int changeId = -1;
 
+    private MainProcess mainProcess;
 
-    public AddController() {
+    public void setMainProcess(MainProcess mainProcess) {
+        this.mainProcess = mainProcess;
     }
 
     @FXML

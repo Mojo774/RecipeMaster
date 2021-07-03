@@ -6,7 +6,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class UserHandler extends DatabaseHandler implements IHandler{
+public class UserHandler extends DatabaseHandler implements IHandler, AutoCloseable{
 
     DatabaseController dataBaseController;
 
@@ -104,5 +104,16 @@ public class UserHandler extends DatabaseHandler implements IHandler{
 
         useCommand(command);
 
+    }
+
+    @Override
+    public void close() throws Exception {
+        if (preparedStatement != null){
+            preparedStatement.close();
+        }
+
+        if (resultSet != null){
+            resultSet.close();
+        }
     }
 }

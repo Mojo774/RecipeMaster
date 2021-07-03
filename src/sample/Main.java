@@ -6,6 +6,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import sample.controller.Controllers;
+import sample.model.MainProcess;
 import sample.view.WindowsName;
 
 
@@ -24,13 +25,15 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
 
-        createWindow(WindowsName.WELCOME.getName());
+        MainProcess mainProcess = new MainProcess();
+
+        createWindow(WindowsName.WELCOME.getName(),mainProcess);
 
         Controllers.showWindow(WindowsName.WELCOME.getName());
 
-        createWindow(WindowsName.SAMPLE.getName());
-        createWindow(WindowsName.ADD.getName());
-        createWindow(WindowsName.RECIPE.getName());
+        createWindow(WindowsName.SAMPLE.getName(),mainProcess);
+        createWindow(WindowsName.ADD.getName(),mainProcess);
+        createWindow(WindowsName.RECIPE.getName(), mainProcess);
 
 
     }
@@ -63,7 +66,7 @@ public class Main extends Application {
     }
 
     // Создание окон, и добавление их в HashMap
-    private void createWindow(String fileName) throws IOException {
+    private void createWindow(String fileName,MainProcess mainProcess) throws IOException {
         Parent root;
         Stage stage = new Stage();
         FXMLLoader loader = new FXMLLoader(getClass().getResource(fileName));
@@ -71,6 +74,9 @@ public class Main extends Application {
         root = loader.load();
         stage.setTitle("Hello World");
         stage.setScene(new Scene(root, 1280, 768));
+
+        Controllers controller = loader.getController();
+        controller.setMainProcess(mainProcess);
 
         Controllers.getWindows().put(fileName, new WindowClass(stage, loader.getController()));
     }

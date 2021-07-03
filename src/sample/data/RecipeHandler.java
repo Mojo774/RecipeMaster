@@ -9,7 +9,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-public class RecipeHandler extends DatabaseHandler implements IHandler{
+public class RecipeHandler extends DatabaseHandler implements IHandler, AutoCloseable{
 
     DatabaseController dataBaseController;
 
@@ -275,4 +275,14 @@ public class RecipeHandler extends DatabaseHandler implements IHandler{
     }
 
 
+    @Override
+    public void close() throws Exception {
+        if (preparedStatement != null){
+            preparedStatement.close();
+        }
+
+        if (resultSet != null){
+            resultSet.close();
+        }
+    }
 }

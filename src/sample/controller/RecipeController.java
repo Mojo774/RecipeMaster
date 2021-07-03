@@ -8,6 +8,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import sample.model.MainProcess;
 import sample.recipe_package.Description;
 import sample.recipe_package.Ingredient;
 import sample.recipe_package.Recipe;
@@ -16,6 +17,12 @@ import sample.view.WindowsName;
 
 public class RecipeController extends Controllers {
     private Recipe recipe;
+
+    private MainProcess mainProcess;
+
+    public void setMainProcess(MainProcess mainProcess) {
+        this.mainProcess = mainProcess;
+    }
 
     @FXML
     private ResourceBundle resources;

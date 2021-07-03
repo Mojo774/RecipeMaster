@@ -8,10 +8,17 @@ import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
+import sample.model.MainProcess;
 import sample.view.WindowsName;
 
 
 public class WelcomeController extends Controllers {
+
+    private MainProcess mainProcess;
+
+    public void setMainProcess(MainProcess mainProcess) {
+        this.mainProcess = mainProcess;
+    }
 
     @FXML
     private ResourceBundle resources;

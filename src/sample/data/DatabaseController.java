@@ -25,4 +25,12 @@ public class DatabaseController {
         return userHandler;
     }
 
+    public void close() throws Exception {
+
+            ingredientHandler.close();
+            recipe_has_ingredientHandler.close();
+            recipeHandler.close();
+            userHandler.close();
+
+    }
 }

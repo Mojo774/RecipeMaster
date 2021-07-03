@@ -5,7 +5,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.HashSet;
 
-class Recipe_has_ingredientHandler extends DatabaseHandler implements IHandler{
+class Recipe_has_ingredientHandler extends DatabaseHandler implements IHandler, AutoCloseable{
 
     DatabaseController dataBaseController;
 
@@ -87,4 +87,14 @@ class Recipe_has_ingredientHandler extends DatabaseHandler implements IHandler{
     }
 
 
+    @Override
+    public void close() throws Exception {
+        if (preparedStatement != null){
+            preparedStatement.close();
+        }
+
+        if (resultSet != null){
+            resultSet.close();
+        }
+    }
 }

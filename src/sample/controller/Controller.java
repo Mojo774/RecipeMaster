@@ -20,6 +20,7 @@ import javafx.scene.input.MouseEvent;
 import sample.Main;
 import sample.controller.views.RecipeView;
 import sample.controller.views.RecipeViewHelper;
+import sample.model.MainProcess;
 import sample.recipe_package.Recipe;
 import sample.view.WindowsName;
 
@@ -30,6 +31,12 @@ public class Controller extends Controllers {
 
     // Объект для вывода в таблицу ингредиентов
     private ObservableList<RecipeView> viewList = FXCollections.observableList(views);
+
+    private MainProcess mainProcess;
+
+    public void setMainProcess(MainProcess mainProcess) {
+        this.mainProcess = mainProcess;
+    }
 
     @FXML
     private ResourceBundle resources;

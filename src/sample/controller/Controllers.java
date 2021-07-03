@@ -10,17 +10,14 @@ import java.util.logging.Logger;
 
 public abstract class Controllers {
 
-    public static MainProcess mainProcess = new MainProcess();
-
     // Хранение окон (всех)
-    static HashMap<String, WindowClass> windows = new HashMap<>();
+    private static HashMap<String, WindowClass> windows = new HashMap<>();
 
     // очередь открытия окон для кнопки Back
     private static ArrayDeque<String> queue = new ArrayDeque<>();
 
     // Logger
     protected static final Logger logger = Logger.getLogger(Controllers.class.getName());
-
     static {
         logger.addHandler(Main.fileHandler);
     }
@@ -59,4 +56,7 @@ public abstract class Controllers {
     public static HashMap<String, WindowClass> getWindows() {
         return windows;
     }
+
+
+    public abstract void setMainProcess(MainProcess mainProcess);
 }

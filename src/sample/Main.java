@@ -38,9 +38,6 @@ public class Main extends Application {
     @Override
     public void stop() throws Exception {
 
-        // Закрытие потоков для работы с SQL
-        Controllers.mainProcess.closeConnection();
-
         logger.info("END program");
         super.stop();
     }

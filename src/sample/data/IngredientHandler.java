@@ -5,16 +5,20 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.HashSet;
 
-class IngredientHandler extends DatabaseHandler {
+class IngredientHandler extends DatabaseHandler implements IHandler{
+    DatabaseController dataBaseController;
 
     PreparedStatement preparedStatement;
     ResultSet resultSet;
 
-    protected IngredientHandler(){}
+    protected IngredientHandler(DatabaseController dataBaseController){
+        this.dataBaseController = dataBaseController;
+    }
+
 
     // Удалить все ингредиенты и значения из таблицы связей _HAS_
     public void deleteIngredients() throws SQLException {
-        getRecipe_has_ingredientHandler().deleteHas();
+        dataBaseController.getRecipe_has_ingredientHandler().deleteHas();
 
         String command = String.format("SELECT * FROM %s WHERE %s < ?",
                 getConstDB("INGREDIENT_TABLE"), getConstDB("INGREDIENT_ID"));
@@ -59,7 +63,7 @@ class IngredientHandler extends DatabaseHandler {
 
     // Удаляет те ингредиенты, которые не используются в рецептах
     public void deleteUselessIngredients() throws SQLException {
-        HashSet<Integer> setId = getRecipe_has_ingredientHandler().getIngredientsId();
+        HashSet<Integer> setId = dataBaseController.getRecipe_has_ingredientHandler().getIngredientsId();
 
 
         String command = String.format("SELECT * FROM %s WHERE %s < ?",

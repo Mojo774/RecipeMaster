@@ -3,23 +3,19 @@ package sample.model;
 import sample.Main;
 import sample.User;
 import sample.controller.views.IngredientView;
-import sample.data.DatabaseHandler;
 import sample.recipe_package.Description;
 import sample.recipe_package.Ingredient;
 import sample.recipe_package.Recipe;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.FileHandler;
-import java.util.logging.Handler;
 import java.util.logging.Logger;
 
 public class MainProcess  extends DatabaseProcess
 {
     private Recipe recipe;
     private UserProcess userProcess = new UserProcess();
-    private DatabaseProcess databaseProcess = new DatabaseProcess();
+
 
     // Logger
     private static final Logger logger = Logger.getLogger(MainProcess.class.getName());
@@ -49,7 +45,7 @@ public class MainProcess  extends DatabaseProcess
 
         // Если рецепт отредактирован - удалить старый
         if (changeId != -1) {
-            databaseProcess.deleteRecipe(changeId);
+            deleteRecipe(changeId);
             recipe = new Recipe(description, ingredients, changeId);
         } else {
             recipe = new Recipe(description, ingredients, getNewIdR());
@@ -57,7 +53,7 @@ public class MainProcess  extends DatabaseProcess
 
 
         // Добавление рецепта в БД
-        databaseProcess.addRecipe(recipe, userProcess.getIdUser());
+        addRecipe(recipe, userProcess.getIdUser());
 
         logger.info("END createRecipe");
     }
@@ -66,7 +62,7 @@ public class MainProcess  extends DatabaseProcess
         logger.info("setUser");
 
 
-        User user = databaseProcess.getUser(name, password);
+        User user = getUser(name, password);
         userProcess.setUser(user);
 
 
@@ -85,12 +81,12 @@ public class MainProcess  extends DatabaseProcess
     private int getNewIdR() {
         logger.info("getNewIdR");
 
-        int idR = databaseProcess.getLastId() + 1;
+        int idR = getLastIdRecipe() + 1;
 
         // Если база данных пустая и мы начнем создавать новые рецепты
         // метод сверху будет всегда возвращать 0 пока мы не внесем
         // хотя бы один рецепт в базу данных
-        while (databaseProcess.findRecipe(idR)) {
+        while (findRecipe(idR)) {
             idR++;
         }
 

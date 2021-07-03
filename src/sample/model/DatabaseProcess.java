@@ -2,21 +2,16 @@ package sample.model;
 
 import sample.Main;
 import sample.User;
-import sample.controller.Controllers;
-import sample.data.DatabaseHandler;
+import sample.data.DatabaseController;
 import sample.recipe_package.Recipe;
 
-import java.io.IOException;
-import java.lang.reflect.Method;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.logging.FileHandler;
-import java.util.logging.Handler;
 import java.util.logging.Logger;
 
 class DatabaseProcess {
     // handlers
-    protected DatabaseHandler databaseHandler;
+    protected DatabaseController dataBaseController;
 
     // Logger
     private static final Logger logger = Logger.getLogger(DatabaseProcess.class.getName());
@@ -28,14 +23,14 @@ class DatabaseProcess {
 
 
     protected DatabaseProcess() {
-        databaseHandler = new DatabaseHandler();
+        dataBaseController = new DatabaseController();
     }
 
 
     public ArrayList<Recipe> getRecipesUser(int id) {
         logger.info("getRecipesUser");
         try {
-            return databaseHandler.getRecipeHandler().getRecipesUser(id);
+            return dataBaseController.getRecipeHandler().getRecipesUser(id);
         } catch (SQLException throwables) {
             throwables.printStackTrace();
             return null;
@@ -46,7 +41,7 @@ class DatabaseProcess {
     public Recipe getRecipe(int idR) {
         logger.info("getRecipe");
         try {
-            return databaseHandler.getRecipeHandler().getRecipe(idR);
+            return dataBaseController.getRecipeHandler().getRecipe(idR);
         } catch (SQLException throwables) {
             throwables.printStackTrace();
             return null;
@@ -56,7 +51,7 @@ class DatabaseProcess {
     public void addRecipe(Recipe recipe, int id) {
         logger.info("addRecipe");
         try {
-            databaseHandler.getRecipeHandler().addRecipe(recipe, id);
+            dataBaseController.getRecipeHandler().addRecipe(recipe, id);
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
@@ -66,16 +61,16 @@ class DatabaseProcess {
     public void deleteRecipe(int id) {
         logger.info("deleteRecipe");
         try {
-            databaseHandler.getRecipeHandler().deleteRecipes(id);
+            dataBaseController.getRecipeHandler().deleteRecipes(id);
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
     }
 
-    public int getLastId() {
+    public int getLastIdRecipe() {
         logger.info("getLastId");
         try {
-            return databaseHandler.getRecipeHandler().getLastId();
+            return dataBaseController.getRecipeHandler().getLastId();
         } catch (SQLException throwables) {
             throwables.printStackTrace();
             return -1;
@@ -85,7 +80,7 @@ class DatabaseProcess {
     public boolean findRecipe(int idR) {
         logger.info("findRecipe");
         try {
-            return databaseHandler.getRecipeHandler().findRecipe(idR);
+            return dataBaseController.getRecipeHandler().findRecipe(idR);
         } catch (SQLException throwables) {
             throwables.printStackTrace();
             return false;
@@ -96,13 +91,13 @@ class DatabaseProcess {
 
     public void addUser(String nameUser, String password) {
         logger.info("addUser");
-        databaseHandler.getUserHandler().addUser(nameUser, password);
+        dataBaseController.getUserHandler().addUser(nameUser, password);
     }
 
     public User getUser(String name, String password) {
         logger.info("getUser");
         try {
-            return databaseHandler.getUserHandler().getUser(name, password);
+            return dataBaseController.getUserHandler().getUser(name, password);
         } catch (SQLException throwables) {
             throwables.printStackTrace();
             return null;
@@ -112,16 +107,11 @@ class DatabaseProcess {
     public boolean findUser(String name, String password) {
         logger.info("findUser");
         try {
-            return databaseHandler.getUserHandler().findUser(name, password);
+            return dataBaseController.getUserHandler().findUser(name, password);
         } catch (SQLException throwables) {
             throwables.printStackTrace();
             return false;
         }
     }
 
-    // static
-    public void closeConnection() {
-        logger.info("closeConnection");
-        databaseHandler.closeConnection();
-    }
 }

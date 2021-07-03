@@ -9,12 +9,16 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-public class RecipeHandler extends DatabaseHandler{
+public class RecipeHandler extends DatabaseHandler implements IHandler{
+
+    DatabaseController dataBaseController;
 
     PreparedStatement preparedStatement;
     ResultSet resultSet;
 
-    protected RecipeHandler(){}
+    protected RecipeHandler(DatabaseController dataBaseController){
+        this.dataBaseController = dataBaseController;
+    }
 
     // Получить рецепт по idR
     public Recipe getRecipe(int idR) throws SQLException {
@@ -167,7 +171,7 @@ public class RecipeHandler extends DatabaseHandler{
 
         for (Ingredient ingredient : ingredients) {
 
-            int idIng = getIngredientHandler().getIngredientId(ingredient.getName());
+            int idIng = dataBaseController.getIngredientHandler().getIngredientId(ingredient.getName());
 
             command = String.format("INSERT INTO %s(%s, %s, %s) VALUES (?,?,?);",
                     getConstDB("RECIPE_HAS_INGREDIENT_TABLE"),
@@ -229,7 +233,7 @@ public class RecipeHandler extends DatabaseHandler{
         if (!findRecipe(idR)) // Проверка наличия рецепта в БД
             return;
 
-        getRecipe_has_ingredientHandler().deleteHas(idR);
+        dataBaseController.getRecipe_has_ingredientHandler().deleteHas(idR);
 
 
         String command = String.format("SELECT * FROM %s WHERE %s = ?",

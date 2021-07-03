@@ -58,8 +58,7 @@ class DatabaseConnector {
             if (connection != null)
                 connection.close();
 
-            /*if (service != null)
-                service.shutdown();*/
+
 
         } catch (SQLException throwables) {
             throwables.printStackTrace();

@@ -5,6 +5,8 @@ import sample.User;
 class UserProcess {
     private User user;
 
+    public UserProcess(){}
+
     public UserProcess(User user) {
         this.user = user;
     }

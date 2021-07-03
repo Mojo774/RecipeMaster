@@ -5,37 +5,33 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.HashSet;
 
-class IngredientHandler extends DatabaseConnector {
-
-    DatabaseHandler databaseHandler;
+class IngredientHandler extends DatabaseHandler {
 
     PreparedStatement preparedStatement;
     ResultSet resultSet;
 
-    public IngredientHandler(DatabaseHandler databaseHandler) {
-        this.databaseHandler = databaseHandler;
-    }
-
+    protected IngredientHandler(){}
 
     // Удалить все ингредиенты и значения из таблицы связей _HAS_
     public void deleteIngredients() throws SQLException {
-        databaseHandler.getRecipe_has_ingredientHandler().deleteHas();
-
+        getRecipe_has_ingredientHandler().deleteHas();
 
         String command = String.format("SELECT * FROM %s WHERE %s < ?",
                 getConstDB("INGREDIENT_TABLE"), getConstDB("INGREDIENT_ID"));
-        preparedStatement = getPreparedStatement(String.format(command));
-        preparedStatement.setInt(1, getLastId() + 1);
 
-        resultSet = preparedStatement.executeQuery();
+        try (PreparedStatement preparedStatement = getPreparedStatement(command);) {
+            preparedStatement.setInt(1, getLastId() + 1);
 
-        while (resultSet.next()) {
+            resultSet = preparedStatement.executeQuery();
 
-            command = String.format("DELETE FROM %s WHERE %s < 100;",
-                    getConstDB("INGREDIENT_TABLE"), getConstDB("INGREDIENT_ID"));
-            useCommand(command);
+            while (resultSet.next()) {
+
+                command = String.format("DELETE FROM %s WHERE %s < 100;",
+                        getConstDB("INGREDIENT_TABLE"), getConstDB("INGREDIENT_ID"));
+                useCommand(command);
+            }
+
         }
-
         resetIncrement(getConstDB("INGREDIENT_TABLE"));
 
 
@@ -63,7 +59,7 @@ class IngredientHandler extends DatabaseConnector {
 
     // Удаляет те ингредиенты, которые не используются в рецептах
     public void deleteUselessIngredients() throws SQLException {
-        HashSet<Integer> setId = databaseHandler.getRecipe_has_ingredientHandler().getIngredientsId();
+        HashSet<Integer> setId = getRecipe_has_ingredientHandler().getIngredientsId();
 
 
         String command = String.format("SELECT * FROM %s WHERE %s < ?",
@@ -139,5 +135,6 @@ class IngredientHandler extends DatabaseConnector {
 
         return lastId;
     }
+
 
 }

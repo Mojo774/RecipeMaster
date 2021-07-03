@@ -2,6 +2,8 @@ sample.Main
 INFO : Start program
 sample.model.DatabaseProcess
 INFO : findUser
+sample.model.DatabaseProcess
+INFO : addUser
 sample.model.MainProcess
 INFO : setUser
 sample.model.DatabaseProcess
@@ -12,18 +14,84 @@ sample.model.MainProcess
 INFO : getIdUser
 sample.model.DatabaseProcess
 INFO : getRecipesUser
-sample.model.DatabaseProcess
-INFO : getRecipe
-sample.model.DatabaseProcess
-INFO : findUser
 sample.model.MainProcess
-INFO : setUser
+INFO : Start createRecipe
+sample.model.MainProcess
+INFO : getNewIdR
 sample.model.DatabaseProcess
-INFO : findUser
+INFO : getLastId
 sample.model.DatabaseProcess
-INFO : getUser
+INFO : findRecipe
+sample.model.DatabaseProcess
+INFO : addRecipe
+sample.model.MainProcess
+INFO : END createRecipe
+sample.model.MainProcess
+INFO : getIdUser
+sample.model.DatabaseProcess
+INFO : getRecipesUser
 sample.model.DatabaseProcess
 INFO : getRecipe
+sample.model.DatabaseProcess
+INFO : deleteRecipe
+sample.model.MainProcess
+INFO : getIdUser
+sample.model.DatabaseProcess
+INFO : getRecipesUser
+sample.model.MainProcess
+INFO : Start createRecipe
+sample.model.MainProcess
+INFO : getNewIdR
+sample.model.DatabaseProcess
+INFO : getLastId
+sample.model.DatabaseProcess
+INFO : findRecipe
+sample.model.DatabaseProcess
+INFO : addRecipe
+sample.model.MainProcess
+INFO : END createRecipe
+sample.model.MainProcess
+INFO : getIdUser
+sample.model.DatabaseProcess
+INFO : getRecipesUser
+sample.model.MainProcess
+INFO : Start createRecipe
+sample.model.MainProcess
+INFO : getNewIdR
+sample.model.DatabaseProcess
+INFO : getLastId
+sample.model.DatabaseProcess
+INFO : findRecipe
+sample.model.DatabaseProcess
+INFO : addRecipe
+sample.model.MainProcess
+INFO : END createRecipe
+sample.model.MainProcess
+INFO : getIdUser
+sample.model.DatabaseProcess
+INFO : getRecipesUser
+sample.model.DatabaseProcess
+INFO : getRecipe
+sample.model.MainProcess
+INFO : Start createRecipe
+sample.model.DatabaseProcess
+INFO : deleteRecipe
+sample.model.DatabaseProcess
+INFO : addRecipe
+sample.model.MainProcess
+INFO : END createRecipe
+sample.model.MainProcess
+INFO : getIdUser
+sample.model.DatabaseProcess
+INFO : getRecipesUser
+sample.model.DatabaseProcess
+INFO : getRecipe
+sample.model.DatabaseProcess
+INFO : deleteRecipe
+sample.model.MainProcess
+INFO : getIdUser
+sample.model.DatabaseProcess
+INFO : getRecipesUser
 sample.model.DatabaseProcess
 INFO : closeConnection
 sample.Main

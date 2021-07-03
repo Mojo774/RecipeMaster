@@ -75,9 +75,10 @@ public class WelcomeController extends Controllers {
 
 
             if (isPasswordOrLoginOk(login) && isPasswordOrLoginOk(password)) {
-                if (!mainProcess.setUser(login, password)) {
+                if (!mainProcess.findUser(login, password)) {
                     loginText.setText("Wrong login or password");
                 } else {
+                    mainProcess.setUser(login, password);
                     buttonLogIn.getScene().getWindow().hide();
                     Controllers.showWindow(WindowsName.SAMPLE.getName());
                 }

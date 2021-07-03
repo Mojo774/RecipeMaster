@@ -6,14 +6,12 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class UserHandler extends DatabaseConnector {
-    DatabaseHandler databaseHandler;
+public class UserHandler extends DatabaseHandler {
+
     ResultSet resultSet;
     PreparedStatement preparedStatement;
 
-    public UserHandler(DatabaseHandler databaseHandler) {
-        this.databaseHandler = databaseHandler;
-    }
+    protected UserHandler(){}
 
 
     // Добавить юзера в БД
@@ -95,7 +93,7 @@ public class UserHandler extends DatabaseConnector {
     // Удаление юзера по id
     public void deleteUser(int id) throws SQLException {
 
-        databaseHandler.getRecipeHandler().deleteUserRecipes(id);
+        getRecipeHandler().deleteUserRecipes(id);
 
         String command = String.format("DELETE FROM %s WHERE %s = %d;",
                 getConstDB("USER_TABLE"), getConstDB("USER_ID"), id);

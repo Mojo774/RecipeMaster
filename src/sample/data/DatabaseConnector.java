@@ -13,9 +13,7 @@ import java.util.concurrent.Future;
 class DatabaseConnector {
     protected static Connection connection;
 
-
-    protected static ExecutorService service;
-    protected static Properties constDB = new Properties();
+    private static Properties constDB = new Properties();
     private static Properties configs = new Properties();
 
 
@@ -43,8 +41,6 @@ class DatabaseConnector {
         }
 
 
-        // Многопоточность
-        service = Executors.newFixedThreadPool(2);
     }
 
     private static String getConfigs(String key) {
@@ -55,64 +51,6 @@ class DatabaseConnector {
         return constDB.getProperty(key);
     }
 
-    // Получить значения всех строк таблицы tableName
-    public static ResultSet getResultSet(String tableName) {
-        try {
-            PreparedStatement preparedStatement = getPreparedStatement(String.format("SELECT * FROM %s", tableName));
-            ResultSet resultSet = preparedStatement.executeQuery();
-
-            return resultSet;
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-            return null;
-        }
-
-
-    }
-
-    // Сбрасывает авто-инкремент у таблицы tableName
-    public static void resetIncrement(String tableName) {
-        String command = String.format("ALTER TABLE %s AUTO_INCREMENT = 1;", tableName);
-        useCommand(command);
-    }
-
-    // Если надо просто выполнить команду
-    public static void useCommand(String command) {
-        try {
-            PreparedStatement preparedStatement = connection.prepareStatement(command);
-            preparedStatement.execute();
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        }
-    }
-
-    // Если надо получить результат выполнения
-    public static PreparedStatement getPreparedStatement(String command) {
-        try {
-
-            // Запрос в Бд идет из другого потока
-            // Вообще, от него тут пользы не особо много
-            // т.к. оснавная нить все равно не может продолжить работать без
-            // результата от обращения
-            Future<PreparedStatement> task = service.submit(new ThreadGetPreparedStatement(command, connection));
-
-            while (!task.isDone()) {
-                Thread.sleep(3);
-            }
-
-            PreparedStatement preparedStatement = task.get();
-
-            return preparedStatement;
-
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-            return null;
-        } catch (ExecutionException e) {
-            e.printStackTrace();
-            return null;
-        }
-
-    }
 
     // Закрытие соединений
     public static void closeConnection() {
@@ -120,8 +58,8 @@ class DatabaseConnector {
             if (connection != null)
                 connection.close();
 
-            if (service != null)
-                service.shutdown();
+            /*if (service != null)
+                service.shutdown();*/
 
         } catch (SQLException throwables) {
             throwables.printStackTrace();

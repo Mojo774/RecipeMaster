@@ -5,21 +5,15 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.HashSet;
 
-class Recipe_has_ingredientHandler extends DatabaseConnector {
+class Recipe_has_ingredientHandler extends DatabaseHandler {
 
-
-    DatabaseHandler databaseHandler;
     PreparedStatement preparedStatement;
     ResultSet resultSet;
 
-    public Recipe_has_ingredientHandler(DatabaseHandler databaseHandler) {
-        this.databaseHandler = databaseHandler;
-    }
-
+    protected Recipe_has_ingredientHandler() {}
 
     // Получить id используемых ингредиентов
     public HashSet<Integer> getIngredientsId() throws SQLException {
-
 
         HashSet<Integer> setId = new HashSet<>();
 
@@ -27,7 +21,7 @@ class Recipe_has_ingredientHandler extends DatabaseConnector {
         String command = String.format("SELECT * FROM %s WHERE %s < ? ",
                 getConstDB("RECIPE_HAS_INGREDIENT_TABLE"), getConstDB("RECIPE_HAS_RECIPE_ID"));
         preparedStatement = getPreparedStatement(command);
-        preparedStatement.setInt(1, databaseHandler.getRecipeHandler().getLastId() + 1);
+        preparedStatement.setInt(1, getRecipeHandler().getLastId() + 1);
 
         resultSet = preparedStatement.executeQuery();
 
@@ -47,7 +41,7 @@ class Recipe_has_ingredientHandler extends DatabaseConnector {
         String command = String.format("SELECT * FROM %s WHERE %s < ?",
                 getConstDB("RECIPE_HAS_INGREDIENT_TABLE"), getConstDB("RECIPE_HAS_RECIPE_ID"));
         preparedStatement = getPreparedStatement(command);
-        preparedStatement.setInt(1, databaseHandler.getRecipeHandler().getLastId() + 1);
+        preparedStatement.setInt(1, getRecipeHandler().getLastId() + 1);
 
         resultSet = preparedStatement.executeQuery();
 
@@ -66,23 +60,24 @@ class Recipe_has_ingredientHandler extends DatabaseConnector {
     // Удалить связки с ингредиентами из таблицы _HAS_ для ингредиента idR
     public void deleteHas(int idR) throws SQLException {
 
-            String command = String.format("SELECT * FROM %s WHERE %s = ?",
-                    getConstDB("RECIPE_HAS_INGREDIENT_TABLE"), getConstDB("RECIPE_HAS_RECIPE_ID"));
-            preparedStatement = getPreparedStatement(command);
-            preparedStatement.setInt(1, idR);
 
-            resultSet = preparedStatement.executeQuery();
+        String command = String.format("SELECT * FROM %s WHERE %s = ?",
+                getConstDB("RECIPE_HAS_INGREDIENT_TABLE"), getConstDB("RECIPE_HAS_RECIPE_ID"));
+        preparedStatement = getPreparedStatement(command);
+        preparedStatement.setInt(1, idR);
 
-            while (resultSet.next()) {
+        resultSet = preparedStatement.executeQuery();
 
-                //int id = resultSet.getInt(ConstDb.RECIPE_HAS_INGREDIENT_ID);
+        while (resultSet.next()) {
 
-                String command2 = String.format("DELETE FROM %s WHERE %s = %d;",
-                        getConstDB("RECIPE_HAS_INGREDIENT_TABLE"), getConstDB("RECIPE_HAS_RECIPE_ID"), idR);
-                useCommand(command2);
+            //int id = resultSet.getInt(ConstDb.RECIPE_HAS_INGREDIENT_ID);
+
+            String command2 = String.format("DELETE FROM %s WHERE %s = %d;",
+                    getConstDB("RECIPE_HAS_INGREDIENT_TABLE"), getConstDB("RECIPE_HAS_RECIPE_ID"), idR);
+            useCommand(command2);
 
 
-            }
+        }
 
 
     }

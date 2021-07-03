@@ -9,43 +9,12 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-public class RecipeHandler extends DatabaseConnector {
+public class RecipeHandler extends DatabaseHandler{
 
-    /* Список методов:
-
-    Получить лист рецептов юзера
-    ArrayList<Recipe> getRecipes()
-
-    Получить ингредиенты из рецепта idR
-    ArrayList<Ingredient> getIngredients(int idR)
-
-    Получить ингредиент по id с его размером в конкретном рецете
-    Ingredient getOneIngredient(int id, String size)
-
-    Получить id последнего репта из БД
-    int getLastId()
-
-    Добавление рецепта в БД
-    void setRecipe(Recipe recipe)
-
-    Проверка наличия рецепта по id
-    boolean FindRecipe(int id)
-
-    Удалить все рецепты (имена) из БД (только из таблицы рецептов)
-    void deleteRecipes()
-
-    Удалить рецепт по id из БД вместе с ингредиентами
-    void deleteRecipes(int id)
-
-    */
-    DatabaseHandler databaseHandler;
     PreparedStatement preparedStatement;
     ResultSet resultSet;
 
-    public RecipeHandler(DatabaseHandler databaseHandler) {
-        this.databaseHandler = databaseHandler;
-    }
-
+    protected RecipeHandler(){}
 
     // Получить рецепт по idR
     public Recipe getRecipe(int idR) throws SQLException {
@@ -198,7 +167,7 @@ public class RecipeHandler extends DatabaseConnector {
 
         for (Ingredient ingredient : ingredients) {
 
-            int idIng = databaseHandler.getIngredientHandler().getIngredientId(ingredient.getName());
+            int idIng = getIngredientHandler().getIngredientId(ingredient.getName());
 
             command = String.format("INSERT INTO %s(%s, %s, %s) VALUES (?,?,?);",
                     getConstDB("RECIPE_HAS_INGREDIENT_TABLE"),
@@ -250,7 +219,7 @@ public class RecipeHandler extends DatabaseConnector {
             useCommand(command2);
         }
 
-        DatabaseConnector.resetIncrement(getConstDB("RECIPE_TABLE"));
+        resetIncrement(getConstDB("RECIPE_TABLE"));
 
 
     }
@@ -260,7 +229,7 @@ public class RecipeHandler extends DatabaseConnector {
         if (!findRecipe(idR)) // Проверка наличия рецепта в БД
             return;
 
-        databaseHandler.getRecipe_has_ingredientHandler().deleteHas(idR);
+        getRecipe_has_ingredientHandler().deleteHas(idR);
 
 
         String command = String.format("SELECT * FROM %s WHERE %s = ?",

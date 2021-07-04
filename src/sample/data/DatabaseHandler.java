@@ -11,38 +11,37 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 
-public class DatabaseHandler extends DatabaseConnector{
+public abstract class DatabaseHandler extends DatabaseConnector {
 
     protected static ExecutorService service = Executors.newFixedThreadPool(2);
 
 
-
     // Если надо получить результат выполнения
     protected PreparedStatement getPreparedStatement(String command) {
-        try {
-            
-            // Запрос в Бд идет из другого потока
-            // Вообще, от него тут пользы не особо много
-            // т.к. оснавная нить все равно не может продолжить работать без
-            // результата от обращения
-            Future<PreparedStatement> task = service.submit(new ThreadGetPreparedStatement(command, connection));
+
+        // Запрос в Бд идет из другого потока
+        // Вообще, от него тут пользы не особо много
+        // т.к. оснавная нить все равно не может продолжить работать без
+        // результата от обращения
+        Future<PreparedStatement> task = service.submit(new ThreadGetPreparedStatement(command, connection));
+
+        try (PreparedStatement preparedStatement = task.get();) {
 
             while (!task.isDone()) {
                 Thread.sleep(3);
             }
 
-            PreparedStatement preparedStatement = task.get();
-
             return preparedStatement;
 
         } catch (InterruptedException e) {
             e.printStackTrace();
-            return null;
         } catch (ExecutionException e) {
             e.printStackTrace();
-            return null;
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
         }
 
+        return null;
     }
 
     // Получить значения всех строк таблицы tableName
@@ -54,10 +53,10 @@ public class DatabaseHandler extends DatabaseConnector{
             return resultSet;
         } catch (SQLException throwables) {
             throwables.printStackTrace();
-            return null;
+
         }
 
-
+        return null;
     }
 
     // Сбрасывает авто-инкремент у таблицы tableName
@@ -74,7 +73,6 @@ public class DatabaseHandler extends DatabaseConnector{
             throwables.printStackTrace();
         }
     }
-
 
 
 }

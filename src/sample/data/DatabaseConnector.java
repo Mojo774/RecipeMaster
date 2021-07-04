@@ -10,7 +10,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 
-class DatabaseConnector {
+abstract class DatabaseConnector {
     protected static Connection connection;
 
     private static Properties constDB = new Properties();

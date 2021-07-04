@@ -8,7 +8,7 @@ Project RecipeMaster
 Приложение выполнено на основе паттерна MVC
 
 Добавлена возможность многопоточной работы, для обращение к БД. Реализовано через ExecutorService
-(в классе DatabaseConnector)
+(в классе DatabaseHandler)
 
 Добавлено логирование
 (в классах: Main,DatabaseProcess,MainProcess)

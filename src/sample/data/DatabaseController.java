@@ -9,6 +9,7 @@ public class DatabaseController {
     private UserHandler userHandler = new UserHandler(this);
 
 
+
     public Recipe_has_ingredientHandler getRecipe_has_ingredientHandler() {
         return recipe_has_ingredientHandler;
     }

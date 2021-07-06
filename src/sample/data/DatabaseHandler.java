@@ -27,10 +27,12 @@ public abstract class DatabaseHandler extends DatabaseConnector {
 
         try  {
 
-            PreparedStatement preparedStatement = task.get();
+
             while (!task.isDone()) {
                 Thread.sleep(3);
             }
+
+            PreparedStatement preparedStatement = task.get();
 
             return preparedStatement;
 

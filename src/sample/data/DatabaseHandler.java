@@ -25,8 +25,9 @@ public abstract class DatabaseHandler extends DatabaseConnector {
         // результата от обращения
         Future<PreparedStatement> task = service.submit(new ThreadGetPreparedStatement(command, connection));
 
-        try (PreparedStatement preparedStatement = task.get();) {
+        try  {
 
+            PreparedStatement preparedStatement = task.get();
             while (!task.isDone()) {
                 Thread.sleep(3);
             }
@@ -37,8 +38,6 @@ public abstract class DatabaseHandler extends DatabaseConnector {
             e.printStackTrace();
         } catch (ExecutionException e) {
             e.printStackTrace();
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
         }
 
         return null;

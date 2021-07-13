@@ -33,5 +33,6 @@ public class DatabaseController {
             recipeHandler.close();
             userHandler.close();
 
+            DatabaseHandler.closeExecutorService();
     }
 }

@@ -15,6 +15,9 @@ public abstract class DatabaseHandler extends DatabaseConnector {
 
     protected static ExecutorService service = Executors.newFixedThreadPool(2);
 
+    protected static void closeExecutorService(){
+        service.shutdown();
+    }
 
     // Если надо получить результат выполнения
     protected PreparedStatement getPreparedStatement(String command) {

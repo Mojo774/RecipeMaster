@@ -16,6 +16,7 @@ import java.util.logging.*;
 public class Main extends Application {
     private static final Logger logger = Logger.getLogger(Main.class.getName());
     public static Handler fileHandler;
+    private MainProcess mainProcess;
 
     @Override
     public void init() throws Exception {
@@ -25,7 +26,7 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
 
-        MainProcess mainProcess = new MainProcess();
+        mainProcess = new MainProcess();
 
         createWindow(WindowsName.WELCOME.getName(),mainProcess);
 
@@ -42,6 +43,7 @@ public class Main extends Application {
     public void stop() throws Exception {
 
         logger.info("END program");
+        mainProcess.close();
         super.stop();
     }
 

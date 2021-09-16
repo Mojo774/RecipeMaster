@@ -19,7 +19,7 @@
       <AnchorPane prefHeight="106.0" prefWidth="278.0" style="-fx-background-color: FF4D00; -fx-border-color: FF0000;">
          <children>
             <Button fx:id="buttomBack" layoutX="11.0" layoutY="17.0" mnemonicParsing="false" prefHeight="71.0" prefWidth="124.0" style="-fx-background-color: FFFFD5; -fx-background-radius: 10; -fx-border-radius: 10; -fx-border-color: FFD743; -fx-border-width: 4;" text="Back" />
-            <Button fx:id="buttomApdate" cache="true" layoutX="143.0" layoutY="17.0" mnemonicParsing="false" prefHeight="71.0" prefWidth="124.0" style="-fx-background-color: FFFFD5; -fx-background-radius: 10; -fx-border-radius: 10; -fx-border-color: FFD743; -fx-border-width: 4;" text="Apdate" />
+            <Button fx:id="buttomApdate" cache="true" layoutX="143.0" layoutY="17.0" mnemonicParsing="false" prefHeight="71.0" prefWidth="124.0" style="-fx-background-color: FFFFD5; -fx-background-radius: 10; -fx-border-radius: 10; -fx-border-color: FFD743; -fx-border-width: 4;" text="Update" />
          </children>
       </AnchorPane>
       <AnchorPane layoutX="278.0" layoutY="106.0" prefHeight="662.0" prefWidth="1002.0" style="-fx-background-color: FF4D00; -fx-border-color: FF0000;">

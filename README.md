@@ -15,16 +15,16 @@ Project RecipeMaster
 
 * Создание нового аккаунта и вход через системный
 
-![](gif_for_git/1.gif)
+![](gif_for_git/1.mp4)
 
 * Создание рецепта
 
-![](gif_for_git/2.gif)
+![](gif_for_git/2.mp4)
 
 * Просмотр рецепта и редактирование
 
-![](gif_for_git/3.gif)
+![](gif_for_git/3.mp4)
 
 * Удаление рецепта
 
-![](gif_for_git/4.gif)
+![](gif_for_git/4.mp4)

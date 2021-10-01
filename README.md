@@ -12,3 +12,19 @@ Project RecipeMaster
 
 Добавлено логирование
 (в классах: Main,DatabaseProcess,MainProcess)
+
+* Создание нового аккаунта и вход через системный
+
+![](gif_for_git/1.gif)
+
+* Создание рецепта
+
+![](gif_for_git/2.gif)
+
+* Просмотр рецепта и редактирование
+
+![](gif_for_git/3.gif)
+
+* Удаление рецепта
+
+![](gif_for_git/4.gif)
